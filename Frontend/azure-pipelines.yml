@@ -25,6 +25,6 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish'
   inputs: 
-    PathtoPublish: 'Frontend/E-Forester/dist/'
+    PathtoPublish: 'Frontend/E-Forester/dist/E-Forester'
     ArtifactName: 'www'
     publishLocation: 'Container'
