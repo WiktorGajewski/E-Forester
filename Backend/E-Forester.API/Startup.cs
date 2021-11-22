@@ -1,3 +1,5 @@
+using E_Forester.Data;
+using E_Forester.Data.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,9 @@ namespace E_Forester
                     Version = "v1" 
                 });
             });
+
+            services.AddDatabase(Configuration);
+            services.AddServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

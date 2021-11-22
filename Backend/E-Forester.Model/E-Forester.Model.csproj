@@ -5,4 +5,9 @@
     <RootNamespace>E_Forester.Model</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

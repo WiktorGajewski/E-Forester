@@ -3,10 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>E_Forester.API</RootNamespace>
+    <UserSecretsId>8cfd04c4-8c53-43ab-b081-d1aa437fd081</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Forester.Data\E-Forester.Data.csproj" />
   </ItemGroup>
 
 </Project>
