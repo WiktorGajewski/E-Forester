@@ -28,6 +28,17 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: efcore-migration-script-generator-task@1
+  displayName: 'Generate Migrations Script'
+  inputs:
+    projectpath: 'Backend/E-Forester.Data/E-Forester.Data.csproj'
+    databasecontexts: 'E_ForesterDbContext'
+    startupprojectpath: 'Backend/E-Forester.API/E-Forester.API.csproj'
+    targetfolder: '$(build.artifactstagingdirectory)/migrations'
+    build: false
+    installdependencies: true
+    eftoolversion: '5.0.12'
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
