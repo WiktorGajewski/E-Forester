@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace E_Forester
+namespace E_Forester.API
 {
     public class Program
     {

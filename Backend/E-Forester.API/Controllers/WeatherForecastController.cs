@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using E_Forester.Data.Interfaces;
+using E_Forester.Model.Database;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace E_Forester.Controllers
+namespace E_Forester.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -17,13 +18,16 @@ namespace E_Forester.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IWeatherForecastRepository _weatherForecastRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger,
+            IWeatherForecastRepository weatherForecastRepository)
         {
             _logger = logger;
+            _weatherForecastRepository = weatherForecastRepository;
         }
 
-        [HttpGet]
+        [HttpGet("random")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
@@ -34,6 +38,29 @@ namespace E_Forester.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet]
+        public IEnumerable<WeatherForecast> GetFormDatabase()
+        {
+            return _weatherForecastRepository.Get();
+        }
+
+        [HttpPost]
+        public IActionResult AddToDatabase()
+        {
+            var rng = new Random();
+
+            var newWeatherForecast = new WeatherForecast
+            {
+                Date = DateTime.Now,
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            };
+
+            _weatherForecastRepository.Post(newWeatherForecast);
+
+            return NoContent();
         }
     }
 }

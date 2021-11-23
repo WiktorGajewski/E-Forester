@@ -1,9 +1,10 @@
 using System;
 
-namespace E_Forester
+namespace E_Forester.Model.Database
 {
     public class WeatherForecast
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
