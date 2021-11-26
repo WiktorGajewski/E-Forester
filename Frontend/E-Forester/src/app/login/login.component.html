@@ -1,81 +1,25 @@
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
-<p>--- login component ---</p>
+<mat-card>
+    <mat-card-title>Logowanie</mat-card-title>
 
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="login" id="login" type="text" class="form-control" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Hasło</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" id="password" type="password" class="form-control" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-card-actions>
+            <button mat-button [disabled]="loginForm.invalid" type="submit">Zaloguj</button>
+            <button mat-button type="button" (click)="cancel()">Anuluj</button>
+        </mat-card-actions>
+
+    </form>
+    
+</mat-card>
