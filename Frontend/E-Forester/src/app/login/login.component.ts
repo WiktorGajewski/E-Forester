@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  loginInvalid = false;
 
   loginForm!: FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.loginForm= new FormGroup({
@@ -25,6 +27,15 @@ export class LoginComponent implements OnInit {
     console.log("Próba logowania");
     console.log("Login: " + formValues.login);
     console.log("Hasło: " + formValues.password);
+
+    var result = this.auth.login(formValues.login, formValues.password);
+
+    if(result == true){
+      this.loginInvalid = false;
+    } 
+    else {
+      this.loginInvalid = true;
+    }
   }
 
   cancel(): void {
