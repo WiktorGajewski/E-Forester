@@ -16,6 +16,8 @@
   z-index: 1;
 }
 
-.main_nabar {
-  background-color: #1b5e20;
+.main_navbar {
+  background: rgba(27, 94, 32, 0.9);
+  top: 0;
+  position: sticky;
 }
