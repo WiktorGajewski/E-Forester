@@ -10,6 +10,7 @@ namespace E_Forester.Data
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

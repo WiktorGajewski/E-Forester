@@ -1,3 +1,4 @@
+using E_Forester.Application.AutoMapper;
 using E_Forester.Data;
 using E_Forester.Data.Database;
 using MediatR;
@@ -23,6 +24,8 @@ namespace E_Forester.API
         {
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(map => map.AddProfile<MapProfiles>(), typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo 
