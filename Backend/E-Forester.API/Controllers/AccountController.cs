@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using E_Forester.Application.Content.Account.Commands.Register;
+using E_Forester.Application.Content.Account.Queries.LogIn;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace E_Forester.API.Controllers
 {
@@ -13,15 +16,16 @@ namespace E_Forester.API.Controllers
 
         [HttpPost("LogIn")]
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> LogIn([FromBody] LogInQuery query)
         {
-            return Ok();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost("Register")]
-        [AllowAnonymous]
-        public IActionResult Register()
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
+            await _mediator.Send(command);
             return Ok();
         }
     }
