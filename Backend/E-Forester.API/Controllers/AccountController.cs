@@ -22,6 +22,14 @@ namespace E_Forester.API.Controllers
             return Ok(result);
         }
 
+        [HttpOptions("LogIn")]
+        [AllowAnonymous]
+        public IActionResult LogInOptions()
+        {
+            Response.Headers.Add("Allow", "POST,OPTIONS");
+            return Ok();
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
