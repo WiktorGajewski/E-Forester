@@ -24,9 +24,9 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'
 
 - task: efcore-migration-script-generator-task@1
   displayName: 'Generate Migrations Script'
@@ -35,14 +35,16 @@ steps:
     databasecontexts: 'E_ForesterDbContext'
     startupprojectpath: 'Backend/E-Forester.API/E-Forester.API.csproj'
     targetfolder: '$(build.artifactstagingdirectory)/migrations'
-    build: false
+    build: true
     installdependencies: true
     eftoolversion: '5.0.12'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
   displayName: "Publish"

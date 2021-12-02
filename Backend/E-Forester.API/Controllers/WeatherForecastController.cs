@@ -1,6 +1,7 @@
 ﻿using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,15 @@ namespace E_Forester.API.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IWeatherForecastRepository _weatherForecastRepository;
+        private readonly IConfiguration _config;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger,
-            IWeatherForecastRepository weatherForecastRepository)
+            IWeatherForecastRepository weatherForecastRepository,
+            IConfiguration config)
         {
             _logger = logger;
             _weatherForecastRepository = weatherForecastRepository;
+            _config = config;
         }
 
         [HttpGet("random")]
@@ -38,6 +42,12 @@ namespace E_Forester.API.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("test")]
+        public string GetTest()
+        {
+            return _config.GetValue<string>("Test");
         }
 
         [HttpGet]
