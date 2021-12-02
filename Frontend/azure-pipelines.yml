@@ -15,16 +15,18 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
-- task: replacetokens@3
-  displayName: 'Replace tokens'
+- task: replacetokens@4
   inputs:
     targetFiles: '**/environment.prod.ts'
     encoding: 'auto'
+    tokenPattern: 'default'
     writeBOM: true
     actionOnMissing: 'warn'
     keepToken: false
-    tokenPrefix: '#{'
-    tokenSuffix: '}#'
+    actionOnNoFiles: 'continue'
+    enableTransforms: false
+    useLegacyPattern: false
+    enableTelemetry: false
 
 
 - script: |
