@@ -15,6 +15,18 @@ steps:
     versionSpec: '12.x'
   displayName: 'Install Node.js'
 
+- task: replacetokens@3
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: '**/environment.prod.ts'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    tokenPrefix: '#{'
+    tokenSuffix: '}#'
+
+
 - script: |
     npm install -g @angular/cli
     npm install
