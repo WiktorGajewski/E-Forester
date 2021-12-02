@@ -57,6 +57,16 @@ namespace E_Forester.API
                     };
                 });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("DevelopmentPolicy", builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                });
+            });
+
             services.ConfigureServicesData(Configuration);
             services.ConfigureServicesApplication(Configuration);
         }
@@ -66,6 +76,7 @@ namespace E_Forester.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors("DevelopmentPolicy");
             }
 
             app.UseSwagger();

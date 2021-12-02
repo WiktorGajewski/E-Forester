@@ -1,9 +1,17 @@
 mat-card {
-    margin: 5%;
+    margin: 2% 5%;
     text-align: center;
+    width: 60vw;
+    max-width: 1200px;
 }
 
 mat-form-field {
     display: block;
     margin: 0% 10%;
+}
+
+.spinner{
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }

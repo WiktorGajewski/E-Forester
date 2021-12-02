@@ -11,6 +11,7 @@ import { AuthService } from '../auth/auth.service';
 export class LoginComponent implements OnInit {
   hide = true;
   loginInvalid = false;
+  loading = false;
 
   loginForm!: FormGroup;
 
@@ -23,19 +24,20 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(formValues: any): void {
-    console.log("Próba logowania");
-    console.log("Login: " + formValues.login);
-    console.log("Hasło: " + formValues.password);
+  login(): void {
+    const val = this.loginForm.value;
+    this.loading = true;
 
-    var result = this.auth.login(formValues.login, formValues.password);
-
-    if(result == true){
-      this.loginInvalid = false;
-    } 
-    else {
-      this.loginInvalid = true;
-    }
+    this.auth.login(val.login, val.password)
+      .subscribe({
+          complete : () => {
+            this.router.navigate(["/"]);
+          },
+          error : () => {
+            this.loading = false;
+            this.loginInvalid = true;
+          }
+        });
   }
 
   cancel(): void {
