@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace E_Forester.Model.Database
 {
@@ -12,5 +13,15 @@ namespace E_Forester.Model.Database
         public string Address { get; set; }
 
         public double Area { get; set; }
+
+        public int ForestUnitId { get; set; }
+        public ForestUnit ForestUnit { get; set; }
+
+        public ICollection<Subarea> Subareas { get; set; }
+
+        public Division()
+        {
+            Subareas = new List<Subarea>();
+        }
     }
 }

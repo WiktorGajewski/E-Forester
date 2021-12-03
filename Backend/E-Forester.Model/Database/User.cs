@@ -1,5 +1,6 @@
 ﻿using E_Forester.Model.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace E_Forester.Model.Database
@@ -26,5 +27,12 @@ namespace E_Forester.Model.Database
         public UserRole Role { get; set; }
 
         public bool IsActive { get; set; }
+
+        public ICollection<ForestUnit> AssignedForestUnits { get; set; }
+
+        public User()
+        {
+            AssignedForestUnits = new List<ForestUnit>();
+        }
     }
 }

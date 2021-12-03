@@ -1,9 +1,13 @@
-﻿namespace E_Forester.Model.Enums
+﻿using System;
+
+namespace E_Forester.Model.Enums
 {
+    [Flags]
     public enum WoodAssortment
     {
-        W = 0,
-        S = 1,
-        M = 2
+        None = 0,
+        W = 1,
+        S = 2,
+        M = 4
     }
 }

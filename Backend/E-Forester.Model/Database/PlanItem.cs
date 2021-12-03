@@ -18,7 +18,7 @@ namespace E_Forester.Model.Database
         [StringLength(100)]
         public string MeasureUnit { get; set; }
 
-        public ICollection<WoodAssortment> Assortments { get; set; }
+        public WoodAssortment Assortments { get; set; }
 
         public ActionGroup ActionGroup { get; set; }
 
@@ -28,9 +28,20 @@ namespace E_Forester.Model.Database
 
         public DateTime CreatedAt { get; set; }
 
+        public int PlanId { get; set; }
+        public Plan Plan { get; set; }
+
+        public int SubareaId { get; set; }
+        public Subarea Subarea { get; set; }
+
+        public int CreatorId { get; set; }
+        public User Creator { get; set; }
+
+        public ICollection<PlanExecution> PlanExecutions { get; set; }
+
         public PlanItem()
         {
-            Assortments = new List<WoodAssortment>();
+            PlanExecutions = new List<PlanExecution>();
         }
     }
 }
