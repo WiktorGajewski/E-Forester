@@ -5,7 +5,6 @@ namespace E_Forester.Data.Database
 {
     public class E_ForesterDbContext : DbContext
     {
-        public DbSet<WeatherForecast> WeatherForecasts { get; set; }
         public DbSet<User> AppUsers { get; set; }
         public DbSet<ForestUnit> ForestUnits { get; set; }
         public DbSet<Division> Divisions { get; set; }

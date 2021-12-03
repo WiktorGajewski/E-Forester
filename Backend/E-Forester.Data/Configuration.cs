@@ -12,7 +12,6 @@ namespace E_Forester.Data
         {
             services.AddDatabase(configuration);
 
-            services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
