@@ -13,6 +13,7 @@ namespace E_Forester.Data
             services.AddDatabase(configuration);
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPlanRepository, PlanRepository>();
 
             return services;
         }

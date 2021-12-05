@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using E_Forester.Application.DataTransferObjects.Plans;
+using E_Forester.Model.Database;
 
 namespace E_Forester.Application.AutoMapper
 {
@@ -6,7 +8,7 @@ namespace E_Forester.Application.AutoMapper
     {
         public MapProfiles()
         {
-
+            CreateMap<Plan, PlanDto>();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using E_Forester.Application.Content.Account.Commands.Register;
-using E_Forester.Application.Content.Account.Queries.LogIn;
+using E_Forester.Application.Content.Account.Queries.Login;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +14,17 @@ namespace E_Forester.API.Controllers
 
         }
 
-        [HttpPost("LogIn")]
+        [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> LogIn([FromBody] LogInQuery query)
+        public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpOptions("LogIn")]
+        [HttpOptions("Login")]
         [AllowAnonymous]
-        public IActionResult LogInOptions()
+        public IActionResult LoginOptions()
         {
             Response.Headers.Add("Allow", "POST,OPTIONS");
             return Ok();

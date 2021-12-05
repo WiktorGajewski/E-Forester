@@ -6,20 +6,20 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace E_Forester.Application.Content.Account.Queries.LogIn
+namespace E_Forester.Application.Content.Account.Queries.Login
 {
-    public class LogInQueryHandler : IRequestHandler<LogInQuery, TokenDto>
+    public class LoginQueryHandler : IRequestHandler<LoginQuery, TokenDto>
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthHandler _authHandler;
 
-        public LogInQueryHandler(IUserRepository userRepository, IAuthHandler authHandler)
+        public LoginQueryHandler(IUserRepository userRepository, IAuthHandler authHandler)
         {
             _userRepository = userRepository;
             _authHandler = authHandler;
         }
 
-        public async Task<TokenDto> Handle(LogInQuery request, CancellationToken cancellationToken)
+        public async Task<TokenDto> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
             var authenticated = await _userRepository.Authenticate(request.Login, request.Password);
             if (!authenticated)

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace E_Forester.Application.Content.Account.Commands.Register
 {
-    public partial class RegisterCommand : IRequest
+    public class RegisterCommand : IRequest
     {
         [Required]
         [StringLength(100)]

@@ -28,6 +28,7 @@ namespace E_Forester.API
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(map => map.AddProfile<MapProfiles>(), typeof(Startup));
+            services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
             {
