@@ -1,5 +1,7 @@
 ﻿using E_Forester.Application.Content.Account.Commands.Register;
+using E_Forester.Application.Content.Account.Commands.RevokeToken;
 using E_Forester.Application.Content.Account.Queries.Login;
+using E_Forester.Application.Content.Account.Queries.RefreshToken;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -20,8 +22,8 @@ namespace E_Forester.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("login")]
         [AllowAnonymous]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
             var result = await _mediator.Send(query);
@@ -29,11 +31,37 @@ namespace E_Forester.API.Controllers
             return Ok(result);
         }
 
-        [HttpOptions("login")]
         [AllowAnonymous]
+        [HttpOptions("login")]
         public IActionResult LoginOptions()
         {
             Response.Headers.Add("Allow", "POST,OPTIONS");
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken()
+        {
+            var refreshToken = Request.Cookies["RefreshToken"];
+
+            var result = await _mediator.Send(new RefreshTokenQuery() { RefreshToken = refreshToken });
+
+            setTokenCookie(result.RefreshToken);
+
+            return Ok(result);
+        }
+
+        [HttpPost("revoke-token")]
+        public async Task<IActionResult> RevokeToken()
+        {
+            var refreshToken = Request.Cookies["RefreshToken"];
+
+            if (refreshToken == null)
+                return BadRequest(new { Error = "Token is required" });
+
+            await _mediator.Send(new RevokeTokenCommand() { RefreshToken = refreshToken });
+
             return Ok();
         }
 
@@ -57,7 +85,7 @@ namespace E_Forester.API.Controllers
                 SameSite = SameSiteMode.Strict
             };
 
-            Response.Cookies.Append("refreshToken", token, cookieOptions);
+            Response.Cookies.Append("RefreshToken", token, cookieOptions);
         }
     }
 }

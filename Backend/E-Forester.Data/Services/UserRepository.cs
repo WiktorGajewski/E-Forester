@@ -5,6 +5,7 @@ using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace E_Forester.Data.Services
 {
@@ -50,6 +51,50 @@ namespace E_Forester.Data.Services
             newUser.Password = BC.HashPassword(newUser.Password);
 
             await _context.AppUsers.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddRefreshToken(RefreshToken token, User user)
+        {
+            user.RefreshTokens.Add(token);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> GetUserByRefreshTokenAsync(string token)
+        {
+            return await _context.AppUsers
+                .FirstOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == token));
+        }
+
+        public async Task RevokeRefreshTokenAsync(RefreshToken token)
+        {
+            token.Revoked = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveExpiredRefreshTokensAsync(User user)
+        {
+            var expiredTokens = user.RefreshTokens
+                .Where(t => t.IsExpired);
+
+            foreach(var expiredToken in expiredTokens)
+            {
+                user.RefreshTokens.Remove(expiredToken);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RevokeAllRefreshTokens(User user)
+        {
+            var refreshTokens = user.RefreshTokens.ToList();
+
+            foreach(var refreshToken in refreshTokens)
+            {
+                if(refreshToken.IsActive)
+                    refreshToken.Revoked = DateTime.UtcNow;
+            }
+
             await _context.SaveChangesAsync();
         }
     }
