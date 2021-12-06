@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.API.Controllers
 {
+    [Route("api/plans")]
     public class PlansController : BaseController
     {
         public PlansController(IMediator mediator) : base(mediator)

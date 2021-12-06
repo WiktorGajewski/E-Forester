@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.API.Controllers
 {
+    [Route("api/account")]
     public class AccountController : BaseController
     {
         private readonly IConfiguration _configuration;
@@ -19,7 +20,7 @@ namespace E_Forester.API.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
@@ -28,7 +29,7 @@ namespace E_Forester.API.Controllers
             return Ok(result);
         }
 
-        [HttpOptions("Login")]
+        [HttpOptions("login")]
         [AllowAnonymous]
         public IActionResult LoginOptions()
         {
@@ -36,7 +37,7 @@ namespace E_Forester.API.Controllers
             return Ok();
         }
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
             await _mediator.Send(command);
