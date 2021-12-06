@@ -1,6 +1,7 @@
 ﻿using E_Forester.Application.Security.Interfaces;
 using E_Forester.Model.Enums;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Security.Claims;
 
 namespace E_Forester.Application.Security.Services
@@ -23,7 +24,7 @@ namespace E_Forester.Application.Security.Services
         public UserRole GetCurrentUserRole()
         {
             var role = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value;
-            return (UserRole) int.Parse(role);
+            return (UserRole) Enum.Parse(typeof(UserRole), role);
         }
     }
 }
