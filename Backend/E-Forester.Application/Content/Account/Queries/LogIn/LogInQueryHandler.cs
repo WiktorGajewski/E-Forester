@@ -26,9 +26,13 @@ namespace E_Forester.Application.Content.Account.Queries.Login
                 throw new UnauthorizedAccessException("Login failed.");
 
             var user = await _userRepository.GetUserAsync(request.Login);
-            var token = _tokenService.GenerateToken(user);
 
-            return new TokenDto() { Token = token };
+            var token = _tokenService.GenerateToken(user);
+            var refreshToken = _tokenService.GenerateRefreshToken();
+
+            //save refresh token 
+
+            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token };
         }
     }
 }
