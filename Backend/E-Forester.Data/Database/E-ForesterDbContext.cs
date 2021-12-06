@@ -29,6 +29,8 @@ namespace E_Forester.Data.Database
 
                 entity.HasMany(e => e.AssignedForestUnits)
                     .WithMany(e => e.AssignedUsers);
+
+                entity.OwnsMany(e => e.RefreshTokens);
             });
 
             modelBuilder.Entity<Division>(entity =>

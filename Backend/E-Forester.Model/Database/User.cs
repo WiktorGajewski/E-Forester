@@ -30,9 +30,12 @@ namespace E_Forester.Model.Database
 
         public ICollection<ForestUnit> AssignedForestUnits { get; set; }
 
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
+
         public User()
         {
             AssignedForestUnits = new List<ForestUnit>();
+            RefreshTokens = new List<RefreshToken>();
         }
     }
 }
