@@ -1,6 +1,5 @@
 ﻿using E_Forester.Model.Enums;
 using MediatR;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace E_Forester.Application.Content.Account.Commands.Register
