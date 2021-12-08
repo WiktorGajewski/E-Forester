@@ -10,6 +10,7 @@ namespace E_Forester.Model.Database
         [Key]
         public int Id { get; set; }
 
+        [StringLength(255)]
         public string Token { get; set; }
 
         public DateTime Created { get; set; }

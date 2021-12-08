@@ -32,14 +32,6 @@ namespace E_Forester.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpOptions("login")]
-        public IActionResult LoginOptions()
-        {
-            Response.Headers.Add("Allow", "POST,OPTIONS");
-            return Ok();
-        }
-
-        [AllowAnonymous]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -82,7 +74,8 @@ namespace E_Forester.API.Controllers
                 Expires = DateTime.UtcNow.AddHours(durationTime),
                 Secure = true,
                 IsEssential = true,
-                SameSite = SameSiteMode.Strict
+                SameSite = SameSiteMode.Strict,
+                MaxAge = TimeSpan.FromHours(durationTime)
             };
 
             Response.Cookies.Append("RefreshToken", token, cookieOptions);

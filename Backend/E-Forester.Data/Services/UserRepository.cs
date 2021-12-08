@@ -75,7 +75,7 @@ namespace E_Forester.Data.Services
         public async Task RemoveExpiredRefreshTokensAsync(User user)
         {
             var expiredTokens = user.RefreshTokens
-                .Where(t => t.IsExpired);
+                .Where(t => t.IsExpired).ToList();
 
             foreach(var expiredToken in expiredTokens)
             {
@@ -87,12 +87,12 @@ namespace E_Forester.Data.Services
 
         public async Task RevokeAllRefreshTokens(User user)
         {
-            var refreshTokens = user.RefreshTokens.ToList();
+            var refreshTokens = user.RefreshTokens
+                .Where(t => t.IsActive).ToList();
 
             foreach(var refreshToken in refreshTokens)
             {
-                if(refreshToken.IsActive)
-                    refreshToken.Revoked = DateTime.UtcNow;
+                refreshToken.Revoked = DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync();

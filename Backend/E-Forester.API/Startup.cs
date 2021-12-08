@@ -65,7 +65,8 @@ namespace E_Forester.API
                 {
                     builder.AllowAnyHeader();
                     builder.AllowAnyMethod();
-                    builder.AllowAnyOrigin();
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowCredentials();
                 });
             });
 
@@ -78,7 +79,6 @@ namespace E_Forester.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors("DevelopmentPolicy");
             }
 
             app.UseSwagger();
@@ -92,7 +92,13 @@ namespace E_Forester.API
 
             app.UseRouting();
 
+            if(env.IsDevelopment())
+            {
+                app.UseCors("DevelopmentPolicy");
+            }
+
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
