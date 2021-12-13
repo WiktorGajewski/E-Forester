@@ -32,6 +32,15 @@ namespace E_Forester.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpOptions("login")]
+        public IActionResult LoginOptions()
+        {
+            
+
+            return NoContent();
+        }
+
+        [AllowAnonymous]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
