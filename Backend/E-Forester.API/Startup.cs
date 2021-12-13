@@ -37,6 +37,27 @@ namespace E_Forester.API
                     Title = "E-Forester", 
                     Version = "v1" 
                 });
+
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter JWT Bearer token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Jwt authorization"
+                    }
+                };
+
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    { securityScheme, new string[] { } }
+                });
             });
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

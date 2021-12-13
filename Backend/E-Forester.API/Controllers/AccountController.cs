@@ -57,6 +57,7 @@ namespace E_Forester.API.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
