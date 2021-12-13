@@ -10,7 +10,7 @@ namespace E_Forester.Application.Security
         public static IServiceCollection AddSecurityServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAuthHandler, AuthHandler>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }

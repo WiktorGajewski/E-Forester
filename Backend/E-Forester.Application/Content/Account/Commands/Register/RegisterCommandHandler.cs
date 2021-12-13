@@ -24,7 +24,7 @@ namespace E_Forester.Application.Content.Account.Commands.Register
                 Login = request.Login,
                 Password = request.Password,
                 Role = request.Role,
-                RegistrationDate = DateTime.Now,
+                RegistrationDate = DateTime.UtcNow,
                 IsActive = true
             };
 

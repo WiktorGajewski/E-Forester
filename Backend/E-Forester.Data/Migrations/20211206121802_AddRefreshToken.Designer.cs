@@ -4,14 +4,16 @@ using E_Forester.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Forester.Data.Migrations
 {
     [DbContext(typeof(E_ForesterDbContext))]
-    partial class E_ForesterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211206121802_AddRefreshToken")]
+    partial class AddRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -376,8 +378,7 @@ namespace E_Forester.Data.Migrations
                                 .HasColumnType("datetime2");
 
                             b1.Property<string>("Token")
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                                .HasColumnType("nvarchar(max)");
 
                             b1.Property<int>("UserId")
                                 .HasColumnType("int");

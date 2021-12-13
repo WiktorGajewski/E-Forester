@@ -11,12 +11,12 @@ namespace E_Forester.Application.Content.Account.Queries.Login
     public class LoginQueryHandler : IRequestHandler<LoginQuery, TokenDto>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAuthHandler _authHandler;
+        private readonly ITokenService _tokenService;
 
-        public LoginQueryHandler(IUserRepository userRepository, IAuthHandler authHandler)
+        public LoginQueryHandler(IUserRepository userRepository, ITokenService tokenService)
         {
             _userRepository = userRepository;
-            _authHandler = authHandler;
+            _tokenService = tokenService;
         }
 
         public async Task<TokenDto> Handle(LoginQuery request, CancellationToken cancellationToken)
@@ -26,9 +26,15 @@ namespace E_Forester.Application.Content.Account.Queries.Login
                 throw new UnauthorizedAccessException("Login failed.");
 
             var user = await _userRepository.GetUserAsync(request.Login);
-            var token = _authHandler.GenerateToken(user);
 
-            return new TokenDto() { Token = token };
+            var token = _tokenService.GenerateToken(user);
+            var refreshToken = _tokenService.GenerateRefreshToken();
+
+            await _userRepository.AddRefreshToken(refreshToken, user);
+
+            await _userRepository.RemoveExpiredRefreshTokensAsync(user);
+
+            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token };
         }
     }
 }
