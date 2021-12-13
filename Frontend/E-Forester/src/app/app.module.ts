@@ -12,6 +12,9 @@ import { FooterComponent } from './footer/footer.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './auth/auth.service';
 import { appInitializer } from './helpers/app.intitalizer';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { PlanListComponent } from './plans/plan-list/plan-list.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -22,8 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ErrorInterceptor } from './helpers/error.interceptor';
-import { JwtInterceptor } from './helpers/jwt.interceptor';
+
 
 const material = [
   MatToolbarModule,
@@ -42,7 +44,8 @@ const material = [
     AppComponent,
     LoginComponent,
     FooterComponent,
-    NavComponent
+    NavComponent,
+    PlanListComponent
   ],
   imports: [
     material,
