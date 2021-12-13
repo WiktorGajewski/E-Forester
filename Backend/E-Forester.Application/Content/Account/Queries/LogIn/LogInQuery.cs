@@ -2,9 +2,9 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace E_Forester.Application.Content.Account.Queries.LogIn
+namespace E_Forester.Application.Content.Account.Queries.Login
 {
-    public partial class LogInQuery : IRequest<TokenDto>
+    public class LoginQuery : IRequest<TokenDto>
     {
         [Required]
         public string Login { get; set; }

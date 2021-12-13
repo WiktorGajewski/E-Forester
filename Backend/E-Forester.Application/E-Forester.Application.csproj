@@ -9,6 +9,7 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
@@ -16,10 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\E-Forester.Data\E-Forester.Data.csproj" />
     <ProjectReference Include="..\E-Forester.Model\E-Forester.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Security\Models\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using E_Forester.Model.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_Forester.Model.Database
 {
@@ -19,9 +19,23 @@ namespace E_Forester.Model.Database
         public string Login { get; set; }
 
         [Required]
-        [StringLength(255)] //max input length(72)
+        [StringLength(255)]
         public string Password { get; set; }
 
+        public DateTime RegistrationDate { get; set; }
+
         public UserRole Role { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public ICollection<ForestUnit> AssignedForestUnits { get; set; }
+
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
+
+        public User()
+        {
+            AssignedForestUnits = new List<ForestUnit>();
+            RefreshTokens = new List<RefreshToken>();
+        }
     }
 }

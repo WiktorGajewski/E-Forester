@@ -2,8 +2,9 @@
 
 namespace E_Forester.Application.Security.Interfaces
 {
-    public interface IAuthHandler
+    public interface ITokenService
     {
         string GenerateToken(User user);
+        RefreshToken GenerateRefreshToken();
     }
 }

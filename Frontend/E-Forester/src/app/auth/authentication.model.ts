@@ -1,3 +1,3 @@
 export interface IAuthentication {
-    token: string
+    accessToken: string
 }

@@ -6,15 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace E_Forester.Application.Security.Services
 {
-    public class AuthHandler : IAuthHandler
+    public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
 
-        public AuthHandler(IConfiguration configuration)
+        public TokenService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -46,6 +47,24 @@ namespace E_Forester.Application.Security.Services
             var token = tokenHandler.WriteToken(jwtSecurityToken);
 
             return token;
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            using var rngCryptoServiceProvider = new RNGCryptoServiceProvider();
+            var randomBytes = new byte[64];
+            rngCryptoServiceProvider.GetBytes(randomBytes);
+
+            var durationTime = Convert.ToInt32(_configuration["RefreshToken:DurationInHours"]);
+
+            var refreshToken = new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomBytes),
+                Created = DateTime.UtcNow,
+                Expires = DateTime.UtcNow.AddHours(durationTime)
+            };
+
+            return refreshToken;
         }
     }
 }

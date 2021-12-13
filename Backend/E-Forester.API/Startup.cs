@@ -28,6 +28,7 @@ namespace E_Forester.API
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(map => map.AddProfile<MapProfiles>(), typeof(Startup));
+            services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
             {
@@ -35,6 +36,27 @@ namespace E_Forester.API
                 {
                     Title = "E-Forester", 
                     Version = "v1" 
+                });
+
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter JWT Bearer token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Jwt authorization"
+                    }
+                };
+
+                c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    { securityScheme, new string[] { } }
                 });
             });
 
@@ -49,7 +71,7 @@ namespace E_Forester.API
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
-                        
+
                         RequireExpirationTime = true,
                         ValidIssuer = Configuration["JWT:Issuer"],
                         ValidAudience = Configuration["JWT:Audience"],
@@ -63,7 +85,8 @@ namespace E_Forester.API
                 {
                     builder.AllowAnyHeader();
                     builder.AllowAnyMethod();
-                    builder.AllowAnyOrigin();
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowCredentials();
                 });
             });
 
@@ -76,7 +99,6 @@ namespace E_Forester.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors("DevelopmentPolicy");
             }
 
             app.UseSwagger();
@@ -90,6 +112,12 @@ namespace E_Forester.API
 
             app.UseRouting();
 
+            if(env.IsDevelopment())
+            {
+                app.UseCors("DevelopmentPolicy");
+            }
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
