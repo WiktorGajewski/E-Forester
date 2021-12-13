@@ -21,6 +21,10 @@ export class AuthService {
     this.authentication = this.authenticationSubject.asObservable();
   }
 
+  public get authenticationValue(): IAuthentication|null {
+    return this.authenticationSubject.value;
+  }
+
   login(login: string, password: string): Observable<IAuthentication> {
     
     return this.http.post<IAuthentication>(`${this.apiUrl}account/login`, { login, password })
