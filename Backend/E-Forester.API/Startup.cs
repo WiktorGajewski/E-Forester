@@ -88,6 +88,14 @@ namespace E_Forester.API
                     builder.WithOrigins("http://localhost:4200");
                     builder.AllowCredentials();
                 });
+
+                options.AddPolicy("ProductionPolicy", builder =>
+                {
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+                    builder.WithOrigins(Configuration["CORS:AllowOrigin"]);
+                    builder.AllowCredentials();
+                });
             });
 
             services.ConfigureServicesData(Configuration);
@@ -115,6 +123,10 @@ namespace E_Forester.API
             if(env.IsDevelopment())
             {
                 app.UseCors("DevelopmentPolicy");
+            }
+            else
+            {
+                app.UseCors("ProductionPolicy");
             }
 
             app.UseAuthentication();
