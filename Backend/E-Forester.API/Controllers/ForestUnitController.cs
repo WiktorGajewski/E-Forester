@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.API.Controllers
 {
-    [Route("api/forest-unit")]
+    [Route("api/forest-units")]
     public class ForestUnitController : BaseController
     {
         public ForestUnitController(IMediator mediator) : base(mediator)

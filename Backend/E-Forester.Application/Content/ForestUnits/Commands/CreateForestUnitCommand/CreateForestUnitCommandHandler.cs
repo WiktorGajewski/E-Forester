@@ -21,7 +21,7 @@ namespace E_Forester.Application.Content.ForestUnits.Commands.CreateForestUnitCo
             {
                 Name = request.Name,
                 Address = request.Address,
-                Area = request.Area,
+                Area = request.Area
             };
 
             await _forestUnitRepository.CreateForestUnitAsync(forestUnit);
