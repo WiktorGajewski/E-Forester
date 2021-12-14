@@ -14,6 +14,7 @@ namespace E_Forester.Data
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPlanRepository, PlanRepository>();
+            services.AddScoped<IForestUnitRepository, ForestUnitRepository>();
 
             return services;
         }
