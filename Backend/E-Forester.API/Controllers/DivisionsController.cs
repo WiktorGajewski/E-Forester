@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace E_Forester.API.Controllers
 {
     [Route("api/divisions")]
-    public class DivisionController : BaseController
+    public class DivisionsController : BaseController
     {
-        public DivisionController(IMediator mediator) : base(mediator)
+        public DivisionsController(IMediator mediator) : base(mediator)
         {
         }
 
