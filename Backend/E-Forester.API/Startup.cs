@@ -100,6 +100,10 @@ namespace E_Forester.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
