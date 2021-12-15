@@ -14,14 +14,14 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPlans()
+        public async Task<IActionResult> GetSubareas()
         {
             var result = await _mediator.Send(new GetSubareasQuery());
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlan([FromBody] CreateSubareaCommand command)
+        public async Task<IActionResult> CreateSubarea([FromBody] CreateSubareaCommand command)
         {
             await _mediator.Send(command);
             return NoContent();

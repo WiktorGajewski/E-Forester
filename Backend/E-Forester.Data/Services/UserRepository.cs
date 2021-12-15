@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace E_Forester.Data.Services
 {
@@ -29,6 +30,11 @@ namespace E_Forester.Data.Services
                 return false;
 
             return true;
+        }
+
+        public async Task<ICollection<User>> GetUsersAsync()
+        {
+            return await _context.AppUsers.ToListAsync();
         }
 
         public async Task<User> GetUserAsync(int id)
