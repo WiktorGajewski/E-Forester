@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.Divisions;
 using E_Forester.Application.DataTransferObjects.ForestUnits;
+using E_Forester.Application.DataTransferObjects.PlanExecutions;
+using E_Forester.Application.DataTransferObjects.PlanItems;
 using E_Forester.Application.DataTransferObjects.Plans;
+using E_Forester.Application.DataTransferObjects.Subareas;
 using E_Forester.Model.Database;
 
 namespace E_Forester.Application.AutoMapper
@@ -13,6 +16,9 @@ namespace E_Forester.Application.AutoMapper
             CreateMap<Plan, PlanDto>();
             CreateMap<ForestUnit, ForestUnitDto>();
             CreateMap<Division, DivisionDto>();
+            CreateMap<Subarea, SubareaDto>();
+            CreateMap<PlanItem, PlanItemDto>();
+            CreateMap<PlanExecution, PlanExecutionDto>();
         }
     }
 }

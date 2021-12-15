@@ -24,7 +24,7 @@ namespace E_Forester.Application.Content.Plans.Commands.CreatePlanCommand
             var plan = new Plan()
             {
                 Year = request.Year,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 ForestUnitId = request.ForestUnitId,
                 CreatorId = _authService.GetCurrentUserId()
             };

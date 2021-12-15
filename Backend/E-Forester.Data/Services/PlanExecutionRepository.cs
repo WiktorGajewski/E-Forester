@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace E_Forester.Data.Services
 {
-    public class ForestUnitRepository : IForestUnitRepository
+    public class PlanExecutionRepository : IPlanExecutionRepository
     {
         private readonly E_ForesterDbContext _context;
 
-        public ForestUnitRepository(E_ForesterDbContext context)
+        public PlanExecutionRepository(E_ForesterDbContext context)
         {
             _context = context;
         }
 
-        public async Task<ICollection<ForestUnit>> GetForestUnitsAsync()
+        public async Task<ICollection<PlanExecution>> GetPlanExecutionsAsync()
         {
-            return await _context.ForestUnits.ToListAsync();
+            return await _context.PlanExecutions.ToListAsync();
         }
 
-        public async Task CreateForestUnitAsync(ForestUnit newForestUnit)
+        public async Task CreatePlanExecutionAsync(PlanExecution newPlanExecution)
         {
-            await _context.ForestUnits.AddAsync(newForestUnit);
+            await _context.PlanExecutions.AddAsync(newPlanExecution);
             await _context.SaveChangesAsync();
         }
     }
