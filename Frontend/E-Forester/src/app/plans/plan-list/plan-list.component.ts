@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPlan } from 'src/app/models/plan.model';
-import { PlanService } from 'src/app/services/plan/plan.service';
+import { PlanService } from 'src/app/services/plans/plan.service';
 
 @Component({
   selector: 'app-plan-list',

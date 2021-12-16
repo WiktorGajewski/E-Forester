@@ -26,7 +26,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-
 const material = [
   MatToolbarModule,
   MatSidenavModule,
