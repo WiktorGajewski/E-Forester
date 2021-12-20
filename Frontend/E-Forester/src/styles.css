@@ -3,12 +3,12 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.spinner {
+.spinner-main {
     display: flex;
     justify-content: center;
 }
 
-.spinner::after {
+.spinner-main::after {
     margin-top: 10%;
     content: "";
     width: 100px;

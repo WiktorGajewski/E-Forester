@@ -1,4 +1,6 @@
 <div class="container">
+  
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> # </th>
@@ -19,10 +21,16 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="3" style="text-align:center;">
-        Brak danych do wyświetlenia
+    <td class="mat-cell" colspan="3" style="text-align:center;">
+        <div *ngIf="!(dataSource.loading | async)">
+          Brak danych do wyświetlenia
+        </div>
+        <div *ngIf="dataSource.loading | async" class="spinner">
+          <mat-spinner diameter="80"></mat-spinner>
+        </div>
       </td>
     </tr>
 
   </table>
 </div>
+
