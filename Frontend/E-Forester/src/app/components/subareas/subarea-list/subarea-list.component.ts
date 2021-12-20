@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge } from 'rxjs';
-import { SubareaDataSource } from 'src/app/services/subareas/subarea.data-source';
+import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-source';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SubareaService } from 'src/app/services/subareas/subarea.service';
   styleUrls: ['./subarea-list.component.css']
 })
 export class SubareaListComponent implements OnInit, AfterViewInit {
-  dataSource !: SubareaDataSource;
+  dataSource !: SubareasDataSource;
   displayedColumns = ["id", "address", "area"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
@@ -22,7 +22,7 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   }
   
   ngOnInit(): void {
-    this.dataSource = new SubareaDataSource(this.subareaService);
+    this.dataSource = new SubareasDataSource(this.subareaService);
     this.dataSource.loadSubareas();
   }
 

@@ -3,9 +3,9 @@ import { BehaviorSubject, finalize, Observable } from "rxjs";
 import { ISubarea } from "src/app/models/subarea.model";
 import { SubareaService } from "./subarea.service";
 
-export class SubareaDataSource implements DataSource<ISubarea> {
+export class SubareasDataSource implements DataSource<ISubarea> {
 
-    private subareaSubject = new BehaviorSubject<ISubarea[]>([]);
+    private subareasSubject = new BehaviorSubject<ISubarea[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(false);
 
     public loading = this.loadingSubject.asObservable();
@@ -15,11 +15,11 @@ export class SubareaDataSource implements DataSource<ISubarea> {
     }
 
     connect(collectionViewer: CollectionViewer): Observable<readonly ISubarea[]> {
-        return this.subareaSubject.asObservable();
+        return this.subareasSubject.asObservable();
     }
 
     disconnect(collectionViewer: CollectionViewer): void {
-        this.subareaSubject.complete();
+        this.subareasSubject.complete();
         this.loadingSubject.complete();
     }
 
@@ -31,7 +31,7 @@ export class SubareaDataSource implements DataSource<ISubarea> {
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: ISubarea[]) => {
-                    this.subareaSubject.next(value);
+                    this.subareasSubject.next(value);
                 }
             });
     }

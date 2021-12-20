@@ -1,14 +1,38 @@
-Plany
-<div>
-    <div *ngFor="let plan of plans">
-
-        <div>
-            <div>{{plan?.Year}}</div>
-        </div>
-
-        <div>
-            <div>{{plan?.CreatedAt}}</div>
-        </div>
-
-    </div>
+<div class="container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.Id}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef> Rok </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.Year}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="forestUnitId">
+        <th mat-header-cell *matHeaderCellDef> Id Leśnictwa </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.ForestUnitId}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="3" style="text-align:center;">
+          <div *ngIf="!(dataSource.loading | async)">
+            Brak danych do wyświetlenia
+          </div>
+          <div *ngIf="dataSource.loading | async" class="spinner">
+            <mat-spinner diameter="80"></mat-spinner>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <mat-paginator [length]="100"
+                showFirstLastButtons
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+    </mat-paginator>
 </div>
