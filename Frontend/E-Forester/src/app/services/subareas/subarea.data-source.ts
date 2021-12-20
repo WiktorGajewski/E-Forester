@@ -1,5 +1,5 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { BehaviorSubject, delay, finalize, Observable } from "rxjs";
+import { BehaviorSubject, finalize, Observable } from "rxjs";
 import { ISubarea } from "src/app/models/subarea.model";
 import { SubareaService } from "./subarea.service";
 

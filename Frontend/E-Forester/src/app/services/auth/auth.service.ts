@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IAuthentication } from './authentication.model';
+import { IAuthentication } from '../../models/authentication.model';
 
 @Injectable({
   providedIn: 'root'

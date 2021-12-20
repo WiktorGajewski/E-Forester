@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { merge, tap } from 'rxjs';
-import { SubareaDataSource } from '../services/subareas/subarea.data-source';
-import { SubareaService } from '../services/subareas/subarea.service';
+import { merge } from 'rxjs';
+import { SubareaDataSource } from 'src/app/services/subareas/subarea.data-source';
+import { SubareaService } from 'src/app/services/subareas/subarea.service';
 
 @Component({
   selector: 'app-subarea-list',

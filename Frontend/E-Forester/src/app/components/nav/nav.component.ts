@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -19,8 +19,8 @@ export class NavComponent{
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) {
-    this.auth.authentication.subscribe(auth => 
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
+    this.authService.authentication.subscribe(auth => 
       {
         this.isAuthenticated = auth != null ? true : false;
       });

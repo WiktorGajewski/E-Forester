@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { PlanListComponent } from './plans/plan-list/plan-list.component';
-import { SubareaListComponent } from './subareas/subarea-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
+import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
