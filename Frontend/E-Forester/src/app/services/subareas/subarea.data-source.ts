@@ -23,7 +23,7 @@ export class SubareaDataSource implements DataSource<ISubarea> {
         this.loadingSubject.complete();
     }
 
-    loadSubareas(filter = "", sortDirection = "asc", pageIndex = 0, pageSize = 3) : void {
+    loadSubareas(filter = "", sortDirection = "", pageIndex = 0, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
