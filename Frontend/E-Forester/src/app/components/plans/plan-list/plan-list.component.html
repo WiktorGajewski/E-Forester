@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="table-container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> # </th>
@@ -19,7 +20,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
       <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="3" style="text-align:center;">
+        <td class="mat-cell" colspan="3" style="text-align:center;">
           <div *ngIf="!(dataSource.loading | async)">
             Brak danych do wyświetlenia
           </div>
@@ -29,6 +30,8 @@
         </td>
       </tr>
     </table>
+  </div>
+    
     <mat-paginator [length]="100"
                 showFirstLastButtons
                 [pageSize]="10"
