@@ -7,15 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { NavComponent } from './components/nav/nav.component';
 import { appInitializer } from './helpers/app.intitalizer';
 import { AuthService } from './services/auth/auth.service';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
+
+import { LoginComponent } from './components/login/login.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavComponent } from './components/nav/nav.component';
 import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
+import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
+import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -52,7 +55,9 @@ const material = [
     FooterComponent,
     NavComponent,
     PlanListComponent,
-    SubareaListComponent
+    SubareaListComponent,
+    DivisionListComponent,
+    ForestUnitListComponent
   ],
   imports: [
     material,

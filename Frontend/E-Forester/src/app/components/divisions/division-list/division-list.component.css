@@ -1,0 +1,35 @@
+.container{
+    margin: 10px 5%;
+    width: 60vw;
+    max-width: 1200px;
+    min-width: 300px;
+}
+
+.table{
+    width: 100%;
+}
+
+.mat-column-id{
+    border-right: 1px solid currentColor;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-address{
+    border-right: 1px solid currentColor;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-area{
+    padding-left: 20px;
+    text-align: center;
+}
+
+.spinner{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
