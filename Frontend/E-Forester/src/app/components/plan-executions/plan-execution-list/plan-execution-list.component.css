@@ -15,14 +15,14 @@
     text-align: center;
 }
 
-.mat-column-year{
+.mat-column-quantity{
     border-right: 1px solid currentColor;
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
 }
 
-.mat-column-forestUnitId{
+.mat-column-planItemId{
     padding-left: 20px;
     text-align: center;
 }

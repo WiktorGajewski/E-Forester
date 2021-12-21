@@ -19,6 +19,8 @@ import { PlanListComponent } from './components/plans/plan-list/plan-list.compon
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
 import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
+import { PlanItemListComponent } from './components/plan-items/plan-item-list/plan-item-list.component';
+import { PlanExecutionListComponent } from './components/plan-executions/plan-execution-list/plan-execution-list.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -57,7 +59,9 @@ const material = [
     PlanListComponent,
     SubareaListComponent,
     DivisionListComponent,
-    ForestUnitListComponent
+    ForestUnitListComponent,
+    PlanItemListComponent,
+    PlanExecutionListComponent
   ],
   imports: [
     material,
