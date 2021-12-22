@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,7 @@ export class CreateForestUnitComponent implements OnInit {
 
   loading = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
@@ -24,10 +25,10 @@ export class CreateForestUnitComponent implements OnInit {
 
   submit(): void {
     const val = this.Form.value;
-    console.log(val);
+    this.dialogRef.close(val);
   }
 
   cancel(): void {
-    this.router.navigate(["/"]);
+    this.dialogRef.close();
   }
 }

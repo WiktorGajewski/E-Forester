@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge } from 'rxjs';
 import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { ForestUnitsDataSource } from 'src/app/services/forest-units/forest-units.data-source';
+import { CreateForestUnitComponent } from '../create-forest-unit/create-forest-unit.component';
 
 
 @Component({
@@ -18,7 +20,7 @@ export class ForestUnitListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private forestUnitService : ForestUnitService) {
+  constructor(private forestUnitService : ForestUnitService, private dialog : MatDialog) {
 
   }
 
@@ -41,5 +43,19 @@ export class ForestUnitListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+
+  createForestUnitDialog() : void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreateForestUnitComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      data => console.log("Dialog output:", data)
+    ); 
   }
 }
