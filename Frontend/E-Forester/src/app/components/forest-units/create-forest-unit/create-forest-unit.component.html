@@ -1,7 +1,11 @@
 <div class="container">
     <h2 mat-dialog-title>Dodaj leśnictwo</h2>
-
+    
     <form [formGroup]="Form" (ngSubmit)="submit()">
+
+        <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
+            Wystąpił błąd przy próbie utworzenia obiektu
+        </mat-error>
 
         <mat-dialog-content>
             <mat-form-field appearance="fill">

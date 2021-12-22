@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
@@ -20,6 +20,10 @@ export class ForestUnitService {
     .pipe(
       catchError(this.handleError<IForestUnit[]>('getForestUnits', []))
     );
+  }
+
+  createForestUnit(name : string, address : string, area : number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}forest-units`, { name, address, area });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

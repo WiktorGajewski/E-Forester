@@ -55,7 +55,11 @@ export class ForestUnitListComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(CreateForestUnitComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      result =>  {
+        if(result == true) {
+          this.loadPage(); 
+        }
+      }
     ); 
   }
 }

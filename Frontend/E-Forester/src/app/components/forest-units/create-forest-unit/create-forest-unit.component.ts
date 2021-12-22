@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 
 @Component({
   selector: 'app-create-forest-unit',
@@ -12,8 +12,9 @@ export class CreateForestUnitComponent implements OnInit {
   Form!: FormGroup;
 
   loading = false;
+  errorMessage = false;
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
+  constructor(private forestUnitService : ForestUnitService, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
@@ -25,7 +26,21 @@ export class CreateForestUnitComponent implements OnInit {
 
   submit(): void {
     const val = this.Form.value;
-    this.dialogRef.close(val);
+    console.log("start");
+    this.loading = true;
+    this.forestUnitService.createForestUnit(val.name, val.address, val.area)
+      .subscribe({
+        complete : () => {
+          console.log("success");
+          this.loading = false;
+          this.dialogRef.close(true);
+        },
+        error : () => {
+          console.log("error");
+          this.loading = false;
+          this.errorMessage = true;
+        }
+      });
   }
 
   cancel(): void {
