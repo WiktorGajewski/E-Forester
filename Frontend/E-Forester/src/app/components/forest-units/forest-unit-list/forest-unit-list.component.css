@@ -1,5 +1,5 @@
 .container{
-    margin: 10px 5%;
+    margin: 10px 5% 75px 5%;
     width: 60vw;
     max-width: 1200px;
     min-width: 300px;
@@ -46,8 +46,14 @@
     margin: 10px;
 }
 
-.openDialogButton {
-    width: 80%;
+.button-container {
+    margin-top: 10px;
+    margin-right: 10px;
+    text-align: end;
+}
+
+.open-dialog-button {
+    align-items: right;
     margin-bottom: 10px;
 }
 
