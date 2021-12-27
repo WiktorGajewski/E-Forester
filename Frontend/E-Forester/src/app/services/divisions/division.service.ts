@@ -21,6 +21,10 @@ export class DivisionService {
     );
   }
 
+  createDivision(address : string, area : number, forestUnitId: number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}divisions`, { address, area, forestUnitId });
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

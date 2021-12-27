@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
+import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.component';
 
 @Component({
   selector: 'app-plan-item-list',
@@ -14,7 +16,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private planItemService: PlanItemService) {
+  constructor(private planItemService: PlanItemService,  private dialog : MatDialog) {
 
   }
 
@@ -34,5 +36,23 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+
+  createPlanItemDialog() : void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreatePlanItemComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.loadPage(); 
+        }
+      }
+    ); 
   }
 }

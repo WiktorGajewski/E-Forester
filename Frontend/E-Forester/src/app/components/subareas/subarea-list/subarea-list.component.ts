@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { merge } from 'rxjs';
 import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-source';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CreateSubareaComponent } from '../create-subarea/create-subarea.component';
 
 @Component({
   selector: 'app-subarea-list',
@@ -17,7 +19,7 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private subareaService : SubareaService) { 
+  constructor(private subareaService : SubareaService, private dialog : MatDialog) { 
 
   }
   
@@ -40,5 +42,23 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+
+  createSubareaDialog() : void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreateSubareaComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.loadPage(); 
+        }
+      }
+    ); 
   }
 }

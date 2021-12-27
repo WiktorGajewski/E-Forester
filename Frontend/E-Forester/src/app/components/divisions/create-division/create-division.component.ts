@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
+import { DivisionService } from 'src/app/services/divisions/division.service';
 
 @Component({
-  selector: 'app-create-forest-unit',
-  templateUrl: './create-forest-unit.component.html',
-  styleUrls: ['./create-forest-unit.component.css']
+  selector: 'app-create-division',
+  templateUrl: './create-division.component.html',
+  styleUrls: ['./create-division.component.css']
 })
-export class CreateForestUnitComponent implements OnInit {
+export class CreateDivisionComponent implements OnInit {
   Form!: FormGroup;
 
   loading = false;
   errorMessage = false;
 
-  constructor(private forestUnitService : ForestUnitService, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
+  constructor(private divisionService : DivisionService, private dialogRef: MatDialogRef<CreateDivisionComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
-      name: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
-      area: new FormControl(null, Validators.required)
+      area: new FormControl(null, Validators.required),
+      forestUnitId: new FormControl(null, Validators.required)
     });
   }
 
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.forestUnitService.createForestUnit(val.name, val.address, val.area)
+    this.divisionService.createDivision(val.name, val.address, val.forestUnitId)
       .subscribe({
         complete : () => {
           this.loading = false;

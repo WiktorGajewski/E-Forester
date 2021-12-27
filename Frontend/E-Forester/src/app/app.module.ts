@@ -22,6 +22,11 @@ import { ForestUnitListComponent } from './components/forest-units/forest-unit-l
 import { PlanItemListComponent } from './components/plan-items/plan-item-list/plan-item-list.component';
 import { PlanExecutionListComponent } from './components/plan-executions/plan-execution-list/plan-execution-list.component';
 import { CreateForestUnitComponent } from './components/forest-units/create-forest-unit/create-forest-unit.component';
+import { CreateDivisionComponent } from './components/divisions/create-division/create-division.component';
+import { CreateSubareaComponent } from './components/subareas/create-subarea/create-subarea.component';
+import { CreatePlanComponent } from './components/plans/create-plan/create-plan.component';
+import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
+import { CreatePlanExecutionComponent } from './components/plan-executions/create-plan-execution/create-plan-execution.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -65,7 +70,12 @@ const material = [
     ForestUnitListComponent,
     PlanItemListComponent,
     PlanExecutionListComponent,
-    CreateForestUnitComponent
+    CreateForestUnitComponent,
+    CreateDivisionComponent,
+    CreateSubareaComponent,
+    CreatePlanComponent,
+    CreatePlanItemComponent,
+    CreatePlanExecutionComponent
   ],
   imports: [
     material,

@@ -14,14 +14,18 @@ export class PlanService {
 
    }
 
-   getPlans(): Observable<IPlan[]> {
-     return this.http.get<IPlan[]>(`${this.apiUrl}plans`)
+  getPlans(): Observable<IPlan[]> {
+      return this.http.get<IPlan[]>(`${this.apiUrl}plans`)
       .pipe(
         catchError(this.handleError<IPlan[]>('getPlans', []))
       );
    }
 
-   private handleError<T>(operation = 'operation', result?: T) {
+  createPlan(year : number, forestUnitId : number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}plans`, { year, forestUnitId });
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);

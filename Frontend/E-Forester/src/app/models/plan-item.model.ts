@@ -3,7 +3,7 @@ export interface IPlanItem {
     IsCompleted: boolean,
     Quantity: number,
     MeasureUnit: string,
-    WoodAssortment: WoodAssortment,
+    Assortments: WoodAssortment,
     ActionGroup: ActionGroup,
     DifficultyLevel: number,
     Factor: number

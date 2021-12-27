@@ -1,8 +1,9 @@
 .container{
-    margin: 10px 5%;
+    margin: 10px 5% 75px 5%;
     width: 60vw;
     max-width: 1200px;
     min-width: 300px;
+    text-align: center;
 }
 
 .table-container{
@@ -37,6 +38,18 @@
     justify-content: center;
     margin: 10px;
 }
+
+.button-container {
+    margin-top: 10px;
+    margin-right: 10px;
+    text-align: end;
+}
+
+.open-dialog-button {
+    align-items: right;
+    margin-bottom: 10px;
+}
+
 
 @media only screen and (max-width: 1100px) {
     .container{

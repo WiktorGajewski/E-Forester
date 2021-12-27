@@ -14,14 +14,18 @@ export class SubareaService {
 
    }
 
-   getSubareas(): Observable<ISubarea[]> {
+  getSubareas(): Observable<ISubarea[]> {
      return this.http.get<ISubarea[]>(`${this.apiUrl}subareas`)
       .pipe(
         catchError(this.handleError<ISubarea[]>('getSubareas', []))
       );
    }
 
-   private handleError<T>(operation = 'operation', result?: T) {
+  createSubarea(address : string, area : number, divisionId : number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}plans`, { address, area, divisionId });
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);

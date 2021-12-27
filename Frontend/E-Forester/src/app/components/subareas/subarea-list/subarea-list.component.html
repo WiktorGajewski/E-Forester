@@ -1,4 +1,9 @@
 <div class="container">
+  <h1 style="margin-bottom: 10px;">
+    Pododdziały
+    <mat-divider></mat-divider>
+  </h1>
+
   <div class="table-container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort> 
       <ng-container matColumnDef="id">
@@ -38,5 +43,12 @@
               [pageSizeOptions]="[5, 10, 25, 100]"
               aria-label="Select page">
   </mat-paginator>
+
+  <div class="button-container">
+    <button mat-mini-fab color="primary" (click)="createSubareaDialog()" class="open-dialog-button">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
 </div>
 

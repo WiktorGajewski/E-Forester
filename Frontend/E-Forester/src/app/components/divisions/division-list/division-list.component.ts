@@ -1,9 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge } from 'rxjs';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { DivisionsDataSource } from 'src/app/services/divisions/divisions.data-source';
+import { CreateDivisionComponent } from '../create-division/create-division.component';
 
 @Component({
   selector: 'app-division-list',
@@ -17,7 +19,7 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
 
-  constructor(private divisionService : DivisionService) {
+  constructor(private divisionService : DivisionService, private dialog : MatDialog) {
 
   }
 
@@ -40,5 +42,23 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+
+  createDivisionDialog() : void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreateDivisionComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.loadPage(); 
+        }
+      }
+    ); 
   }
 }

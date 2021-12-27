@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
+import { SubareaService } from 'src/app/services/subareas/subarea.service';
 
 @Component({
-  selector: 'app-create-forest-unit',
-  templateUrl: './create-forest-unit.component.html',
-  styleUrls: ['./create-forest-unit.component.css']
+  selector: 'app-create-subarea',
+  templateUrl: './create-subarea.component.html',
+  styleUrls: ['./create-subarea.component.css']
 })
-export class CreateForestUnitComponent implements OnInit {
+export class CreateSubareaComponent implements OnInit {
   Form!: FormGroup;
 
   loading = false;
   errorMessage = false;
 
-  constructor(private forestUnitService : ForestUnitService, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
+  constructor(private subareaService : SubareaService, private dialogRef: MatDialogRef<CreateSubareaComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
-      name: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
-      area: new FormControl(null, Validators.required)
+      area: new FormControl(null, Validators.required),
+      divisionId: new FormControl(null, Validators.required)
     });
   }
 
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.forestUnitService.createForestUnit(val.name, val.address, val.area)
+    this.subareaService.createSubarea(val.name, val.address, val.divisionId)
       .subscribe({
         complete : () => {
           this.loading = false;

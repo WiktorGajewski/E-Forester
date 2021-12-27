@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { PlanExecutionService } from 'src/app/services/plan-executions/plan-execution.service';
 import { PlanExecutionsDataSource } from 'src/app/services/plan-executions/plan-executions.data-source';
+import { CreatePlanExecutionComponent } from '../create-plan-execution/create-plan-execution.component';
 
 @Component({
   selector: 'app-plan-execution-list',
@@ -14,7 +16,7 @@ export class PlanExecutionListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private planExecutionService: PlanExecutionService) {
+  constructor(private planExecutionService: PlanExecutionService, private dialog : MatDialog) {
 
   }
 
@@ -34,5 +36,23 @@ export class PlanExecutionListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
+
+  createPlanExecutionDialog() : void {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(CreatePlanExecutionComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.loadPage(); 
+        }
+      }
+    ); 
   }
 }
