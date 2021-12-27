@@ -4,6 +4,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { CreateSubareaComponent } from './components/subareas/create-subarea/cre
 import { CreatePlanComponent } from './components/plans/create-plan/create-plan.component';
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
 import { CreatePlanExecutionComponent } from './components/plan-executions/create-plan-execution/create-plan-execution.component';
+import { CockpitComponent } from './components/cockpit/cockpit.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -75,7 +77,8 @@ const material = [
     CreateSubareaComponent,
     CreatePlanComponent,
     CreatePlanItemComponent,
-    CreatePlanExecutionComponent
+    CreatePlanExecutionComponent,
+    CockpitComponent
   ],
   imports: [
     material,
@@ -84,7 +87,8 @@ const material = [
     BrowserAnimationsModule,
     LayoutModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [
     {
