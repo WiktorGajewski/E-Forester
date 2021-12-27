@@ -29,6 +29,9 @@ import { CreatePlanComponent } from './components/plans/create-plan/create-plan.
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
 import { CreatePlanExecutionComponent } from './components/plan-executions/create-plan-execution/create-plan-execution.component';
 import { CockpitComponent } from './components/cockpit/cockpit.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
+import { LastDecadeResultsChartComponent } from './components/dashboard/charts/last-decade-results-chart/last-decade-results-chart.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -43,6 +46,8 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { CardComponent } from './components/dashboard/card/card.component';
 
 const material = [
   MatToolbarModule,
@@ -57,7 +62,8 @@ const material = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatDialogModule
+  MatDialogModule,
+  MatGridListModule,
 ]
 
 @NgModule({
@@ -78,7 +84,11 @@ const material = [
     CreatePlanComponent,
     CreatePlanItemComponent,
     CreatePlanExecutionComponent,
-    CockpitComponent
+    CockpitComponent,
+    DashboardComponent,
+    CardComponent,
+    AnnualResultsChartComponent,
+    LastDecadeResultsChartComponent
   ],
   imports: [
     material,

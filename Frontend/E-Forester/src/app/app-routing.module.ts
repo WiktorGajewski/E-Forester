@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CockpitComponent } from './components/cockpit/cockpit.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
 import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
 import { LoginComponent } from './components/login/login.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: "forest-units", component: ForestUnitListComponent },
   { path: "plan-items", component: PlanItemListComponent },
   { path: "plan-executions", component: PlanExecutionListComponent },
-  { path: "cockpit", component: CockpitComponent }
+  { path: "cockpit", component: CockpitComponent },
+  { path: "dashboard", component: DashboardComponent }
 ];
 
 @NgModule({

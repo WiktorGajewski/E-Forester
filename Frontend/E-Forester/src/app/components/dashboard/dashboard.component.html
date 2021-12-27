@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 style="margin-bottom: 10px;">
+    Kokpit
+    <mat-divider></mat-divider>
+  </h1>
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.chart?.cols" 
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+
+      <app-card title="Wyniki z ostatniej dekady">
+        <last-decade-results-chart></last-decade-results-chart>
+      </app-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.chart?.cols" 
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+
+      <app-card title="Aktualny rok">
+        <app-annual-results-chart></app-annual-results-chart>
+      </app-card>
+      
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
