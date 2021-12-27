@@ -27,7 +27,7 @@ export class AuthService {
 
   login(login: string, password: string): Observable<IAuthentication> {
     
-    return this.http.post<IAuthentication>(`${this.apiUrl}account/login`, { login, password })
+    return this.http.post<IAuthentication>(`${this.apiUrl}account/login`, { login, password }, { withCredentials: true })
       .pipe(map(result => {
         this.setSession(result);
         this.startRefreshTokenTimer();
