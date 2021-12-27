@@ -12,7 +12,7 @@
       <a mat-list-item routerLink="divisions">Oddziały</a>
       <a mat-list-item routerLink="subareas">Pododdziały</a>
       <a mat-list-item routerLink="login" *ngIf="!isAuthenticated">Zaloguj</a>
-      <a mat-list-item routerLink="logout" *ngIf="isAuthenticated">Wyloguj</a>
+      <a mat-list-item *ngIf="isAuthenticated" (click)="logout()">Wyloguj</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

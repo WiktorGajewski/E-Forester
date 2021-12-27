@@ -25,4 +25,8 @@ export class NavComponent{
         this.isAuthenticated = auth != null ? true : false;
       });
   }
+
+  logout() : void {
+    this.authService.logout();
+  }
 }
