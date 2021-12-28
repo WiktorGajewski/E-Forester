@@ -9,22 +9,22 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort> 
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> # </th>
-            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.Id}} </td>
+            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.id}} </td>
           </ng-container>
     
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Nazwa </th>
-            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.Address}} </td>
+            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.name}} </td>
           </ng-container>
         
           <ng-container matColumnDef="address">
-            <th mat-header-cell *matHeaderCellDef> Adres </th>
-            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.Address}} </td>
+            <th mat-header-cell *matHeaderCellDef> Adres leśny </th>
+            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.address}} </td>
           </ng-container>
         
           <ng-container matColumnDef="area">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Obszar </th>
-            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.Area}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Obszar (ha) </th>
+            <td mat-cell *matCellDef="let forestUnit"> {{forestUnit.area}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
