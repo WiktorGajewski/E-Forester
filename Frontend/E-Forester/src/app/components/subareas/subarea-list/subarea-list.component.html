@@ -1,6 +1,6 @@
 <div class="container">
   <h1 style="margin-bottom: 10px;">
-    Pododdziały
+    Wydzielenia
     <mat-divider></mat-divider>
   </h1>
 
@@ -8,17 +8,17 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" matSort> 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> # </th>
-        <td mat-cell *matCellDef="let subarea"> {{subarea.Id}} </td>
+        <td mat-cell *matCellDef="let subarea"> {{subarea.id}} </td>
       </ng-container>
     
       <ng-container matColumnDef="address">
         <th mat-header-cell *matHeaderCellDef> Adres </th>
-        <td mat-cell *matCellDef="let subarea"> {{subarea.Address}} </td>
+        <td mat-cell *matCellDef="let subarea"> {{subarea.address}} </td>
       </ng-container>
     
       <ng-container matColumnDef="area">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Obszar </th>
-        <td mat-cell *matCellDef="let subarea"> {{subarea.Area}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Obszar (ha) </th>
+        <td mat-cell *matCellDef="let subarea"> {{subarea.area}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

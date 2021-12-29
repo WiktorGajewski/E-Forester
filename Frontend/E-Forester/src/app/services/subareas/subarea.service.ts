@@ -22,7 +22,7 @@ export class SubareaService {
    }
 
   createSubarea(address : string, area : number, divisionId : number) : Observable<Object> {
-    return this.http.post(`${this.apiUrl}plans`, { address, area, divisionId });
+    return this.http.post(`${this.apiUrl}subareas`, { address, area, divisionId });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

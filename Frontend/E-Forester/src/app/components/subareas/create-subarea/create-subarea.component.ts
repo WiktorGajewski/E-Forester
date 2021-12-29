@@ -27,7 +27,7 @@ export class CreateSubareaComponent implements OnInit {
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.subareaService.createSubarea(val.name, val.address, val.divisionId)
+    this.subareaService.createSubarea(val.address, val.area, val.divisionId)
       .subscribe({
         complete : () => {
           this.loading = false;
