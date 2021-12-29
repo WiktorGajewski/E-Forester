@@ -1,16 +1,16 @@
 export interface IPlanItem {
-    Id: number,
-    IsCompleted: boolean,
-    Quantity: number,
-    MeasureUnit: string,
-    Assortments: WoodAssortment,
-    ActionGroup: ActionGroup,
-    DifficultyLevel: number,
-    Factor: number
-    CreatedAt: Date,
-    PlanId: number,
-    SubareaId: number,
-    CreatorId: number
+    id: number,
+    isCompleted: boolean,
+    quantity: number,
+    measureUnit: string,
+    assortments: WoodAssortment,
+    actionGroup: ActionGroup,
+    difficultyLevel: number,
+    factor: number
+    createdAt: Date,
+    planId: number,
+    subareaId: number,
+    creatorId: number
 }
 
 export enum WoodAssortment {

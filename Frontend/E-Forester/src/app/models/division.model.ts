@@ -1,6 +1,6 @@
 export interface IDivision {
-    Id: number,
-    Address: string,
-    Area: number,
-    ForestUnitId: number
+    id: number,
+    address: string,
+    area: number,
+    forestUnitId: number
 }

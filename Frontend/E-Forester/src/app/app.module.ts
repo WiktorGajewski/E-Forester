@@ -48,6 +48,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CardComponent } from './components/dashboard/card/card.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const material = [
   MatToolbarModule,
@@ -64,6 +65,7 @@ const material = [
   MatSortModule,
   MatDialogModule,
   MatGridListModule,
+  MatSelectModule
 ]
 
 @NgModule({
@@ -88,7 +90,7 @@ const material = [
     DashboardComponent,
     CardComponent,
     AnnualResultsChartComponent,
-    LastDecadeResultsChartComponent
+    LastDecadeResultsChartComponent,
   ],
   imports: [
     material,

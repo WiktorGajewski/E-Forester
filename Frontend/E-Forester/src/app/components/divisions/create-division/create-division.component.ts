@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { IForestUnit } from 'src/app/models/forest-unit.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
+import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 
 @Component({
   selector: 'app-create-division',
@@ -14,7 +16,11 @@ export class CreateDivisionComponent implements OnInit {
   loading = false;
   errorMessage = false;
 
-  constructor(private divisionService : DivisionService, private dialogRef: MatDialogRef<CreateDivisionComponent>) { }
+  forestUnits: IForestUnit[] = [];
+
+  constructor(private divisionService : DivisionService,
+      private forestUnitService : ForestUnitService,
+      private dialogRef: MatDialogRef<CreateDivisionComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
@@ -22,6 +28,13 @@ export class CreateDivisionComponent implements OnInit {
       area: new FormControl(null, Validators.required),
       forestUnitId: new FormControl(null, Validators.required)
     });
+
+    this.forestUnitService.getForestUnits()
+            .subscribe({
+                next: (value: IForestUnit[]) => {
+                    this.forestUnits = value;
+                }
+            });
   }
 
   submit(): void {

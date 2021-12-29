@@ -1,7 +1,7 @@
 export interface IPlan {
-    Id: number,
-    Year: number,
-    CreatedAt: Date,
-    ForestUnitId: number,
-    CreatorId: number
+    id: number,
+    year: number,
+    createdAt: Date,
+    forestUnitId: number,
+    creatorId: number
 }

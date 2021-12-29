@@ -1,6 +1,6 @@
 export interface IForestUnit {
-    Id: number,
-    Name: string,
-    Address: string,
-    Area: number
+    id: number,
+    name: string,
+    address: string,
+    area: number
 }

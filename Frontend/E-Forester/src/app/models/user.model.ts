@@ -1,7 +1,7 @@
 export interface IUser {
-    Id: number,
-    Name: string,
-    RegistrationDate: Date,
-    UserRole: string,
-    IsActive: boolean
+    id: number,
+    name: string,
+    registrationDate: Date,
+    userRole: string,
+    isActive: boolean
 }

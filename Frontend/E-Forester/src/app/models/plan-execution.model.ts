@@ -1,8 +1,8 @@
 export interface IPlanExecution {
-    Id: number,
-    Quantity: number,
-    CreatedAt: Date,
-    PlanItemId: number,
-    PlanId: number,
-    CreatorId: number
+    id: number,
+    quantity: number,
+    createdAt: Date,
+    planItemId: number,
+    planId: number,
+    creatorId: number
 }
