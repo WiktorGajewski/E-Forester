@@ -27,7 +27,7 @@ export class CreateDivisionComponent implements OnInit {
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.divisionService.createDivision(val.name, val.address, val.forestUnitId)
+    this.divisionService.createDivision(val.address, val.area, val.forestUnitId)
       .subscribe({
         complete : () => {
           this.loading = false;
