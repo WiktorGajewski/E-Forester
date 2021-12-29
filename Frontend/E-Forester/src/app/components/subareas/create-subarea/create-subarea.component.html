@@ -8,17 +8,7 @@
         </mat-error>
 
         <mat-dialog-content>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Adres leśny</mat-label>
-                <input matInput formControlName="address" id="address" type="text" class="form-control" required>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-                <mat-label>Obszar (ha)</mat-label>
-                <input matInput formControlName="area" id="area" type="number" class="form-control" required>
-            </mat-form-field>
-
+            
             <mat-form-field appearance="fill">
                 <mat-label>Leśnictwo</mat-label>
                 <mat-select  matInput formControlName="forestUnitId" id="forestUnitId" 
@@ -32,13 +22,23 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Oddział</mat-label>
-                <mat-select  matInput formControlName="divisionId" id="divisionId" 
-                        [disabled]="divisions.length == 0" type="number" class="form-control" required>
+                <mat-select  matInput formControlName="divisionId" id="divisionId"
+                        type="number" class="form-control" required>
 
-                    <mat-option *ngFor="let division of divisions" [value]="division.id">
+                    <mat-option *ngFor="let division of divisions" [value]="division.id" (onSelectionChange)="divisionSelected(division)">
                         Adres leśny: {{division.address}}
                     </mat-option>
                 </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Adres leśny</mat-label>
+                <input matInput formControlName="address" id="address" type="text" class="form-control" required>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Obszar (ha)</mat-label>
+                <input matInput formControlName="area" id="area" type="number" class="form-control" required>
             </mat-form-field>
 
         </mat-dialog-content>

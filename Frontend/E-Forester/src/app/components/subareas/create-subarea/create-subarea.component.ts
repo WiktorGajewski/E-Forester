@@ -24,14 +24,17 @@ export class CreateSubareaComponent implements OnInit {
   constructor(private subareaService: SubareaService,
     private divisionService: DivisionService,
     private forestUnitService: ForestUnitService,
-    private dialogRef: MatDialogRef<CreateSubareaComponent>) { }
+    private dialogRef: MatDialogRef<CreateSubareaComponent>) {}
 
   ngOnInit(): void {
     this.Form= new FormGroup({
       address: new FormControl("", Validators.required),
       area: new FormControl(null, Validators.required),
-      divisionId: new FormControl(null, Validators.required)
+      forestUnitId: new FormControl(null, Validators.required),
+      divisionId: new FormControl({value: null, disabled: true}, Validators.required)
     });
+
+    this.Form.controls['divisionId'].disable()
 
     this.forestUnitService.getForestUnits()
             .subscribe({
@@ -46,8 +49,15 @@ export class CreateSubareaComponent implements OnInit {
             .subscribe({
                 next: (value: IDivision[]) => {
                     this.divisions = value;
+                    this.Form.controls['divisionId'].enable()
                 }
             });
+  }
+
+  divisionSelected(division: IDivision) {
+    if(this.Form.controls['address'].untouched) {
+      this.Form.controls['address'].setValue(division.address);
+    }
   }
 
   submit(): void {
