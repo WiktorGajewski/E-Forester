@@ -14,7 +14,7 @@ export class DivisionService {
 
   }
 
-  getDivisions(): Observable<IDivision[]> {
+  getDivisions(forestUnitId: number | undefined): Observable<IDivision[]> {
     return this.http.get<IDivision[]>(`${this.apiUrl}divisions`)
     .pipe(
       catchError(this.handleError<IDivision[]>('getDivisions', []))

@@ -27,7 +27,7 @@ export class DivisionsDataSource implements DataSource<IDivision> {
 
         this.loadingSubject.next(true);
 
-        this.divisionService.getDivisions()
+        this.divisionService.getDivisions(undefined)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IDivision[]) => {
