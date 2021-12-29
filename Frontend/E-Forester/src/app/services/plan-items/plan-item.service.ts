@@ -14,7 +14,7 @@ export class PlanItemService {
 
    }
 
-  getPlanItems(): Observable<IPlanItem[]> {
+  getPlanItems(subareaId: number | undefined): Observable<IPlanItem[]> {
      return this.http.get<IPlanItem[]>(`${this.apiUrl}plan-items`)
       .pipe(
         catchError(this.handleError<IPlanItem[]>('getPlanItems', []))

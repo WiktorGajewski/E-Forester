@@ -34,7 +34,7 @@ export class CreateSubareaComponent implements OnInit {
       divisionId: new FormControl({value: null, disabled: true}, Validators.required)
     });
 
-    this.Form.controls['divisionId'].disable()
+    this.Form.controls['divisionId'].disable();
 
     this.forestUnitService.getForestUnits()
             .subscribe({
@@ -55,7 +55,7 @@ export class CreateSubareaComponent implements OnInit {
   }
 
   divisionSelected(division: IDivision) {
-    if(this.Form.controls['address'].untouched) {
+    if(this.Form.controls['address'].untouched || this.Form.controls['address'].value == "") {
       this.Form.controls['address'].setValue(division.address);
     }
   }

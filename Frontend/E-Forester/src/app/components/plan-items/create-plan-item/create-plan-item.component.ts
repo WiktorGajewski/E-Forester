@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { IDivision } from 'src/app/models/division.model';
+import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { IPlan } from 'src/app/models/plan.model';
+import { ISubarea } from 'src/app/models/subarea.model';
+import { DivisionService } from 'src/app/services/divisions/division.service';
+import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
+import { PlanService } from 'src/app/services/plans/plan.service';
+import { SubareaService } from 'src/app/services/subareas/subarea.service';
 
 @Component({
   selector: 'app-create-plan-item',
@@ -14,7 +22,17 @@ export class CreatePlanItemComponent implements OnInit {
   loading = false;
   errorMessage = false;
 
-  constructor(private planItemService : PlanItemService, private dialogRef: MatDialogRef<CreatePlanItemComponent>) { }
+  forestUnits: IForestUnit[] = [];
+  divisions: IDivision[] = [];
+  subareas: ISubarea[] = [];
+  plans: IPlan[] = [];
+
+  constructor(private planItemService : PlanItemService,
+    private planService: PlanService,
+    private subareaService: SubareaService,
+    private divisionService: DivisionService,
+    private forestUnitService: ForestUnitService,
+    private dialogRef: MatDialogRef<CreatePlanItemComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
@@ -24,9 +42,51 @@ export class CreatePlanItemComponent implements OnInit {
       actionGroup: new FormControl(null, Validators.required),
       difficultyLevel: new FormControl(null, Validators.required),
       factor: new FormControl(null, Validators.required),
-      planId: new FormControl(null, Validators.required),
-      subareaId: new FormControl(null, Validators.required)
+      planId: new FormControl({value: null, disabled: true}, Validators.required),
+      forestUnitId: new FormControl(null, Validators.required),
+      divisionId: new FormControl({value: null, disabled: true}, Validators.required),
+      subareaId: new FormControl({value: null, disabled: true}, Validators.required)
     });
+
+    this.Form.controls['divisionId'].disable();
+    this.Form.controls['subareaId'].disable();
+    this.Form.controls['planId'].disable();
+
+
+    this.forestUnitService.getForestUnits()
+            .subscribe({
+                next: (value: IForestUnit[]) => {
+                    this.forestUnits = value;
+                }
+            });
+  }
+  
+  forestUnitSelected(forestUnitId: number) {
+    this.divisionService.getDivisions(forestUnitId)
+            .subscribe({
+                next: (value: IDivision[]) => {
+                    this.divisions = value;
+                    this.Form.controls['divisionId'].enable()
+                }
+            });
+    
+    this.planService.getPlans(forestUnitId)
+    .subscribe({
+        next: (value: IPlan[]) => {
+            this.plans = value;
+            this.Form.controls['planId'].enable()
+        }
+    });
+  }
+
+  divisionSelected(divisionId: number) {
+    this.subareaService.getSubareas(divisionId)
+            .subscribe({
+                next: (value: ISubarea[]) => {
+                    this.subareas = value;
+                    this.Form.controls['subareaId'].enable()
+                }
+            });
   }
 
   submit(): void {

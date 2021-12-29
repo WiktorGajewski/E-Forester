@@ -9,6 +9,50 @@
 
         <mat-dialog-content>
             <mat-form-field appearance="fill">
+                <mat-label>Leśnictwo</mat-label>
+                <mat-select  matInput formControlName="forestUnitId" id="forestUnitId" 
+                    (selectionChange)="forestUnitSelected($event.value)" type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id">
+                        Leśnictwo {{forestUnit.name}}, Adres leśny: {{forestUnit.address}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Oddział</mat-label>
+                <mat-select  matInput formControlName="divisionId" id="divisionId"
+                    (selectionChange)="divisionSelected($event.value)" type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let division of divisions" [value]="division.id">
+                        Adres leśny: {{division.address}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Wydzielenie</mat-label>
+                <mat-select  matInput formControlName="subareaId" id="subareaId"
+                        type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let subarea of subareas" [value]="subarea.id">
+                        Adres leśny: {{subarea.address}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Plan</mat-label>
+                <mat-select  matInput formControlName="planId" id="planId"
+                        type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let plan of plans" [value]="plan.id">
+                        Rok: {{plan.year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>Ilość</mat-label>
                 <input matInput formControlName="quantity" id="quantity" type="number" class="form-control" required>
             </mat-form-field>
@@ -37,16 +81,7 @@
                 <mat-label>Współczynnik</mat-label>
                 <input matInput formControlName="factor" id="factor" type="number" class="form-control" required>
             </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Id planu</mat-label>
-                <input matInput formControlName="planId" id="planId" type="number" class="form-control" required>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Id wydzielenia</mat-label>
-                <input matInput formControlName="subareaId" id="subareaId" type="number" class="form-control" required>
-            </mat-form-field>
+            
         </mat-dialog-content>
 
         <mat-dialog-actions>

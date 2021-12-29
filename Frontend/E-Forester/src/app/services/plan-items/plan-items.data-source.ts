@@ -27,7 +27,7 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
 
         this.loadingSubject.next(true);
 
-        this.planItemService.getPlanItems()
+        this.planItemService.getPlanItems(undefined)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPlanItem[]) => {

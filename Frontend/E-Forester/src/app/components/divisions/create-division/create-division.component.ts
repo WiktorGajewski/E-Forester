@@ -38,7 +38,7 @@ export class CreateDivisionComponent implements OnInit {
   }
 
   forestUnitSelected(forestUnit: IForestUnit) {
-    if(this.Form.controls['address'].untouched) {
+    if(this.Form.controls['address'].untouched  || this.Form.controls['address'].value == "") {
       this.Form.controls['address'].setValue(forestUnit.address);
     }
   }

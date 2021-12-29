@@ -8,15 +8,22 @@
         </mat-error>
 
         <mat-dialog-content>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Leśnictwo</mat-label>
+                <mat-select  matInput formControlName="forestUnitId" id="forestUnitId" type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id">
+                        Leśnictwo {{forestUnit.name}}, Adres leśny: {{forestUnit.address}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
             <mat-form-field appearance="fill">
                 <mat-label>Rok</mat-label>
                 <input matInput formControlName="year" id="year" type="number" class="form-control" required>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Id leśnictwa</mat-label>
-                <input matInput formControlName="forestUnitId" id="forestUnitId" type="number" class="form-control" required>
-            </mat-form-field>
         </mat-dialog-content>
 
         

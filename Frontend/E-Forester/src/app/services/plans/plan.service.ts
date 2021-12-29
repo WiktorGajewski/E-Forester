@@ -14,7 +14,7 @@ export class PlanService {
 
    }
 
-  getPlans(): Observable<IPlan[]> {
+  getPlans(forestUnitId: number | undefined): Observable<IPlan[]> {
       return this.http.get<IPlan[]>(`${this.apiUrl}plans`)
       .pipe(
         catchError(this.handleError<IPlan[]>('getPlans', []))

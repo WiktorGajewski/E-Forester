@@ -14,7 +14,7 @@ export class SubareaService {
 
    }
 
-  getSubareas(): Observable<ISubarea[]> {
+  getSubareas(divisionId: number | undefined): Observable<ISubarea[]> {
      return this.http.get<ISubarea[]>(`${this.apiUrl}subareas`)
       .pipe(
         catchError(this.handleError<ISubarea[]>('getSubareas', []))

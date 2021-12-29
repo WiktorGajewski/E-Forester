@@ -27,7 +27,7 @@ export class SubareasDataSource implements DataSource<ISubarea> {
 
         this.loadingSubject.next(true);
 
-        this.subareaService.getSubareas()
+        this.subareaService.getSubareas(undefined)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: ISubarea[]) => {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { PlanService } from 'src/app/services/plans/plan.service';
 
 @Component({
@@ -14,13 +16,24 @@ export class CreatePlanComponent implements OnInit {
   loading = false;
   errorMessage = false;
 
-  constructor(private planService : PlanService, private dialogRef: MatDialogRef<CreatePlanComponent>) { }
+  forestUnits: IForestUnit[] = [];
+
+  constructor(private planService : PlanService,
+    private forestUnitService: ForestUnitService,
+    private dialogRef: MatDialogRef<CreatePlanComponent>) { }
 
   ngOnInit(): void {
     this.Form= new FormGroup({
       year: new FormControl(null, Validators.required),
       forestUnitId: new FormControl(null, Validators.required)
     });
+
+    this.forestUnitService.getForestUnits()
+            .subscribe({
+                next: (value: IForestUnit[]) => {
+                    this.forestUnits = value;
+                }
+            });
   }
 
   submit(): void {
