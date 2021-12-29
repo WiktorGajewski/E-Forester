@@ -8,42 +8,42 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> # </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.Id}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.id}} </td>
           </ng-container>
         
           <ng-container matColumnDef="isCompleted">
             <th mat-header-cell *matHeaderCellDef> Ukończone </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.IsCompleted}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.isCompleted}} </td>
           </ng-container>
         
           <ng-container matColumnDef="quantity">
             <th mat-header-cell *matHeaderCellDef> Ilość </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.Quantity}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.quantity}} </td>
           </ng-container>
     
           <ng-container matColumnDef="measureUnit">
             <th mat-header-cell *matHeaderCellDef> Jednostka pomiaru </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.MeasureUnit}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.measureUnit}} </td>
           </ng-container>
     
           <ng-container matColumnDef="woodAssortment">
             <th mat-header-cell *matHeaderCellDef> Asortymenty </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.Assortments}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.assortments}} </td>
           </ng-container>
     
           <ng-container matColumnDef="actionGroup">
             <th mat-header-cell *matHeaderCellDef> Grupa Czynności </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.ActionGroup}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.actionGroup}} </td>
           </ng-container>
     
           <ng-container matColumnDef="difficultyLevel">
             <th mat-header-cell *matHeaderCellDef> Poziom trudności </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.DifficultyLevel}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.difficultyLevel}} </td>
           </ng-container>
     
           <ng-container matColumnDef="factor">
             <th mat-header-cell *matHeaderCellDef> Współczynnik </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.Factor}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.factor}} </td>
           </ng-container>
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

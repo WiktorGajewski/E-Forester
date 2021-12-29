@@ -8,17 +8,17 @@
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef> # </th>
-              <td mat-cell *matCellDef="let planExecution"> {{planExecution.Id}} </td>
+              <td mat-cell *matCellDef="let planExecution"> {{planExecution.id}} </td>
             </ng-container>
           
             <ng-container matColumnDef="quantity">
               <th mat-header-cell *matHeaderCellDef> Ilość </th>
-              <td mat-cell *matCellDef="let planExecution"> {{planExecution.Quantity}} </td>
+              <td mat-cell *matCellDef="let planExecution"> {{planExecution.quantity}} </td>
             </ng-container>
           
             <ng-container matColumnDef="planItemId">
               <th mat-header-cell *matHeaderCellDef> Id Pozycji planu </th>
-              <td mat-cell *matCellDef="let planExecution"> {{planExecution.PlanItemId}} </td>
+              <td mat-cell *matCellDef="let planExecution"> {{planExecution.planItemId}} </td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
