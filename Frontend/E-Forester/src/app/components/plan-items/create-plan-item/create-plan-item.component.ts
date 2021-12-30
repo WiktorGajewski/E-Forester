@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IDivision } from 'src/app/models/division.model';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { IPage } from 'src/app/models/page.model';
 import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
 import { IPlan } from 'src/app/models/plan.model';
 import { ISubarea } from 'src/app/models/subarea.model';
@@ -68,10 +69,10 @@ export class CreatePlanItemComponent implements OnInit {
   }
   
   forestUnitSelected(forestUnitId: number) {
-    this.divisionService.getDivisions(forestUnitId)
+    this.divisionService.getDivisions(forestUnitId, undefined, undefined)
             .subscribe({
-                next: (value: IDivision[]) => {
-                    this.divisions = value;
+                next: (value: IPage<IDivision>) => {
+                    this.divisions = value.data;
                     this.Form.controls['divisionId'].enable()
                 }
             });

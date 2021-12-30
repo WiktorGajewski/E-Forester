@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { IDivision } from 'src/app/models/division.model';
+import { IPage } from 'src/app/models/page.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,11 +15,31 @@ export class DivisionService {
 
   }
 
-  getDivisions(forestUnitId: number | undefined): Observable<IDivision[]> {
-    return this.http.get<IDivision[]>(`${this.apiUrl}divisions`)
-    .pipe(
-      catchError(this.handleError<IDivision[]>('getDivisions', []))
-    );
+  getDivisions(forestUnitId: number | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<IPage<IDivision>> {
+    
+    let params = new HttpParams();
+    
+    if(pageIndex && pageSize) {
+      params
+        .append("PageIndex", pageIndex)
+        .append("PageSize", pageSize);
+    }
+
+    return this.http.get<IPage<IDivision>>(`${this.apiUrl}divisions`, {params})
+      .pipe(
+        catchError(this.handleError<IPage<IDivision>>('getDivisions', this.createBlankPage()))
+      );
+  }
+
+  createBlankPage() : IPage<IDivision> {
+    const blankPage : IPage<IDivision> = {
+      pageIndex: 0,
+      pageSize: 0,
+      totalCount: 0,
+      data: []
+    }
+
+    return blankPage;
   }
 
   createDivision(address : string, area : number, forestUnitId: number) : Observable<Object> {

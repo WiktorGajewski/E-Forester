@@ -14,9 +14,9 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDivisions()
+        public async Task<IActionResult> GetDivisions([FromQuery] GetDivisionsQuery query)
         {
-            var result = await _mediator.Send(new GetDivisionsQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 

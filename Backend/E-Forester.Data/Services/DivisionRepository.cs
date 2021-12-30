@@ -1,8 +1,7 @@
 ﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Services
@@ -16,9 +15,9 @@ namespace E_Forester.Data.Services
             _context = context;
         }
 
-        public async Task<ICollection<Division>> GetDivisionsAsync()
+        public IQueryable<Division> GetDivisions()
         {
-            return await _context.Divisions.ToListAsync();
+            return _context.Divisions.AsQueryable();
         }
 
         public async Task CreateDivisionAsync(Division newDivision)

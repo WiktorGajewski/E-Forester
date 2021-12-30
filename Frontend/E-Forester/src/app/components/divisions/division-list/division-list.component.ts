@@ -37,7 +37,7 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
 
   loadPage() : void {
     this.dataSource.loadDivisions(
-      "",
+      undefined,
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize

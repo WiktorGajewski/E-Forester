@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IDivision } from 'src/app/models/division.model';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { IPage } from 'src/app/models/page.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
@@ -45,10 +46,10 @@ export class CreateSubareaComponent implements OnInit {
   }
 
   forestUnitSelected(forestUnitId: number) {
-    this.divisionService.getDivisions(forestUnitId)
+    this.divisionService.getDivisions(forestUnitId, undefined, undefined)
             .subscribe({
-                next: (value: IDivision[]) => {
-                    this.divisions = value;
+                next: (value: IPage<IDivision>) => {
+                    this.divisions = value.data;
                     this.Form.controls['divisionId'].enable()
                 }
             });

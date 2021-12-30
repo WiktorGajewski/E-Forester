@@ -44,7 +44,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table'
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntlPl } from './localization/pl/mat-paginator-intl.pl';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -122,6 +123,10 @@ const material = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
+    },
+    {
+      provide: MatPaginatorIntl,
+      useClass: MatPaginatorIntlPl
     }
   ],
   bootstrap: [AppComponent]
