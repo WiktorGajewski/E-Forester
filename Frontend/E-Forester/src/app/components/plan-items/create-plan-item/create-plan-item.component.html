@@ -59,17 +59,35 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Jednostka miary</mat-label>
-                <input matInput formControlName="measureUnit" id="measureUnit" type="text" class="form-control" required>
+                <mat-select matInput formControlName="measureUnit" id="measureUnit" 
+                        type="text" class="form-control" required>
+
+                  <mat-option value="hektary (ha)">hektary (ha)</mat-option>
+                  <mat-option value="m^3">m<sup>3</sup></mat-option>
+                  <mat-option value="1000 Szt">1000 Szt</mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Asortymenty</mat-label>
-                <input matInput formControlName="assortments" id="assortments" type="number" class="form-control" required>
+                <mat-select  matInput formControlName="assortments" id="assortments" 
+                        type="number" class="form-control" required multiple>
+
+                    <mat-option *ngFor="let assortment of assortments | enumToArray" [value]="assortment.index">
+                        {{assortment.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
                 <mat-label>Grupa akcji</mat-label>
-                <input matInput formControlName="actionGroup" id="actionGroup" type="number" class="form-control" required>
+                <mat-select  matInput formControlName="actionGroup" id="actionGroup" 
+                        type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let actionGroup of actionGroups | enumToArray" [value]="actionGroup.index">
+                        {{actionGroup.name}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

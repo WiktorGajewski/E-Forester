@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IDivision } from 'src/app/models/division.model';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
 import { IPlan } from 'src/app/models/plan.model';
 import { ISubarea } from 'src/app/models/subarea.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
@@ -26,6 +27,11 @@ export class CreatePlanItemComponent implements OnInit {
   divisions: IDivision[] = [];
   subareas: ISubarea[] = [];
   plans: IPlan[] = [];
+
+  selected = -1;
+
+  actionGroups = ActionGroup;
+  assortments = WoodAssortment;
 
   constructor(private planItemService : PlanItemService,
     private planService: PlanService,
@@ -91,8 +97,15 @@ export class CreatePlanItemComponent implements OnInit {
 
   submit(): void {
     const val = this.Form.value;
+    let assortments = 0;
+
+    if(val.assortments) {
+      const selectedAssortmentsArray : [] = val.assortments;
+      assortments = selectedAssortmentsArray.reduce((a, b) => a + b, 0);
+    }
+
     this.loading = true;
-    this.planItemService.createPlanItem(val.quantity, val.measureUnit, val.assortments, val.actionGroup,
+    this.planItemService.createPlanItem(val.quantity, val.measureUnit, assortments, val.actionGroup,
       val.difficultyLevel, val.factor, val.planId, val.subareaId)
       .subscribe({
         complete : () => {

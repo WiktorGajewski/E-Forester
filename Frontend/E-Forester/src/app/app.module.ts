@@ -32,6 +32,7 @@ import { CockpitComponent } from './components/cockpit/cockpit.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
 import { LastDecadeResultsChartComponent } from './components/dashboard/charts/last-decade-results-chart/last-decade-results-chart.component';
+import { EnumToArrayPipe } from './helpers/enum-to-array.pipe';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -49,6 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const material = [
   MatToolbarModule,
@@ -65,7 +67,8 @@ const material = [
   MatSortModule,
   MatDialogModule,
   MatGridListModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCheckboxModule
 ]
 
 @NgModule({
@@ -91,6 +94,7 @@ const material = [
     CardComponent,
     AnnualResultsChartComponent,
     LastDecadeResultsChartComponent,
+    EnumToArrayPipe
   ],
   imports: [
     material,

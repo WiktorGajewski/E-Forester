@@ -14,7 +14,6 @@ export interface IPlanItem {
 }
 
 export enum WoodAssortment {
-    None = 0,       //0
     W = 1 << 0,     //1
     S = 1 << 1,     //2
     M = 1 << 2      //4
