@@ -37,10 +37,10 @@ export class CreateSubareaComponent implements OnInit {
 
     this.Form.controls['divisionId'].disable();
 
-    this.forestUnitService.getForestUnits()
+    this.forestUnitService.getForestUnits(undefined, undefined)
             .subscribe({
-                next: (value: IForestUnit[]) => {
-                    this.forestUnits = value;
+                next: (value: IPage<IForestUnit>) => {
+                    this.forestUnits = value.data;
                 }
             });
   }

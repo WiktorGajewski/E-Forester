@@ -1,14 +1,17 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, finalize, Observable } from "rxjs";
 import { IForestUnit } from "src/app/models/forest-unit.model";
+import { IPage } from "src/app/models/page.model";
 import { ForestUnitService } from "./forest-unit.service";
 
 export class ForestUnitsDataSource implements DataSource<IForestUnit> {
 
     private forestUnitsSubject = new BehaviorSubject<IForestUnit[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(false);
+    private totalCountSubject = new BehaviorSubject<number>(0);
 
     public loading = this.loadingSubject.asObservable();
+    public totalCount = this.totalCountSubject.asObservable();
 
     constructor(private forestUnitService : ForestUnitService) {
 
@@ -21,17 +24,19 @@ export class ForestUnitsDataSource implements DataSource<IForestUnit> {
     disconnect(collectionViewer: CollectionViewer): void {
         this.forestUnitsSubject.complete();
         this.loadingSubject.complete();
+        this.totalCountSubject.complete();
     }
 
-    loadForestUnits(filter = "", sortDirection = "", pageIndex = 0, pageSize = 10) : void {
+    loadForestUnits(sortDirection = "", pageIndex = 0, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.forestUnitService.getForestUnits()
+        this.forestUnitService.getForestUnits(pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
-                next: (value: IForestUnit[]) => {
-                    this.forestUnitsSubject.next(value);
+                next: (value: IPage<IForestUnit>) => {
+                    this.forestUnitsSubject.next(value.data);
+                    this.totalCountSubject.next(value.totalCount);
                 }
             });
     }

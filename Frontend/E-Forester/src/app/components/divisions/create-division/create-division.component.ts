@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
+import { IPage } from 'src/app/models/page.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 
@@ -29,10 +30,10 @@ export class CreateDivisionComponent implements OnInit {
       forestUnitId: new FormControl(null, Validators.required)
     });
 
-    this.forestUnitService.getForestUnits()
+    this.forestUnitService.getForestUnits(undefined, undefined)
             .subscribe({
-                next: (value: IForestUnit[]) => {
-                    this.forestUnits = value;
+                next: (value: IPage<IForestUnit>) => {
+                    this.forestUnits = value.data;
                 }
             });
   }

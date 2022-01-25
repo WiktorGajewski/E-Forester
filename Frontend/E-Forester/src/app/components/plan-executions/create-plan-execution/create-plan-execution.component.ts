@@ -54,10 +54,10 @@ export class CreatePlanExecutionComponent implements OnInit {
     this.Form.controls['planId'].disable();
     this.Form.controls['planItemId'].disable();
 
-    this.forestUnitService.getForestUnits()
+    this.forestUnitService.getForestUnits(undefined, undefined)
             .subscribe({
-                next: (value: IForestUnit[]) => {
-                    this.forestUnits = value;
+                next: (value: IPage<IForestUnit>) => {
+                    this.forestUnits = value.data;
                 }
             });
   }

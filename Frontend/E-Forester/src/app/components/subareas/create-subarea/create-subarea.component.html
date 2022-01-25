@@ -23,9 +23,9 @@
             <mat-form-field appearance="fill">
                 <mat-label>Oddział</mat-label>
                 <mat-select  matInput formControlName="divisionId" id="divisionId"
-                        type="number" class="form-control" required>
+                     type="number" class="form-control" required>
 
-                    <mat-option *ngFor="let division of divisions" [value]="division.id" (onSelectionChange)="divisionSelected(division)">
+                    <mat-option *ngFor="let division of divisions" [value]="division" (onSelectionChange)="divisionSelected(division)">
                         Adres leśny: {{division.address}}
                     </mat-option>
                 </mat-select>
