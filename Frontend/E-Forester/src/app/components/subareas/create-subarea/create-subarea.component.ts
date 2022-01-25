@@ -32,10 +32,10 @@ export class CreateSubareaComponent implements OnInit {
       address: new FormControl("", Validators.required),
       area: new FormControl(null, Validators.required),
       forestUnitId: new FormControl(null, Validators.required),
-      divisionId: new FormControl({value: null, disabled: true}, Validators.required)
+      division: new FormControl({value: null, disabled: true}, Validators.required)
     });
 
-    this.Form.controls['divisionId'].disable();
+    this.Form.controls['division'].disable();
 
     this.forestUnitService.getForestUnits(undefined, undefined)
             .subscribe({
@@ -50,7 +50,7 @@ export class CreateSubareaComponent implements OnInit {
             .subscribe({
                 next: (value: IPage<IDivision>) => {
                     this.divisions = value.data;
-                    this.Form.controls['divisionId'].enable()
+                    this.Form.controls['division'].enable()
                 }
             });
   }
@@ -64,7 +64,7 @@ export class CreateSubareaComponent implements OnInit {
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.subareaService.createSubarea(val.address, val.area, val.divisionId)
+    this.subareaService.createSubarea(val.address, val.area, val.division.id)
       .subscribe({
         complete : () => {
           this.loading = false;

@@ -11,8 +11,10 @@
 
             <mat-form-field appearance="fill">
                 <mat-label>Leśnictwo</mat-label>
-                <mat-select  matInput formControlName="forestUnitId" id="forestUnitId" type="number" class="form-control" required>
-                  <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id" (onSelectionChange)="forestUnitSelected(forestUnit)">
+                <mat-select  matInput formControlName="forestUnit" id="forestUnit" type="number" 
+                (selectionChange)="forestUnitSelected($event.value)" class="form-control" required>
+
+                  <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit">
                     Leśnictwo {{forestUnit.name}}, Adres leśny: {{forestUnit.address}}
                   </mat-option>
                 </mat-select>

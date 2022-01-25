@@ -27,7 +27,7 @@ export class CreateDivisionComponent implements OnInit {
     this.Form= new FormGroup({
       address: new FormControl("", Validators.required),
       area: new FormControl(null, Validators.required),
-      forestUnitId: new FormControl(null, Validators.required)
+      forestUnit: new FormControl(null, Validators.required)
     });
 
     this.forestUnitService.getForestUnits(undefined, undefined)
@@ -47,7 +47,7 @@ export class CreateDivisionComponent implements OnInit {
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.divisionService.createDivision(val.address, val.area, val.forestUnitId)
+    this.divisionService.createDivision(val.address, val.area, val.forestUnit.id)
       .subscribe({
         complete : () => {
           this.loading = false;
