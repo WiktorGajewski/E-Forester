@@ -1,5 +1,5 @@
 ﻿using E_Forester.Model.Database;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Interfaces
@@ -7,7 +7,7 @@ namespace E_Forester.Data.Interfaces
     public interface IUserRepository
     {
         Task<bool> Authenticate(string login, string password);
-        Task<ICollection<User>> GetUsersAsync();
+        IQueryable<User> GetUsers();
         Task<User> GetUserAsync(int id);
         Task<User> GetUserAsync(string login);
         Task RegisterUserAsync(User newUser);

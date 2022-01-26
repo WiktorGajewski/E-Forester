@@ -5,6 +5,7 @@ using E_Forester.Application.DataTransferObjects.PlanExecutions;
 using E_Forester.Application.DataTransferObjects.PlanItems;
 using E_Forester.Application.DataTransferObjects.Plans;
 using E_Forester.Application.DataTransferObjects.Subareas;
+using E_Forester.Application.DataTransferObjects.Users;
 using E_Forester.Model.Database;
 
 namespace E_Forester.Application.AutoMapper
@@ -19,6 +20,7 @@ namespace E_Forester.Application.AutoMapper
             CreateMap<Subarea, SubareaDto>();
             CreateMap<PlanItem, PlanItemDto>();
             CreateMap<PlanExecution, PlanExecutionDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

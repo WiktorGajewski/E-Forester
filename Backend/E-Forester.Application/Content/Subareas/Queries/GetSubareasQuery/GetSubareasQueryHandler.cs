@@ -40,11 +40,11 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
                     .ToListAsync();
             }
 
-            var subareasDtos = _mapper.Map<ICollection<Subarea>, ICollection<SubareaDto>>(subareas);
+            var subareaDtos = _mapper.Map<ICollection<Subarea>, ICollection<SubareaDto>>(subareas);
 
             int total = subareasQuery.Count();
 
-            return new Page<SubareaDto>(subareasDtos, request.PageIndex, request.PageSize, total);
+            return new Page<SubareaDto>(subareaDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<Subarea>> SelectPage(IQueryable<Subarea> subareasQuery, int pageIndex, int pageSize)

@@ -1,12 +1,11 @@
-﻿using BC = BCrypt.Net.BCrypt;
-using E_Forester.Data.Database;
+﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Threading.Tasks;
 using System.Linq;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using BC = BCrypt.Net.BCrypt;
 
 namespace E_Forester.Data.Services
 {
@@ -32,9 +31,9 @@ namespace E_Forester.Data.Services
             return true;
         }
 
-        public async Task<ICollection<User>> GetUsersAsync()
+        public IQueryable<User> GetUsers()
         {
-            return await _context.AppUsers.ToListAsync();
+            return _context.AppUsers.AsQueryable();
         }
 
         public async Task<User> GetUserAsync(int id)

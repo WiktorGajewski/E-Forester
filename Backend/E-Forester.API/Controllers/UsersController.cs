@@ -13,9 +13,9 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery] GetUsersQuery query)
         {
-            var result = await _mediator.Send(new GetUsersQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }
