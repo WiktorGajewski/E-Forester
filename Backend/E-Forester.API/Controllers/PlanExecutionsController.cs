@@ -14,9 +14,9 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPlanExecutions()
+        public async Task<IActionResult> GetPlanExecutions([FromQuery] GetPlanExecutionsQuery query)
         {
-            var result = await _mediator.Send(new GetPlanExecutionsQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 

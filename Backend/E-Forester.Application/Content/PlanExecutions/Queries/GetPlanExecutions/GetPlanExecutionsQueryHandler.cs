@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.PlanExecutions;
+using E_Forester.Application.Pagination.Wrappers;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecutions
 {
-    public class GetPlanExecutionsQueryHandler : IRequestHandler<GetPlanExecutionsQuery, ICollection<PlanExecutionDto>>
+    public class GetPlanExecutionsQueryHandler : IRequestHandler<GetPlanExecutionsQuery, Page<ICollection<PlanExecutionDto>>>
     {
         private readonly IPlanExecutionRepository _planExecutionRepository;
         private readonly IMapper _mapper;
@@ -20,10 +23,37 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
             _mapper = mapper;
         }
 
-        public async Task<ICollection<PlanExecutionDto>> Handle(GetPlanExecutionsQuery request, CancellationToken cancellationToken)
+        public async Task<Page<ICollection<PlanExecutionDto>>> Handle(GetPlanExecutionsQuery request, CancellationToken cancellationToken)
         {
-            var planExecutions = await _planExecutionRepository.GetPlanExecutionsAsync();
-            return _mapper.Map<ICollection<PlanExecution>, ICollection<PlanExecutionDto>>(planExecutions);
+            var planExecutionsQuery = _planExecutionRepository.GetPlanExecutions();
+
+            var planExecutions = new List<PlanExecution>();
+
+            if (request.PageSize > 0 && request.PageIndex > 0)
+            {
+                planExecutions = await SelectPage(planExecutionsQuery, (int)request.PageIndex, (int)request.PageSize);
+            }
+            else
+            {
+                planExecutions = await planExecutionsQuery
+                    .OrderBy(d => d.Id)
+                    .ToListAsync();
+            }
+
+            var planExecutionsDtos = _mapper.Map<ICollection<PlanExecution>, ICollection<PlanExecutionDto>>(planExecutions);
+
+            int total = planExecutionsQuery.Count();
+
+            return new Page<ICollection<PlanExecutionDto>>(planExecutionsDtos, request.PageIndex, request.PageSize, total);
+        }
+
+        private async Task<List<PlanExecution>> SelectPage(IQueryable<PlanExecution> planExecutionsQuery, int pageIndex, int pageSize)
+        {
+            return await planExecutionsQuery
+                    .OrderBy(d => d.Id)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
         }
     }
 }

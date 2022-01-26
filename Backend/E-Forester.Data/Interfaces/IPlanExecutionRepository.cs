@@ -1,12 +1,12 @@
 ﻿using E_Forester.Model.Database;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Interfaces
 {
     public interface IPlanExecutionRepository
     {
-        Task<ICollection<PlanExecution>> GetPlanExecutionsAsync();
+        IQueryable<PlanExecution> GetPlanExecutions();
         Task CreatePlanExecutionAsync(PlanExecution newPlanExecution);
     }
 }

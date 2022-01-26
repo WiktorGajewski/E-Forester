@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { IPage } from 'src/app/models/page.model';
 import { IPlanExecution } from 'src/app/models/plan-execution.model';
 import { environment } from 'src/environments/environment';
 
@@ -12,14 +13,33 @@ export class PlanExecutionService {
 
   constructor(private http: HttpClient) {
 
-   }
+  }
 
-  getPlanExecutions(): Observable<IPlanExecution[]> {
-     return this.http.get<IPlanExecution[]>(`${this.apiUrl}plan-executions`)
+  getPlanExecutions(pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanExecution>> {
+
+    let params = new HttpParams();
+
+    if(pageIndex && pageSize) {
+      params
+        .append("PageIndex", pageIndex)
+        .append("PageSize", pageSize);
+    }
+
+    return this.http.get<IPage<IPlanExecution>>(`${this.apiUrl}plan-executions`, {params})
       .pipe(
-        catchError(this.handleError<IPlanExecution[]>('getPlanExecutions', []))
+        catchError(this.handleError<IPage<IPlanExecution>>('getPlanExecutions', this.createBlankPage()))
       );
-   }
+  }
+
+   createBlankPage() : IPage<IPlanExecution> {
+    const blankPage : IPage<IPlanExecution> = {
+      pageIndex: 0,
+      pageSize: 0,
+      totalCount: 0,
+      data: []
+    }
+    return blankPage;
+  }
 
   createPlanExecution(quantity : number, planItemId : number, planId: number) : Observable<Object> {
     return this.http.post(`${this.apiUrl}plan-executions`, { quantity, planItemId, planId });

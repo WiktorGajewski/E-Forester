@@ -1,5 +1,6 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, finalize, Observable } from "rxjs";
+import { IPage } from "src/app/models/page.model";
 import { IPlanExecution } from "src/app/models/plan-execution.model";
 import { PlanExecutionService } from "./plan-execution.service";
 
@@ -7,8 +8,10 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
 
     private planExecutionsSubject = new BehaviorSubject<IPlanExecution[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(false);
+    private totalCountSubject = new BehaviorSubject<number>(0);
 
     public loading = this.loadingSubject.asObservable();
+    public totalCount = this.totalCountSubject.asObservable();
 
     constructor(private planExecutionService : PlanExecutionService) {
 
@@ -23,15 +26,16 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
         this.loadingSubject.complete();
     }
 
-    loadPlanExecutions(filter = "", pageIndex = 0, pageSize = 10) : void {
+    loadPlanExecutions(pageIndex = 0, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.planExecutionService.getPlanExecutions()
+        this.planExecutionService.getPlanExecutions(pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
-                next: (value: IPlanExecution[]) => {
-                    this.planExecutionsSubject.next(value);
+                next: (value: IPage<IPlanExecution>) => {
+                    this.planExecutionsSubject.next(value.data);
+                    this.totalCountSubject.next(value.totalCount);
                 }
             });
     }
