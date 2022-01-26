@@ -31,7 +31,7 @@ export class PlanExecutionService {
       );
   }
 
-   createBlankPage() : IPage<IPlanExecution> {
+  createBlankPage() : IPage<IPlanExecution> {
     const blankPage : IPage<IPlanExecution> = {
       pageIndex: 0,
       pageSize: 0,

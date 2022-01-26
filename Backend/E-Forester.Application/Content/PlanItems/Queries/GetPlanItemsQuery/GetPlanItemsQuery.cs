@@ -1,11 +1,12 @@
 ﻿using E_Forester.Application.DataTransferObjects.PlanItems;
+using E_Forester.Application.Pagination.Wrappers;
 using MediatR;
-using System.Collections.Generic;
 
 namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 {
-    public class GetPlanItemsQuery : IRequest<ICollection<PlanItemDto>>
+    public class GetPlanItemsQuery : IRequest<Page<PlanItemDto>>
     {
-
+        public int? PageIndex { get; set; } = null;
+        public int? PageSize { get; set; } = null;
     }
 }

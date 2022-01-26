@@ -27,7 +27,7 @@ export class ForestUnitsDataSource implements DataSource<IForestUnit> {
         this.totalCountSubject.complete();
     }
 
-    loadForestUnits(sortDirection = "", pageIndex = 0, pageSize = 10) : void {
+    loadForestUnits(sortDirection = "", pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 

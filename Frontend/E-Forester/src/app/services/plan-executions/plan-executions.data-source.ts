@@ -24,9 +24,10 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
     disconnect(collectionViewer: CollectionViewer): void {
         this.planExecutionsSubject.complete();
         this.loadingSubject.complete();
+        this.totalCountSubject.complete();
     }
 
-    loadPlanExecutions(pageIndex = 0, pageSize = 10) : void {
+    loadPlanExecutions(pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 

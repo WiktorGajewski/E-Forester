@@ -28,7 +28,7 @@ export class DivisionsDataSource implements DataSource<IDivision> {
     }
 
     loadDivisions(forestUnitId : number | undefined = undefined, sortDirection = "",
-             pageIndex = 0, pageSize = 10) : void {
+             pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 

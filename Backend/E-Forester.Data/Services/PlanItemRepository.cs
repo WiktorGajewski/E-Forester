@@ -1,8 +1,7 @@
 ﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Services
@@ -16,9 +15,9 @@ namespace E_Forester.Data.Services
             _context = context;
         }
 
-        public async Task<ICollection<PlanItem>> GetPlanItemsAsync()
+        public IQueryable<PlanItem> GetPlanItems()
         {
-            return await _context.PlanItems.ToListAsync();
+            return _context.PlanItems.AsQueryable();
         }
 
         public async Task CreatePlanItemAsync(PlanItem newPlanItem)

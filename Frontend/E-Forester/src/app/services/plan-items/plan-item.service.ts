@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { IPage } from 'src/app/models/page.model';
 import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item.model';
 import { environment } from 'src/environments/environment';
 
@@ -14,12 +15,31 @@ export class PlanItemService {
 
    }
 
-  getPlanItems(subareaId: number | undefined): Observable<IPlanItem[]> {
-     return this.http.get<IPlanItem[]>(`${this.apiUrl}plan-items`)
+  getPlanItems(subareaId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanItem>> {
+
+    let params = new HttpParams();
+
+    if(pageIndex && pageSize) {
+      params
+        .append("PageIndex", pageIndex)
+        .append("PageSize", pageSize);
+    }
+
+    return this.http.get<IPage<IPlanItem>>(`${this.apiUrl}plan-items`, {params})
       .pipe(
-        catchError(this.handleError<IPlanItem[]>('getPlanItems', []))
+        catchError(this.handleError<IPage<IPlanItem>>('getPlanItems', this.createBlankPage()))
       );
    }
+
+  createBlankPage() : IPage<IPlanItem> {
+    const blankPage : IPage<IPlanItem> = {
+      pageIndex: 0,
+      pageSize: 0,
+      totalCount: 0,
+      data: []
+    }
+    return blankPage;
+  }
 
   createPlanItem(quantity : number, measureUnit : string, assortments: WoodAssortment,
     actionGroup : ActionGroup, difficultyLevel : number, factor : number,

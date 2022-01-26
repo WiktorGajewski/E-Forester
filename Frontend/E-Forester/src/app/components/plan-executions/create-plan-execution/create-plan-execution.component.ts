@@ -91,10 +91,10 @@ export class CreatePlanExecutionComponent implements OnInit {
   }
 
   subareaSelected(subareaId: number) {
-    this.planItemService.getPlanItems(subareaId)
+    this.planItemService.getPlanItems(subareaId, undefined, undefined)
             .subscribe({
-                next: (value: IPlanItem[]) => {
-                    this.planItems = value;
+                next: (value: IPage<IPlanItem>) => {
+                    this.planItems = value.data;
                     this.Form.controls['planItemId'].enable()
                 }
             });
