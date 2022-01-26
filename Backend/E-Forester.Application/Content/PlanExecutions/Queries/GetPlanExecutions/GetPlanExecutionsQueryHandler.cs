@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecutions
 {
-    public class GetPlanExecutionsQueryHandler : IRequestHandler<GetPlanExecutionsQuery, Page<ICollection<PlanExecutionDto>>>
+    public class GetPlanExecutionsQueryHandler : IRequestHandler<GetPlanExecutionsQuery, Page<PlanExecutionDto>>
     {
         private readonly IPlanExecutionRepository _planExecutionRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
             _mapper = mapper;
         }
 
-        public async Task<Page<ICollection<PlanExecutionDto>>> Handle(GetPlanExecutionsQuery request, CancellationToken cancellationToken)
+        public async Task<Page<PlanExecutionDto>> Handle(GetPlanExecutionsQuery request, CancellationToken cancellationToken)
         {
             var planExecutionsQuery = _planExecutionRepository.GetPlanExecutions();
 
@@ -44,7 +44,7 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
 
             int total = planExecutionsQuery.Count();
 
-            return new Page<ICollection<PlanExecutionDto>>(planExecutionsDtos, request.PageIndex, request.PageSize, total);
+            return new Page<PlanExecutionDto>(planExecutionsDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<PlanExecution>> SelectPage(IQueryable<PlanExecution> planExecutionsQuery, int pageIndex, int pageSize)

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
 {
-    public class GetForestUnitsQueryHandler : IRequestHandler<GetForestUnitsQuery, Page<ICollection<ForestUnitDto>>>
+    public class GetForestUnitsQueryHandler : IRequestHandler<GetForestUnitsQuery, Page<ForestUnitDto>>
     {
         private readonly IForestUnitRepository _forestUnitRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
             _mapper = mapper;
         }
 
-        public async Task<Page<ICollection<ForestUnitDto>>> Handle(GetForestUnitsQuery request, CancellationToken cancellationToken)
+        public async Task<Page<ForestUnitDto>> Handle(GetForestUnitsQuery request, CancellationToken cancellationToken)
         {
             var forestUnitsQuery = _forestUnitRepository.GetForestUnits();
 
@@ -44,7 +44,7 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
 
             int total = forestUnitsQuery.Count();
 
-            return new Page<ICollection<ForestUnitDto>>(forestUnitsDtos, request.PageIndex, request.PageSize, total);
+            return new Page<ForestUnitDto>(forestUnitsDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<ForestUnit>> SelectPage(IQueryable<ForestUnit> forestUnitsQuery, int pageIndex, int pageSize)

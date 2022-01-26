@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
 {
-    public class GetDivisionsQueryHandler : IRequestHandler<GetDivisionsQuery, Page<ICollection<DivisionDto>>>
+    public class GetDivisionsQueryHandler : IRequestHandler<GetDivisionsQuery, Page<DivisionDto>>
     {
         private readonly IDivisionRepository _divisionRepository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
             _mapper = mapper;
         }
 
-        public async Task<Page<ICollection<DivisionDto>>> Handle(GetDivisionsQuery request, CancellationToken cancellationToken)
+        public async Task<Page<DivisionDto>> Handle(GetDivisionsQuery request, CancellationToken cancellationToken)
         {
             var divisionsQuery = _divisionRepository.GetDivisions();
 
@@ -44,7 +44,7 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
 
             int total = divisionsQuery.Count();
 
-            return new Page<ICollection<DivisionDto>>(divisionDtos, request.PageIndex, request.PageSize, total);
+            return new Page<DivisionDto>(divisionDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<Division>> SelectPage(IQueryable<Division> divisionsQuery, int pageIndex, int pageSize)
