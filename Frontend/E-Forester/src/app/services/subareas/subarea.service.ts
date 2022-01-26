@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { IPage } from 'src/app/models/page.model';
 import { ISubarea } from 'src/app/models/subarea.model';
 import { environment } from 'src/environments/environment';
 
@@ -14,12 +15,31 @@ export class SubareaService {
 
    }
 
-  getSubareas(divisionId: number | undefined): Observable<ISubarea[]> {
-     return this.http.get<ISubarea[]>(`${this.apiUrl}subareas`)
+  getSubareas(divisionId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<ISubarea>> {
+    
+    let params = new HttpParams();
+
+    if(pageIndex && pageSize) {
+      params
+        .append("PageIndex", pageIndex)
+        .append("PageSize", pageSize);
+    }
+    
+    return this.http.get<IPage<ISubarea>>(`${this.apiUrl}subareas`, {params})
       .pipe(
-        catchError(this.handleError<ISubarea[]>('getSubareas', []))
+        catchError(this.handleError<IPage<ISubarea>>('getSubareas', this.createBlankPage()))
       );
-   }
+  }
+
+  createBlankPage() : IPage<ISubarea> {
+    const blankPage : IPage<ISubarea> = {
+      pageIndex: 0,
+      pageSize: 0,
+      totalCount: 0,
+      data: []
+    }
+    return blankPage;
+  }
 
   createSubarea(address : string, area : number, divisionId : number) : Observable<Object> {
     return this.http.post(`${this.apiUrl}subareas`, { address, area, divisionId });

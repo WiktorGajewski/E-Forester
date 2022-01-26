@@ -1,12 +1,12 @@
 ﻿using E_Forester.Model.Database;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Interfaces
 {
     public interface ISubareaRepository
     {
-        Task<ICollection<Subarea>> GetSubareasAsync();
+        IQueryable<Subarea> GetSubareas();
         Task CreateSubareaAsync(Subarea newSubarea);
     }
 }

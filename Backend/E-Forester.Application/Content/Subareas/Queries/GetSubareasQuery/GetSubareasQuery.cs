@@ -1,11 +1,12 @@
 ﻿using E_Forester.Application.DataTransferObjects.Subareas;
+using E_Forester.Application.Pagination.Wrappers;
 using MediatR;
-using System.Collections.Generic;
 
 namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
 {
-    public class GetSubareasQuery : IRequest<ICollection<SubareaDto>>
+    public class GetSubareasQuery : IRequest<Page<SubareaDto>>
     {
-
+        public int? PageIndex { get; set; } = null;
+        public int? PageSize { get; set; } = null;
     }
 }

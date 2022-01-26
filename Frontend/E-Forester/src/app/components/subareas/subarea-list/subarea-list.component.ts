@@ -37,7 +37,7 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
 
   loadPage() : void {
     this.dataSource.loadSubareas(
-      "",
+      undefined,
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize

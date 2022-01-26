@@ -14,9 +14,9 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSubareas()
+        public async Task<IActionResult> GetSubareas([FromQuery] GetSubareasQuery query)
         {
-            var result = await _mediator.Send(new GetSubareasQuery());
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
