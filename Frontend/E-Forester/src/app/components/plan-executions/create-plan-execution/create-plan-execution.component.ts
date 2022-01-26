@@ -71,10 +71,10 @@ export class CreatePlanExecutionComponent implements OnInit {
                 }
             });
     
-    this.planService.getPlans(forestUnitId)
+    this.planService.getPlans(forestUnitId, undefined, undefined)
     .subscribe({
-        next: (value: IPlan[]) => {
-            this.plans = value;
+        next: (value: IPage<IPlan>) => {
+            this.plans = value.data;
             this.Form.controls['planId'].enable()
         }
     });

@@ -36,21 +36,21 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
             else
             {
                 planExecutions = await planExecutionsQuery
-                    .OrderBy(d => d.Id)
+                    .OrderBy(p => p.Id)
                     .ToListAsync();
             }
 
-            var planExecutionsDtos = _mapper.Map<ICollection<PlanExecution>, ICollection<PlanExecutionDto>>(planExecutions);
+            var planExecutionDtos = _mapper.Map<ICollection<PlanExecution>, ICollection<PlanExecutionDto>>(planExecutions);
 
             int total = planExecutionsQuery.Count();
 
-            return new Page<PlanExecutionDto>(planExecutionsDtos, request.PageIndex, request.PageSize, total);
+            return new Page<PlanExecutionDto>(planExecutionDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<PlanExecution>> SelectPage(IQueryable<PlanExecution> planExecutionsQuery, int pageIndex, int pageSize)
         {
             return await planExecutionsQuery
-                    .OrderBy(d => d.Id)
+                    .OrderBy(p => p.Id)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();

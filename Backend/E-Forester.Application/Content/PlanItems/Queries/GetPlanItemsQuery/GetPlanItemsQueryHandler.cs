@@ -36,21 +36,21 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             else
             {
                 planItems = await planItemsQuery
-                    .OrderBy(d => d.Id)
+                    .OrderBy(p => p.Id)
                     .ToListAsync();
             }
 
-            var planItemsDtos = _mapper.Map<ICollection<PlanItem>, ICollection<PlanItemDto>>(planItems);
+            var planItemDtos = _mapper.Map<ICollection<PlanItem>, ICollection<PlanItemDto>>(planItems);
 
             int total = planItemsQuery.Count();
 
-            return new Page<PlanItemDto>(planItemsDtos, request.PageIndex, request.PageSize, total);
+            return new Page<PlanItemDto>(planItemDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<PlanItem>> SelectPage(IQueryable<PlanItem> planItemsQuery, int pageIndex, int pageSize)
         {
             return await planItemsQuery
-                    .OrderBy(d => d.Id)
+                    .OrderBy(p => p.Id)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();

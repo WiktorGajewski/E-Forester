@@ -1,5 +1,6 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { BehaviorSubject, finalize, Observable } from "rxjs";
+import { IPage } from "src/app/models/page.model";
 import { IPlan } from "src/app/models/plan.model";
 import { PlanService } from "./plan.service";
 
@@ -7,8 +8,10 @@ export class PlansDataSource implements DataSource<IPlan> {
 
     private plansSubject = new BehaviorSubject<IPlan[]>([]);
     private loadingSubject = new BehaviorSubject<boolean>(false);
+    private totalCountSubject = new BehaviorSubject<number>(0);
 
     public loading = this.loadingSubject.asObservable();
+    public totalCount = this.totalCountSubject.asObservable();
 
     constructor(private planService : PlanService) {
 
@@ -21,17 +24,19 @@ export class PlansDataSource implements DataSource<IPlan> {
     disconnect(collectionViewer: CollectionViewer): void {
         this.plansSubject.complete();
         this.loadingSubject.complete();
+        this.totalCountSubject.complete();
     }
 
-    loadPlans(filter = "", pageIndex = 0, pageSize = 10) : void {
+    loadPlans(forestUnitId: number | undefined = undefined, pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.planService.getPlans(undefined)
+        this.planService.getPlans(forestUnitId, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
-                next: (value: IPlan[]) => {
-                    this.plansSubject.next(value);
+                next: (value: IPage<IPlan>) => {
+                    this.plansSubject.next(value.data);
+                    this.totalCountSubject.next(value.totalCount);
                 }
             });
     }

@@ -36,21 +36,21 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
             else
             {
                 forestUnits = await forestUnitsQuery
-                    .OrderBy(d => d.Address)
+                    .OrderBy(f => f.Address)
                     .ToListAsync();
             }
 
-            var forestUnitsDtos = _mapper.Map<ICollection<ForestUnit>, ICollection<ForestUnitDto>>(forestUnits);
+            var forestUnitDtos = _mapper.Map<ICollection<ForestUnit>, ICollection<ForestUnitDto>>(forestUnits);
 
             int total = forestUnitsQuery.Count();
 
-            return new Page<ForestUnitDto>(forestUnitsDtos, request.PageIndex, request.PageSize, total);
+            return new Page<ForestUnitDto>(forestUnitDtos, request.PageIndex, request.PageSize, total);
         }
 
         private async Task<List<ForestUnit>> SelectPage(IQueryable<ForestUnit> forestUnitsQuery, int pageIndex, int pageSize)
         {
             return await forestUnitsQuery
-                    .OrderBy(d => d.Address)
+                    .OrderBy(f => f.Address)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
