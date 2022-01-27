@@ -29,6 +29,11 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
 
             var plans = new List<Plan>();
 
+            if (request.ForestUnitId != null)
+            {
+                plansQuery = plansQuery.Where(d => d.ForestUnitId == request.ForestUnitId);
+            }
+
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 plans = await SelectPage(plansQuery, (int)request.PageIndex, (int)request.PageSize);

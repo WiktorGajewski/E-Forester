@@ -8,5 +8,7 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
     {
         public int? PageIndex { get; set; } = null;
         public int? PageSize { get; set; } = null;
+        public int? PlanItemId { get; set; } = null;
+        public int? PlanId { get; set; } = null;
     }
 }

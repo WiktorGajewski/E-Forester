@@ -29,6 +29,16 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
 
             var planExecutions = new List<PlanExecution>();
 
+            if (request.PlanItemId != null)
+            {
+                planExecutionsQuery = planExecutionsQuery.Where(d => d.PlanItemId == request.PlanItemId);
+            }
+
+            if (request.PlanId != null)
+            {
+                planExecutionsQuery = planExecutionsQuery.Where(d => d.PlanId == request.PlanId);
+            }
+
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 planExecutions = await SelectPage(planExecutionsQuery, (int)request.PageIndex, (int)request.PageSize);

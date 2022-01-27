@@ -29,6 +29,11 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
 
             var divisions = new List<Division>();
 
+            if (request.ForestUnitId != null)
+            {
+                divisionsQuery = divisionsQuery.Where(d => d.ForestUnitId == request.ForestUnitId);
+            }
+
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 divisions = await SelectPage(divisionsQuery, (int)request.PageIndex, (int)request.PageSize);

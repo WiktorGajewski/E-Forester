@@ -29,6 +29,16 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
             var planItems = new List<PlanItem>();
 
+            if (request.SubareaId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(d => d.SubareaId == request.SubareaId);
+            }
+
+            if (request.PlanId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(d => d.PlanId == request.PlanId);
+            }
+
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 planItems = await SelectPage(planItemsQuery, (int)request.PageIndex, (int)request.PageSize);

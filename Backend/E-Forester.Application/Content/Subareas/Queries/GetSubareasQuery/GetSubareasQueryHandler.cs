@@ -29,6 +29,11 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
 
             var subareas = new List<Subarea>();
 
+            if (request.DivisionId != null)
+            {
+                subareasQuery = subareasQuery.Where(s => s.DivisionId == request.DivisionId);
+            }
+
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 subareas = await SelectPage(subareasQuery, (int)request.PageIndex, (int)request.PageSize);
