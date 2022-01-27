@@ -12,7 +12,7 @@ import { CreatePlanComponent } from '../create-plan/create-plan.component';
 })
 export class PlanListComponent implements OnInit, AfterViewInit {
   dataSource !: PlansDataSource;
-  displayedColumns = ["id", "year", "forestUnitId"];
+  displayedColumns = ["year", "forestUnitId"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 

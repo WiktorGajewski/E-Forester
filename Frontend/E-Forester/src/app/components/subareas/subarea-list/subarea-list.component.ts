@@ -14,10 +14,9 @@ import { CreateSubareaComponent } from '../create-subarea/create-subarea.compone
 })
 export class SubareaListComponent implements OnInit, AfterViewInit {
   dataSource !: SubareasDataSource;
-  displayedColumns = ["id", "address", "area"];
+  displayedColumns = ["address", "area"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
-  @ViewChild(MatSort) sort !: MatSort;
 
   constructor(private subareaService : SubareaService, private dialog : MatDialog) { 
 
@@ -29,16 +28,13 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
+    this.paginator.page
       .subscribe(() => this.loadPage());
   }
 
   loadPage() : void {
     this.dataSource.loadSubareas(
       undefined,
-      this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
     );

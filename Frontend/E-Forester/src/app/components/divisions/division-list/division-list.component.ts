@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { merge } from 'rxjs';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { DivisionsDataSource } from 'src/app/services/divisions/divisions.data-source';
 import { CreateDivisionComponent } from '../create-division/create-division.component';
@@ -14,10 +12,9 @@ import { CreateDivisionComponent } from '../create-division/create-division.comp
 })
 export class DivisionListComponent implements OnInit, AfterViewInit {
   dataSource !: DivisionsDataSource;
-  displayedColumns = ["id", "address", "area"];
+  displayedColumns = ["address", "area"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
-  @ViewChild(MatSort) sort !: MatSort;
 
   constructor(private divisionService : DivisionService, private dialog : MatDialog) {
 
@@ -29,16 +26,13 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
+    this.paginator.page
       .subscribe(() => this.loadPage());
   }
 
   loadPage() : void {
     this.dataSource.loadDivisions(
       undefined,
-      this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize
     );

@@ -12,7 +12,7 @@ import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.co
 })
 export class PlanItemListComponent implements OnInit, AfterViewInit {
   dataSource !: PlanItemsDataSource;
-  displayedColumns = ["id", "isCompleted", "quantity", "measureUnit", "woodAssortment", "actionGroup", "difficultyLevel", "factor"];
+  displayedColumns = ["isCompleted", "quantity", "measureUnit", "woodAssortment", "actionGroup", "difficultyLevel", "factor"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
