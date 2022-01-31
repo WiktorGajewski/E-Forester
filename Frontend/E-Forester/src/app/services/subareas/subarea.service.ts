@@ -25,6 +25,11 @@ export class SubareaService {
         .append("PageSize", pageSize);
     }
     
+    if(divisionId) {
+      params
+        .append("DivisionId", divisionId);
+    }
+    
     return this.http.get<IPage<ISubarea>>(`${this.apiUrl}subareas`, {params})
       .pipe(
         catchError(this.handleError<IPage<ISubarea>>('getSubareas', this.createBlankPage()))

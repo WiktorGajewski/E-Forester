@@ -34,7 +34,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Wydzielenie</mat-label>
                 <mat-select  matInput formControlName="subareaId" id="subareaId"
-                    (selectionChange)="subareaSelected($event.value)" type="number" class="form-control" required>
+                    (selectionChange)="subareaSelected()" type="number" class="form-control" required>
 
                     <mat-option *ngFor="let subarea of subareas" [value]="subarea.id">
                         Adres leśny: {{subarea.address}}
@@ -45,7 +45,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Plan</mat-label>
                 <mat-select  matInput formControlName="planId" id="planId"
-                        type="number" class="form-control" required>
+                    (selectionChange)="planSelected()" type="number" class="form-control" required>
 
                     <mat-option *ngFor="let plan of plans" [value]="plan.id">
                         Rok: {{plan.year}}

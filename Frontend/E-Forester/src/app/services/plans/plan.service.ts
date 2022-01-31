@@ -24,6 +24,11 @@ export class PlanService {
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
+
+    if(forestUnitId) {
+      params
+        .append("ForestUnitId", forestUnitId);
+    }
     
     return this.http.get<IPage<IPlan>>(`${this.apiUrl}plans`, {params})
       .pipe(

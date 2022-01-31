@@ -15,7 +15,7 @@ export class PlanItemService {
 
    }
 
-  getPlanItems(subareaId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanItem>> {
+  getPlanItems(subareaId: number | undefined, planId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanItem>> {
 
     let params = new HttpParams();
 
@@ -23,6 +23,16 @@ export class PlanItemService {
       params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
+    }
+
+    if(subareaId) {
+      params
+        .append("SubareaId", subareaId);
+    }
+
+    if(planId) {
+      params
+        .append("PlanId", planId);
     }
 
     return this.http.get<IPage<IPlanItem>>(`${this.apiUrl}plan-items`, {params})

@@ -31,7 +31,7 @@ export class SubareasDataSource implements DataSource<ISubarea> {
 
         this.loadingSubject.next(true);
 
-        this.subareaService.getSubareas(undefined, pageIndex, pageSize)
+        this.subareaService.getSubareas(divisionId, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<ISubarea>) => {

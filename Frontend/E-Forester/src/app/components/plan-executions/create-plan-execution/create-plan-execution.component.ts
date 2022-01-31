@@ -90,8 +90,26 @@ export class CreatePlanExecutionComponent implements OnInit {
             });
   }
 
-  subareaSelected(subareaId: number) {
-    this.planItemService.getPlanItems(subareaId, undefined, undefined)
+  subareaSelected() {
+    const subareaId = this.Form.value.subareaId;
+    const planId = this.Form.value.planId;
+
+    if(subareaId && planId) {
+      this.planAndSubareaSelected(subareaId, planId);
+    }
+  }
+
+  planSelected() {
+    const subareaId = this.Form.value.subareaId;
+    const planId = this.Form.value.planId;
+
+    if(subareaId && planId) {
+      this.planAndSubareaSelected(subareaId, planId);
+    }
+  }
+
+  planAndSubareaSelected(subareaId: number, planId: number) {
+    this.planItemService.getPlanItems(subareaId, planId, undefined, undefined)
             .subscribe({
                 next: (value: IPage<IPlanItem>) => {
                     this.planItems = value.data;

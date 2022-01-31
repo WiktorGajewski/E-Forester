@@ -25,6 +25,11 @@ export class DivisionService {
         .append("PageSize", pageSize);
     }
 
+    if(forestUnitId) {
+      params
+        .append("ForestUnitId", forestUnitId);
+    }
+
     return this.http.get<IPage<IDivision>>(`${this.apiUrl}divisions`, {params})
       .pipe(
         catchError(this.handleError<IPage<IDivision>>('getDivisions', this.createBlankPage()))

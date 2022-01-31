@@ -31,7 +31,7 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
 
         this.loadingSubject.next(true);
 
-        this.planItemService.getPlanItems(subareaId, pageIndex, pageSize)
+        this.planItemService.getPlanItems(subareaId, undefined, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlanItem>) => {

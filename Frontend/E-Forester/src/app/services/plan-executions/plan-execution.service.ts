@@ -15,7 +15,7 @@ export class PlanExecutionService {
 
   }
 
-  getPlanExecutions(pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanExecution>> {
+  getPlanExecutions(planItemId: number | undefined, planId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanExecution>> {
 
     let params = new HttpParams();
 
@@ -23,6 +23,16 @@ export class PlanExecutionService {
       params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
+    }
+
+    if(planItemId) {
+      params
+        .append("PlanItemId", planItemId);
+    }
+
+    if(planId) {
+      params
+        .append("PlanId", planId);
     }
 
     return this.http.get<IPage<IPlanExecution>>(`${this.apiUrl}plan-executions`, {params})
