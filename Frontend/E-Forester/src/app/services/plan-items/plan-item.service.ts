@@ -51,11 +51,11 @@ export class PlanItemService {
     return blankPage;
   }
 
-  createPlanItem(quantity : number, measureUnit : string, assortments: WoodAssortment,
+  createPlanItem(plannedHectares : number, plannedCubicMeters : number, assortments: WoodAssortment,
     actionGroup : ActionGroup, difficultyLevel : number, factor : number,
     planId : number, subareaId : number) : Observable<Object> {
 
-    return this.http.post(`${this.apiUrl}plan-items`, { quantity, measureUnit, assortments,
+    return this.http.post(`${this.apiUrl}plan-items`, { plannedHectares, plannedCubicMeters, assortments,
       actionGroup, difficultyLevel, factor, planId, subareaId });
   }
 

@@ -53,19 +53,13 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Ilość</mat-label>
-                <input matInput formControlName="quantity" id="quantity" type="number" class="form-control" required>
+                <mat-label>Ilość planowanych hektarów</mat-label>
+                <input matInput formControlName="PlannedHectares" id="PlannedHectares" type="number" class="form-control" required>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Jednostka miary</mat-label>
-                <mat-select matInput formControlName="measureUnit" id="measureUnit" 
-                        type="text" class="form-control" required>
-
-                  <mat-option value="hektary (ha)">hektary (ha)</mat-option>
-                  <mat-option value="m^3">m<sup>3</sup></mat-option>
-                  <mat-option value="1000 Szt">1000 Szt</mat-option>
-                </mat-select>
+                <mat-label>Ilość planowanych metrów sześciennych (m<sup>3</sup>)</mat-label>
+                <input matInput formControlName="PlannedCubicMeters" id="PlannedCubicMeters" type="number" class="form-control" required>
             </mat-form-field>
 
             <mat-form-field appearance="fill">

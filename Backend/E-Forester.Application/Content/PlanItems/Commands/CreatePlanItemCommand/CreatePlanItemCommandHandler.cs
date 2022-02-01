@@ -24,8 +24,8 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             var planItem = new PlanItem()
             {
                 IsCompleted = false,
-                Quantity = request.Quantity,
-                MeasureUnit = request.MeasureUnit,
+                PlannedCubicMeters = request.PlannedCubicMeters,
+                PlannedHectares = request.PlannedHectares,
                 Assortments = request.Assortments,
                 ActionGroup = request.ActionGroup,
                 DifficultyLevel = request.DifficultyLevel,

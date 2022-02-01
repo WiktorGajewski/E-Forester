@@ -41,7 +41,8 @@ export class CreatePlanExecutionComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form= new FormGroup({
-      quantity: new FormControl(null, Validators.required),
+      executedHectares: new FormControl(null, Validators.required),
+      harvestedCubicMeters: new FormControl(null, Validators.required),
       planItemId: new FormControl(null, Validators.required),
       planId: new FormControl(null, Validators.required),
       forestUnitId: new FormControl(null, Validators.required),
@@ -121,7 +122,7 @@ export class CreatePlanExecutionComponent implements OnInit {
   submit(): void {
     const val = this.Form.value;
     this.loading = true;
-    this.planExecutionService.createPlanExecution(val.quantity, val.planItemId, val.planId)
+    this.planExecutionService.createPlanExecution(val.executedHectares, val.harvestedCubicMeters, val.planItemId, val.planId)
       .subscribe({
         complete : () => {
           this.loading = false;

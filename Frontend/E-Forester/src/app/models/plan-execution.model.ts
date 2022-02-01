@@ -1,6 +1,7 @@
 export interface IPlanExecution {
     id: number,
-    quantity: number,
+    executedHectares: number,
+    harvestedCubicMeters: number,
     createdAt: Date,
     planItemId: number,
     planId: number,

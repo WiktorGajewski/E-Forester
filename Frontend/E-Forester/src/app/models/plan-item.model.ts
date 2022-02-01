@@ -1,8 +1,8 @@
 export interface IPlanItem {
     id: number,
     isCompleted: boolean,
-    quantity: number,
-    measureUnit: string,
+    plannedHectares: number,
+    plannedCubicMeters: number,
     assortments: WoodAssortment,
     actionGroup: ActionGroup,
     difficultyLevel: number,

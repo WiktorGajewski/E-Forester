@@ -7,8 +7,8 @@ namespace E_Forester.Application.DataTransferObjects.PlanItems
     {
         public int Id { get; set; }
         public bool IsCompleted { get; set; }
-        public double Quantity { get; set; }
-        public string MeasureUnit { get; set; }
+        public double PlannedHectares { get; set; }
+        public double PlannedCubicMeters { get; set; }
         public WoodAssortment Assortments { get; set; }
         public ActionGroup ActionGroup { get; set; }
         public int DifficultyLevel { get; set; }

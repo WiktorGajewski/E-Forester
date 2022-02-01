@@ -106,7 +106,7 @@ export class CreatePlanItemComponent implements OnInit {
     }
 
     this.loading = true;
-    this.planItemService.createPlanItem(val.quantity, val.measureUnit, assortments, val.actionGroup,
+    this.planItemService.createPlanItem(val.plannedHectares, val.plannedCubicMeters, assortments, val.actionGroup,
       val.difficultyLevel, val.factor, val.planId, val.subareaId)
       .subscribe({
         complete : () => {

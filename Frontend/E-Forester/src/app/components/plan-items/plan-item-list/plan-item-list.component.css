@@ -27,7 +27,14 @@
     text-align: center;
 }
 
-.mat-column-quantity{
+.mat-column-plannedHectares{
+    border-right: 1px solid currentColor;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-plannedCubicMeters{
     border-right: 1px solid currentColor;
     padding-left: 20px;
     padding-right: 20px;

@@ -23,7 +23,8 @@ namespace E_Forester.Application.Content.PlanExecutions.Commands.CreatePlanExecu
         {
             var planExecution = new PlanExecution()
             {
-                Quantity = request.Quantity,
+                ExecutedHectares = request.ExecutedHectares,
+                HarvestedCubicMeters = request.HarvestedCubicMeters,
                 CreatedAt = DateTime.UtcNow,
                 PlanItemId = request.PlanItemId,
                 PlanId = request.PlanId,

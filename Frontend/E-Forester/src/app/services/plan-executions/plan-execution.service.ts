@@ -51,8 +51,8 @@ export class PlanExecutionService {
     return blankPage;
   }
 
-  createPlanExecution(quantity : number, planItemId : number, planId: number) : Observable<Object> {
-    return this.http.post(`${this.apiUrl}plan-executions`, { quantity, planItemId, planId });
+  createPlanExecution(executedHectares : number, harvestedCubicMeters : number,planItemId : number, planId: number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}plan-executions`, { executedHectares, harvestedCubicMeters, planItemId, planId });
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

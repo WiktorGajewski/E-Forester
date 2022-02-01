@@ -8,7 +8,9 @@ namespace E_Forester.Model.Database
         [Key]
         public int Id { get; set; }
 
-        public double Quantity { get; set; }
+        public double ExecutedHectares { get; set; }
+
+        public double HarvestedCubicMeters { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
