@@ -20,13 +20,13 @@ export class SubareaService {
     let params = new HttpParams();
 
     if(pageIndex && pageSize) {
-      params
+      params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
     
     if(divisionId) {
-      params
+      params = params
         .append("DivisionId", divisionId);
     }
     

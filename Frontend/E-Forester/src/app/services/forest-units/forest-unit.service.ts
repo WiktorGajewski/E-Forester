@@ -21,7 +21,7 @@ export class ForestUnitService {
     let params = new HttpParams();
 
     if(pageIndex && pageSize) {
-      params
+      params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }

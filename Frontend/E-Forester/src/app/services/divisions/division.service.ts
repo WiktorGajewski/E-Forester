@@ -20,13 +20,13 @@ export class DivisionService {
     let params = new HttpParams();
     
     if(pageIndex && pageSize) {
-      params
+      params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
 
     if(forestUnitId) {
-      params
+      params = params
         .append("ForestUnitId", forestUnitId);
     }
 

@@ -20,18 +20,18 @@ export class PlanExecutionService {
     let params = new HttpParams();
 
     if(pageIndex && pageSize) {
-      params
+      params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
 
     if(planItemId) {
-      params
+      params = params
         .append("PlanItemId", planItemId);
     }
 
     if(planId) {
-      params
+      params = params
         .append("PlanId", planId);
     }
 

@@ -43,8 +43,8 @@ export class CreatePlanItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form= new FormGroup({
-      quantity: new FormControl(null, Validators.required),
-      measureUnit: new FormControl("", Validators.required),
+      plannedHectares: new FormControl(null, Validators.required),
+      plannedCubicMeters: new FormControl(null, Validators.required),
       assortments: new FormControl(null, Validators.required),
       actionGroup: new FormControl(null, Validators.required),
       difficultyLevel: new FormControl(null, Validators.required),

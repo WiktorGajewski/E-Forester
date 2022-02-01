@@ -20,18 +20,18 @@ export class PlanItemService {
     let params = new HttpParams();
 
     if(pageIndex && pageSize) {
-      params
+      params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
 
     if(subareaId) {
-      params
+      params = params
         .append("SubareaId", subareaId);
     }
 
     if(planId) {
-      params
+      params = params
         .append("PlanId", planId);
     }
 
