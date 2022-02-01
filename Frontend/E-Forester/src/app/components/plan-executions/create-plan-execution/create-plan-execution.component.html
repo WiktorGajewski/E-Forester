@@ -59,7 +59,7 @@
                         type="number" class="form-control" required>
 
                     <mat-option *ngFor="let planItem of planItems" [value]="planItem.id">
-                        Grupa akcji: {{planItem.actionGroup}}
+                        Grupa akcji: {{actionGroups[planItem.actionGroup]}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

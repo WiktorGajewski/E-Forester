@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { IDivision } from 'src/app/models/division.model';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
 import { IPage } from 'src/app/models/page.model';
-import { IPlanItem } from 'src/app/models/plan-item.model';
+import { ActionGroup, IPlanItem } from 'src/app/models/plan-item.model';
 import { IPlan } from 'src/app/models/plan.model';
 import { ISubarea } from 'src/app/models/subarea.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
@@ -30,6 +30,8 @@ export class CreatePlanExecutionComponent implements OnInit {
   subareas: ISubarea[] = [];
   plans: IPlan[] = [];
   planItems: IPlanItem[] = [];
+
+  actionGroups = ActionGroup;
 
   constructor(private planExecutionService : PlanExecutionService,
     private planItemService : PlanItemService,

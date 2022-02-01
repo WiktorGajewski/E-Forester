@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
 import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.component';
@@ -15,6 +16,8 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   displayedColumns = ["isCompleted", "plannedHectares", "plannedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
+
+  actionGroups = ActionGroup;
 
   constructor(private planItemService: PlanItemService,  private dialog : MatDialog) {
 
@@ -54,5 +57,20 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
         }
       }
     ); 
+  }
+
+  woodAssortmentsToValue(key : WoodAssortment) : string[] {
+
+    const values : string[] = [];
+    let i = 0;
+    let x : number;
+
+    while(WoodAssortment[x = 1 << i++]) {
+      if(key & x) {
+        values.push(WoodAssortment[x]);
+      }
+    }
+
+    return values;
   }
 }

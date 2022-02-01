@@ -13,7 +13,7 @@
         
           <ng-container matColumnDef="isCompleted">
             <th mat-header-cell *matHeaderCellDef> Ukończone </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.isCompleted}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{planItem.isCompleted ? "TAK" : "NIE"}} </td>
           </ng-container>
         
           <ng-container matColumnDef="plannedHectares">
@@ -28,12 +28,12 @@
     
           <ng-container matColumnDef="woodAssortment">
             <th mat-header-cell *matHeaderCellDef> Asortymenty </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.assortments}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{woodAssortmentsToValue(planItem.assortments)}} </td>
           </ng-container>
     
           <ng-container matColumnDef="actionGroup">
             <th mat-header-cell *matHeaderCellDef> Grupa Czynności </th>
-            <td mat-cell *matCellDef="let planItem"> {{planItem.actionGroup}} </td>
+            <td mat-cell *matCellDef="let planItem"> {{actionGroups[planItem.actionGroup]}} </td>
           </ng-container>
     
           <ng-container matColumnDef="difficultyLevel">
