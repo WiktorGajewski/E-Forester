@@ -50,7 +50,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     this.dataSource.loadPlanItems(
       undefined,
       this.filterPlanId,
-      this.paginator.pageIndex,
+      this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
   }

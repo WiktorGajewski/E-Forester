@@ -33,7 +33,7 @@ export class PlanListComponent implements OnInit, AfterViewInit {
   loadPage() : void {
     this.dataSource.loadPlans(
       undefined,
-      this.paginator.pageIndex,
+      this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
   }

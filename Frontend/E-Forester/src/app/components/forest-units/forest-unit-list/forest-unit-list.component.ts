@@ -33,7 +33,7 @@ export class ForestUnitListComponent implements OnInit, AfterViewInit {
 
   loadPage() : void {
     this.dataSource.loadForestUnits(
-      this.paginator.pageIndex,
+      this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
   }

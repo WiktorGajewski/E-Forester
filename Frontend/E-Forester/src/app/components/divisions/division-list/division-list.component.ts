@@ -33,7 +33,7 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
   loadPage() : void {
     this.dataSource.loadDivisions(
       undefined,
-      this.paginator.pageIndex,
+      this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
   }
