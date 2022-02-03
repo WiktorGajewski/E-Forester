@@ -18,7 +18,7 @@ export class PlanItemService {
   getPlanItems(subareaId: number | undefined, planId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanItem>> {
 
     let params = new HttpParams();
-
+    console.log(pageIndex);
     if(pageIndex && pageSize) {
       params = params
         .append("PageIndex", pageIndex)

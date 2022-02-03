@@ -4,6 +4,16 @@
     <mat-divider></mat-divider>
   </h1>
 
+  <mat-form-field appearance="standard" #inputPlanId>
+    <mat-label>Filtruj po planie</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="filterPlanId">
+
+        <mat-option *ngFor="let plan of plans" [value]="plan.id">
+            {{plan.year}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
           <ng-container matColumnDef="id">

@@ -29,8 +29,6 @@ export class CreatePlanItemComponent implements OnInit {
   subareas: ISubarea[] = [];
   plans: IPlan[] = [];
 
-  selected = -1;
-
   actionGroups = ActionGroup;
   assortments = WoodAssortment;
 
