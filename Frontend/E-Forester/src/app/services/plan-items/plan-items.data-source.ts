@@ -27,11 +27,13 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
         this.totalCountSubject.complete();
     }
 
-    loadPlanItems(subareaId: number | undefined = undefined, planId: number | undefined = undefined, pageIndex = 1, pageSize = 10) : void {
+    loadPlanItems(forestUnitId: number|undefined = undefined, divisionId: number|undefined = undefined,
+            subareaId: number|undefined = undefined, planId: number | undefined = undefined,
+            pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.planItemService.getPlanItems(subareaId, planId, pageIndex, pageSize)
+        this.planItemService.getPlanItems(forestUnitId, divisionId, subareaId, planId, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlanItem>) => {

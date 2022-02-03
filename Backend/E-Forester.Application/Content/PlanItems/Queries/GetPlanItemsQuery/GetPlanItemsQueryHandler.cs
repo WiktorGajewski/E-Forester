@@ -15,11 +15,19 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
     public class GetPlanItemsQueryHandler : IRequestHandler<GetPlanItemsQuery, Page<PlanItemDto>>
     {
         private readonly IPlanItemRepository _planItemRepository;
+        private readonly IDivisionRepository _divisionRepository;
+        private readonly IForestUnitRepository _forestUnitRepository;
+
         private readonly IMapper _mapper;
 
-        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper)
+        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, 
+            IDivisionRepository divisionRepository,
+            IForestUnitRepository forestUnitRepository,
+            IMapper mapper)
         {
             _planItemRepository = planItemRepository;
+            _divisionRepository = divisionRepository;
+            _forestUnitRepository = forestUnitRepository;
             _mapper = mapper;
         }
 
@@ -29,15 +37,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
             var planItems = new List<PlanItem>();
 
-            if (request.SubareaId != null)
-            {
-                planItemsQuery = planItemsQuery.Where(d => d.SubareaId == request.SubareaId);
-            }
-
-            if (request.PlanId != null)
-            {
-                planItemsQuery = planItemsQuery.Where(d => d.PlanId == request.PlanId);
-            }
+            planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId);
 
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
@@ -64,6 +64,29 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
+        }
+
+        private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId)
+        {
+            if (subareaId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(d => d.SubareaId == subareaId);
+            }
+            else if (divisionId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(p => p.Subarea.DivisionId == (int)divisionId);
+            }
+            else if (forestUnitId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(p => p.Plan.ForestUnitId == (int)forestUnitId);
+            }
+
+            if (planId != null)
+            {
+                planItemsQuery = planItemsQuery.Where(d => d.PlanId == planId);
+            }
+
+            return planItemsQuery;
         }
     }
 }

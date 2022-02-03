@@ -112,7 +112,7 @@ export class CreatePlanExecutionComponent implements OnInit {
   }
 
   planAndSubareaSelected(subareaId: number, planId: number) {
-    this.planItemService.getPlanItems(subareaId, planId, undefined, undefined)
+    this.planItemService.getPlanItems(undefined, undefined, subareaId, planId, undefined, undefined)
             .subscribe({
                 next: (value: IPage<IPlanItem>) => {
                     this.planItems = value.data;

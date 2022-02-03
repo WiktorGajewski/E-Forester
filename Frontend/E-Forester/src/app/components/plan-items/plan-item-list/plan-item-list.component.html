@@ -4,9 +4,21 @@
     <mat-divider></mat-divider>
   </h1>
 
+  <mat-form-field appearance="standard" #inputForestUnitId>
+    <mat-label>Filtruj po leśnictwie</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="selectedForestUnit();filter()" [(value)]="selectedForestUnitId">
+
+        <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id">
+            {{forestUnit.name}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
   <mat-form-field appearance="standard" #inputPlanId>
     <mat-label>Filtruj po planie</mat-label>
-    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="filterPlanId">
+    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="selectedPlanId">
 
         <mat-option *ngFor="let plan of plans" [value]="plan.id">
             {{plan.year}}
