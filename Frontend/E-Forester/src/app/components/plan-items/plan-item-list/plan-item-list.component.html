@@ -16,6 +16,30 @@
 
   <br>
 
+  <mat-form-field appearance="standard" #inputDivisionId>
+    <mat-label>Filtruj po oddziale</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="selectedDivision();filter()" [(value)]="selectedDivisionId">
+
+        <mat-option *ngFor="let division of divisions" [value]="division.id">
+            {{division.address}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="standard" #inputSubareaId>
+    <mat-label>Filtruj po wydzieleniu</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="selectedSubareaId">
+
+        <mat-option *ngFor="let subarea of subareas" [value]="subarea.id">
+            {{subarea.address}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
   <mat-form-field appearance="standard" #inputPlanId>
     <mat-label>Filtruj po planie</mat-label>
     <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="selectedPlanId">
