@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { NavigationExtras, Router } from '@angular/router';
+import { IPlan } from 'src/app/models/plan.model';
 import { PlanService } from 'src/app/services/plans/plan.service';
 import { PlansDataSource } from 'src/app/services/plans/plans.data-source';
 import { CreatePlanComponent } from '../create-plan/create-plan.component';
@@ -16,7 +18,7 @@ export class PlanListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private planService: PlanService, private dialog : MatDialog) {
+  constructor(private planService: PlanService, private dialog : MatDialog, private router: Router) {
 
   }
 
@@ -36,6 +38,17 @@ export class PlanListComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
+  }
+
+  clickedPlan(plan : IPlan) : void {
+    const navigationsExtras: NavigationExtras = {
+      queryParams: {
+        planId : plan.id,
+        forestUnitId : plan.forestUnitId
+      }
+    }
+
+    this.router.navigate(["/plan-items"], navigationsExtras);
   }
 
   createPlanDialog() : void {

@@ -1,6 +1,7 @@
 import { AfterViewInit, asNativeElements, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 import { IDivision } from 'src/app/models/division.model';
 import { IForestUnit } from 'src/app/models/forest-unit.model';
 import { IPage } from 'src/app/models/page.model';
@@ -29,7 +30,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   actionGroups = ActionGroup;
 
   plans: IPlan[] = [];
-  selectedPlanId: number | undefined = undefined;
+  selectedPlanId: number | undefined;
 
   forestUnits: IForestUnit[] = [];
   selectedForestUnitId: number | undefined;
@@ -43,24 +44,38 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     private forestUnitService: ForestUnitService,
     private divisionService: DivisionService,
     private subareaService: SubareaService,
+    private route: ActivatedRoute,
     private dialog : MatDialog) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.selectedPlanId = Number(params["planId"]);
+      this.selectedForestUnitId = Number(params["forestUnitId"]);
+    });
+
     this.dataSource = new PlanItemsDataSource(this.planItemService);
-    this.dataSource.loadPlanItems();
+    this.dataSource.loadPlanItems(
+      this.selectedForestUnitId,
+      this.selectedDivisionId,
+      this.selectedSubareaId,
+      this.selectedPlanId,
+      undefined,
+      undefined
+    );
 
     this.forestUnitService.getForestUnits(undefined, undefined)
       .subscribe({
           next: (value: IPage<IForestUnit>) => {
               this.forestUnits = value.data;
+
+              if(this.selectedForestUnitId) {
+                this.selectedForestUnit();
+              }
           }
       });
   }
 
-  selectedForestUnit() {
-    this.selectedPlanId = undefined;
-    this.selectedDivisionId = undefined;
-    this.selectedSubareaId = undefined;
+  selectedForestUnit() : void {
 
     this.planService.getPlans(this.selectedForestUnitId, undefined, undefined)
       .subscribe({
@@ -77,8 +92,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
       });
   }
 
-  selectedDivision() {
-    this.selectedSubareaId = undefined;
+  selectedDivision() : void {
 
     this.subareaService.getSubareas(this.selectedDivisionId, undefined, undefined)
       .subscribe({
