@@ -15,13 +15,13 @@
 }
 
 .mat-column-id{
-    border-right: 1px solid currentColor;
+    border-right: 1px solid grey;
     padding-right: 20px;
     text-align: center;
 }
 
 .mat-column-year{
-    border-right: 1px solid currentColor;
+    border-right: 1px solid grey;
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
