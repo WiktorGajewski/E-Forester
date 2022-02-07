@@ -32,7 +32,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   plans: IPlan[] = [];
   selectedPlanId: number | undefined;
 
-  forestUnits: IForestUnit[] = [];
+  //forestUnits: IForestUnit[] = [];
   selectedForestUnitId: number | undefined;
   divisions: IDivision[] = [];
   selectedDivisionId: number | undefined;
@@ -41,7 +41,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     
   constructor(private planItemService: PlanItemService, 
     private planService: PlanService,
-    private forestUnitService: ForestUnitService,
+    //private forestUnitService: ForestUnitService,
     private divisionService: DivisionService,
     private subareaService: SubareaService,
     private route: ActivatedRoute,
@@ -58,25 +58,23 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
       this.selectedForestUnitId,
       this.selectedDivisionId,
       this.selectedSubareaId,
-      this.selectedPlanId,
-      undefined,
-      undefined
+      this.selectedPlanId
     );
 
-    this.forestUnitService.getForestUnits(undefined, undefined)
-      .subscribe({
-          next: (value: IPage<IForestUnit>) => {
-              this.forestUnits = value.data;
+    // this.forestUnitService.getForestUnits(undefined, undefined)
+    //   .subscribe({
+    //       next: (value: IPage<IForestUnit>) => {
+    //           this.forestUnits = value.data;
 
-              if(this.selectedForestUnitId) {
-                this.selectedForestUnit();
-              }
-          }
-      });
+    //           if(this.selectedForestUnitId) {
+    //             this.selectedForestUnit();
+    //           }
+    //       }
+    //   });
   }
 
-  selectedForestUnit() : void {
-
+  selectedForestUnitChange() : void { //
+    this.filter(); //
     this.planService.getPlans(this.selectedForestUnitId, undefined, undefined)
       .subscribe({
           next: (value: IPage<IPlan>) => {

@@ -68,20 +68,20 @@ export class CreatePlanItemComponent implements OnInit {
   
   forestUnitSelected(forestUnitId: number) {
     this.divisionService.getDivisions(forestUnitId, undefined, undefined)
-            .subscribe({
-                next: (value: IPage<IDivision>) => {
-                    this.divisions = value.data;
-                    this.Form.controls['divisionId'].enable()
-                }
-            });
+      .subscribe({
+          next: (value: IPage<IDivision>) => {
+              this.divisions = value.data;
+              this.Form.controls['divisionId'].enable()
+          }
+      });
     
     this.planService.getPlans(forestUnitId, undefined, undefined)
-    .subscribe({
-        next: (value: IPage<IPlan>) => {
-            this.plans = value.data;
-            this.Form.controls['planId'].enable()
-        }
-    });
+      .subscribe({
+          next: (value: IPage<IPlan>) => {
+              this.plans = value.data;
+              this.Form.controls['planId'].enable()
+          }
+      });
   }
 
   divisionSelected(divisionId: number) {

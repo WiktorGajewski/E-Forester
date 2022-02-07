@@ -52,6 +52,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
 
 const material = [
   MatToolbarModule,
@@ -95,7 +96,8 @@ const material = [
     CardComponent,
     AnnualResultsChartComponent,
     LastDecadeResultsChartComponent,
-    EnumToArrayPipe
+    EnumToArrayPipe,
+    ForestUnitFilterComponent
   ],
   imports: [
     material,
