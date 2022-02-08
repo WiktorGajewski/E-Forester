@@ -1,19 +1,18 @@
-import { AfterViewInit, asNativeElements, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { IDivision } from 'src/app/models/division.model';
-import { IForestUnit } from 'src/app/models/forest-unit.model';
 import { IPage } from 'src/app/models/page.model';
 import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
 import { IPlan } from 'src/app/models/plan.model';
 import { ISubarea } from 'src/app/models/subarea.model';
 import { DivisionService } from 'src/app/services/divisions/division.service';
-import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
 import { PlanService } from 'src/app/services/plans/plan.service';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
+import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
 import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.component';
 
 @Component({
@@ -32,8 +31,9 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   plans: IPlan[] = [];
   selectedPlanId: number | undefined;
 
-  //forestUnits: IForestUnit[] = [];
+  @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
   selectedForestUnitId: number | undefined;
+
   divisions: IDivision[] = [];
   selectedDivisionId: number | undefined;
   subareas: ISubarea[] = [];
@@ -41,7 +41,6 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     
   constructor(private planItemService: PlanItemService, 
     private planService: PlanService,
-    //private forestUnitService: ForestUnitService,
     private divisionService: DivisionService,
     private subareaService: SubareaService,
     private route: ActivatedRoute,
@@ -54,27 +53,17 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     });
 
     this.dataSource = new PlanItemsDataSource(this.planItemService);
-    this.dataSource.loadPlanItems(
-      this.selectedForestUnitId,
-      this.selectedDivisionId,
-      this.selectedSubareaId,
-      this.selectedPlanId
-    );
-
-    // this.forestUnitService.getForestUnits(undefined, undefined)
-    //   .subscribe({
-    //       next: (value: IPage<IForestUnit>) => {
-    //           this.forestUnits = value.data;
-
-    //           if(this.selectedForestUnitId) {
-    //             this.selectedForestUnit();
-    //           }
-    //       }
-    //   });
   }
 
-  selectedForestUnitChange() : void { //
-    this.filter(); //
+  ngAfterViewInit(): void {
+    this.forestUnitFilter.load();
+
+    this.paginator.page
+      .subscribe(() => this.loadPage());
+  }
+
+  selectedForestUnitChange() : void {
+    this.filter();
     this.planService.getPlans(this.selectedForestUnitId, undefined, undefined)
       .subscribe({
           next: (value: IPage<IPlan>) => {
@@ -100,10 +89,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit(): void {
-    this.paginator.page
-      .subscribe(() => this.loadPage());
-  }
+  
 
   loadPage() : void {
     this.dataSource.loadPlanItems(

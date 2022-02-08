@@ -4,16 +4,6 @@
     <mat-divider></mat-divider>
   </h1>
 
-  <!-- <mat-form-field appearance="standard" #inputForestUnitId>
-    <mat-label>Filtruj po leśnictwie</mat-label>
-    <mat-select  matInput type="number" (selectionChange)="selectedForestUnit();filter()" [(value)]="selectedForestUnitId">
-
-        <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id">
-            {{forestUnit.name}}
-        </mat-option>
-    </mat-select>
-  </mat-form-field> -->
-
   <app-forest-unit-filter [selectedForestUnitId]="selectedForestUnitId"
     (selectedForestUnitIdChange)="selectedForestUnitId=$event; selectedForestUnitChange();">
   </app-forest-unit-filter>

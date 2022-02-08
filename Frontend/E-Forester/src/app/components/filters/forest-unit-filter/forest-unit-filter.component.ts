@@ -18,18 +18,20 @@ export class ForestUnitFilterComponent implements OnInit {
   constructor(private forestUnitService: ForestUnitService) { }
 
   ngOnInit(): void {
-    this.getForestUnits();
+
   }
 
-  getForestUnits() : void {
+  load() : void {
     this.forestUnitService.getForestUnits(undefined, undefined)
       .subscribe({
           next: (value: IPage<IForestUnit>) => {
               this.forestUnits = value.data;
 
-              if(this.selectedForestUnitId) {
-                this.filter();
+              if(!this.selectedForestUnitId && this.forestUnits.length > 0) {
+                this.selectedForestUnitId = this.forestUnits[0]?.id;
               }
+
+              this.filter();
           }
       });
   }
