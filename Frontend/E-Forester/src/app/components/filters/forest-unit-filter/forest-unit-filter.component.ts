@@ -12,8 +12,8 @@ export class ForestUnitFilterComponent implements OnInit {
 
   forestUnits: IForestUnit[] = [];
   
-  @Input() selectedForestUnitId: number|undefined = undefined;
-  @Output() selectedForestUnitIdChange = new EventEmitter<number|undefined>();
+  @Input() selectedForestUnitId: number|null = null;
+  @Output() selectedForestUnitIdChange = new EventEmitter<number|null>();
   
   constructor(private forestUnitService: ForestUnitService) { }
 
@@ -22,7 +22,7 @@ export class ForestUnitFilterComponent implements OnInit {
   }
 
   load() : void {
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
       .subscribe({
           next: (value: IPage<IForestUnit>) => {
               this.forestUnits = value.data;
@@ -31,7 +31,7 @@ export class ForestUnitFilterComponent implements OnInit {
   }
 
   loadAndFilter() : void {
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
       .subscribe({
           next: (value: IPage<IForestUnit>) => {
               this.forestUnits = value.data;

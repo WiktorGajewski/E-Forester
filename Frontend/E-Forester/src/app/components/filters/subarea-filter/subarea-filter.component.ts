@@ -12,8 +12,8 @@ export class SubareaFilterComponent implements OnInit {
 
   subareas: ISubarea[] = [];
 
-  @Input() selectedSubareaId: number|undefined = undefined;
-  @Output() selectedSubareaIdChange = new EventEmitter<number|undefined>();
+  @Input() selectedSubareaId: number|null = null;
+  @Output() selectedSubareaIdChange = new EventEmitter<number|null>();
 
   constructor(private subareaService : SubareaService) { }
 
@@ -21,8 +21,8 @@ export class SubareaFilterComponent implements OnInit {
 
   }
 
-  load(divisionId: number|undefined) : void {
-    this.subareaService.getSubareas(divisionId, undefined, undefined)
+  load(divisionId: number|null) : void {
+    this.subareaService.getSubareas(divisionId, null, null)
       .subscribe({
           next: (value: IPage<ISubarea>) => {
               this.subareas = value.data;

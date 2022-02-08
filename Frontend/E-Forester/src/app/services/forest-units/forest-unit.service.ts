@@ -16,7 +16,7 @@ export class ForestUnitService {
 
   }
 
-  getForestUnits(pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IForestUnit>> {
+  getForestUnits(pageIndex : number | null, pageSize: number | null): Observable<IPage<IForestUnit>> {
 
     let params = new HttpParams();
 

@@ -37,7 +37,7 @@ export class CreateSubareaComponent implements OnInit {
 
     this.Form.controls['division'].disable();
 
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
             .subscribe({
                 next: (value: IPage<IForestUnit>) => {
                     this.forestUnits = value.data;
@@ -46,7 +46,7 @@ export class CreateSubareaComponent implements OnInit {
   }
 
   forestUnitSelected(forestUnitId: number) {
-    this.divisionService.getDivisions(forestUnitId, undefined, undefined)
+    this.divisionService.getDivisions(forestUnitId, null, null)
             .subscribe({
                 next: (value: IPage<IDivision>) => {
                     this.divisions = value.data;

@@ -23,16 +23,16 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
   @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
-  selectedForestUnitId: number | undefined;
+  selectedForestUnitId: number | null = null;
 
   @ViewChild(DivisionFilterComponent) divisionFilter !: DivisionFilterComponent;
-  selectedDivisionId: number | undefined;
+  selectedDivisionId: number | null = null;
 
   @ViewChild(SubareaFilterComponent) subareaFilter !: SubareaFilterComponent;
-  selectedSubareaId: number | undefined;
+  selectedSubareaId: number | null = null;
 
   @ViewChild(PlanFilterComponent) planFilter !: PlanFilterComponent;
-  selectedPlanId: number | undefined;
+  selectedPlanId: number | null = null;
 
   actionGroups = ActionGroup;
     
@@ -48,8 +48,9 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     this.route.queryParams.subscribe(params => {
-      this.selectedPlanId = Number(params["planId"]) || undefined;
-      this.selectedForestUnitId = Number(params["forestUnitId"]) || undefined;
+      this.selectedPlanId = Number(params["planId"]) || null;
+      this.selectedForestUnitId = Number(params["forestUnitId"]) || null;
+
       this.filterOnInit();
     });
 
@@ -89,9 +90,9 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   }
 
   selectedForestUnitChange() : void {
-    this.selectedDivisionId = undefined;
-    this.selectedPlanId = undefined;
-    this.selectedSubareaId = undefined;
+    this.selectedDivisionId = null;
+    this.selectedPlanId = null;
+    this.selectedSubareaId = null;
 
     this.filter();
 
@@ -101,7 +102,7 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
   }
 
   selectedDivisionChange() : void {
-    this.selectedSubareaId = undefined;
+    this.selectedSubareaId = null;
 
     this.filter();
 

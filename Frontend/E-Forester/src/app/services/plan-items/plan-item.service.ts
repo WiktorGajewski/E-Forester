@@ -15,8 +15,8 @@ export class PlanItemService {
 
    }
 
-  getPlanItems(forestUnitId: number | undefined, divisionId: number | undefined, subareaId: number | undefined,
-      planId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<IPlanItem>> {
+  getPlanItems(forestUnitId: number | null, divisionId: number | null, subareaId: number | null,
+      planId: number | null, pageIndex : number | null, pageSize: number | null): Observable<IPage<IPlanItem>> {
 
     let params = new HttpParams();
 

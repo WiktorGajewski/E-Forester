@@ -1,7 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { merge } from 'rxjs';
 import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-source';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';

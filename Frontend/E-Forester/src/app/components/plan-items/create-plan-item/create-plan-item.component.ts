@@ -58,7 +58,7 @@ export class CreatePlanItemComponent implements OnInit {
     this.Form.controls['planId'].disable();
 
 
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
             .subscribe({
                 next: (value: IPage<IForestUnit>) => {
                     this.forestUnits = value.data;
@@ -67,7 +67,7 @@ export class CreatePlanItemComponent implements OnInit {
   }
   
   forestUnitSelected(forestUnitId: number) {
-    this.divisionService.getDivisions(forestUnitId, undefined, undefined)
+    this.divisionService.getDivisions(forestUnitId, null, null)
       .subscribe({
           next: (value: IPage<IDivision>) => {
               this.divisions = value.data;
@@ -75,7 +75,7 @@ export class CreatePlanItemComponent implements OnInit {
           }
       });
     
-    this.planService.getPlans(forestUnitId, undefined, undefined)
+    this.planService.getPlans(forestUnitId, null, null)
       .subscribe({
           next: (value: IPage<IPlan>) => {
               this.plans = value.data;
@@ -85,7 +85,7 @@ export class CreatePlanItemComponent implements OnInit {
   }
 
   divisionSelected(divisionId: number) {
-    this.subareaService.getSubareas(divisionId, undefined, undefined)
+    this.subareaService.getSubareas(divisionId, null, null)
             .subscribe({
                 next: (value: IPage<ISubarea>) => {
                     this.subareas = value.data;

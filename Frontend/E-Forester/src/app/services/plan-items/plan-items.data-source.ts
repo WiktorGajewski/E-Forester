@@ -27,8 +27,8 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
         this.totalCountSubject.complete();
     }
 
-    loadPlanItems(forestUnitId: number|undefined = undefined, divisionId: number|undefined = undefined,
-            subareaId: number|undefined = undefined, planId: number | undefined = undefined,
+    loadPlanItems(forestUnitId: number|null = null, divisionId: number|null = null,
+            subareaId: number|null = null, planId: number|null = null,
             pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);

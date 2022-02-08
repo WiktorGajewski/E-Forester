@@ -27,7 +27,7 @@ export class DivisionsDataSource implements DataSource<IDivision> {
         this.totalCountSubject.complete();
     }
 
-    loadDivisions(forestUnitId : number | undefined = undefined,
+    loadDivisions(forestUnitId : number | null = null,
              pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);

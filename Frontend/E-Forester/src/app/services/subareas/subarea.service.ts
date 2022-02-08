@@ -15,7 +15,7 @@ export class SubareaService {
 
    }
 
-  getSubareas(divisionId: number | undefined, pageIndex : number | undefined, pageSize: number | undefined): Observable<IPage<ISubarea>> {
+  getSubareas(divisionId: number | null, pageIndex : number | null, pageSize: number | null): Observable<IPage<ISubarea>> {
     
     let params = new HttpParams();
 

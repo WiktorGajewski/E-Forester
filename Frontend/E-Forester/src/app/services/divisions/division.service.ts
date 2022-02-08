@@ -15,7 +15,7 @@ export class DivisionService {
 
   }
 
-  getDivisions(forestUnitId: number | undefined, pageIndex: number | undefined, pageSize: number | undefined): Observable<IPage<IDivision>> {
+  getDivisions(forestUnitId: number | null, pageIndex: number | null, pageSize: number | null): Observable<IPage<IDivision>> {
     
     let params = new HttpParams();
     

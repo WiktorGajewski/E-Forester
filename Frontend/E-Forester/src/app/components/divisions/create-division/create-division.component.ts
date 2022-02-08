@@ -30,7 +30,7 @@ export class CreateDivisionComponent implements OnInit {
       forestUnit: new FormControl(null, Validators.required)
     });
 
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
             .subscribe({
                 next: (value: IPage<IForestUnit>) => {
                     this.forestUnits = value.data;

@@ -29,7 +29,7 @@ export class CreatePlanComponent implements OnInit {
       forestUnitId: new FormControl(null, Validators.required)
     });
 
-    this.forestUnitService.getForestUnits(undefined, undefined)
+    this.forestUnitService.getForestUnits(null, null)
             .subscribe({
                 next: (value: IPage<IForestUnit>) => {
                     this.forestUnits = value.data;

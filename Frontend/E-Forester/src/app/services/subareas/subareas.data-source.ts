@@ -27,7 +27,7 @@ export class SubareasDataSource implements DataSource<ISubarea> {
         this.totalCountSubject.complete();
     }
 
-    loadSubareas(divisionId: number | undefined = undefined, pageIndex = 1, pageSize = 10) : void {
+    loadSubareas(divisionId: number | null = null, pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 

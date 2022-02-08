@@ -12,8 +12,8 @@ export class DivisionFilterComponent implements OnInit {
 
   divisions: IDivision[] = [];
 
-  @Input() selectedDivisionId: number|undefined = undefined;
-  @Output() selectedDivisionIdChange = new EventEmitter<number|undefined>();
+  @Input() selectedDivisionId: number|null = null;
+  @Output() selectedDivisionIdChange = new EventEmitter<number|null>();
 
   constructor(private divisionService : DivisionService) { }
 
@@ -21,8 +21,8 @@ export class DivisionFilterComponent implements OnInit {
 
   }
 
-  load(forestUnitId: number|undefined) : void {
-    this.divisionService.getDivisions(forestUnitId, undefined, undefined)
+  load(forestUnitId: number|null) : void {
+    this.divisionService.getDivisions(forestUnitId, null, null)
       .subscribe({
           next: (value: IPage<IDivision>) => {
               this.divisions = value.data;

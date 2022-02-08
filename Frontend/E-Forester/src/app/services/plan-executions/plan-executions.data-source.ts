@@ -31,7 +31,7 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
 
         this.loadingSubject.next(true);
 
-        this.planExecutionService.getPlanExecutions(undefined, undefined, pageIndex, pageSize)
+        this.planExecutionService.getPlanExecutions(null, null, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlanExecution>) => {
