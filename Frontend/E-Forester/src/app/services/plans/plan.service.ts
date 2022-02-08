@@ -29,7 +29,7 @@ export class PlanService {
       params = params
         .append("ForestUnitId", forestUnitId);
     }
-    
+
     return this.http.get<IPage<IPlan>>(`${this.apiUrl}plans`, {params})
       .pipe(
         catchError(this.handleError<IPage<IPlan>>('getPlans', this.createBlankPage()))

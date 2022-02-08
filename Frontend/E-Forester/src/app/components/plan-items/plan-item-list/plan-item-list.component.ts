@@ -1,18 +1,14 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
-import { IDivision } from 'src/app/models/division.model';
-import { IPage } from 'src/app/models/page.model';
 import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
-import { IPlan } from 'src/app/models/plan.model';
-import { ISubarea } from 'src/app/models/subarea.model';
-import { DivisionService } from 'src/app/services/divisions/division.service';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
-import { PlanService } from 'src/app/services/plans/plan.service';
-import { SubareaService } from 'src/app/services/subareas/subarea.service';
+import { DivisionFilterComponent } from '../../filters/division-filter/division-filter.component';
 import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
+import { PlanFilterComponent } from '../../filters/plan-filter/plan-filter.component';
+import { SubareaFilterComponent } from '../../filters/subarea-filter/subarea-filter.component';
 import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.component';
 
 @Component({
@@ -26,70 +22,55 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  actionGroups = ActionGroup;
-
-  plans: IPlan[] = [];
-  selectedPlanId: number | undefined;
-
   @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
   selectedForestUnitId: number | undefined;
 
-  divisions: IDivision[] = [];
+  @ViewChild(DivisionFilterComponent) divisionFilter !: DivisionFilterComponent;
   selectedDivisionId: number | undefined;
-  subareas: ISubarea[] = [];
+
+  @ViewChild(SubareaFilterComponent) subareaFilter !: SubareaFilterComponent;
   selectedSubareaId: number | undefined;
+
+  @ViewChild(PlanFilterComponent) planFilter !: PlanFilterComponent;
+  selectedPlanId: number | undefined;
+
+  actionGroups = ActionGroup;
     
   constructor(private planItemService: PlanItemService, 
-    private planService: PlanService,
-    private divisionService: DivisionService,
-    private subareaService: SubareaService,
     private route: ActivatedRoute,
-    private dialog : MatDialog) { }
+    private dialog : MatDialog,
+    private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.selectedPlanId = Number(params["planId"]);
-      this.selectedForestUnitId = Number(params["forestUnitId"]);
-    });
-
     this.dataSource = new PlanItemsDataSource(this.planItemService);
   }
 
   ngAfterViewInit(): void {
-    this.forestUnitFilter.load();
 
+    this.route.queryParams.subscribe(params => {
+      this.selectedPlanId = Number(params["planId"]) || undefined;
+      this.selectedForestUnitId = Number(params["forestUnitId"]) || undefined;
+      this.filterOnInit();
+    });
+
+    this.cd.detectChanges();
+  
     this.paginator.page
       .subscribe(() => this.loadPage());
   }
 
-  selectedForestUnitChange() : void {
-    this.filter();
-    this.planService.getPlans(this.selectedForestUnitId, undefined, undefined)
-      .subscribe({
-          next: (value: IPage<IPlan>) => {
-              this.plans = value.data;
-          }
-      });
+  filterOnInit() {
+    if(this.selectedPlanId && this.selectedForestUnitId) {
+      this.loadPage();
 
-    this.divisionService.getDivisions(this.selectedForestUnitId, undefined, undefined)
-      .subscribe({
-          next: (value: IPage<IDivision>) => {
-              this.divisions = value.data;
-          }
-      });
+      this.forestUnitFilter.load();
+      this.divisionFilter.load(this.selectedForestUnitId);
+      this.planFilter.load(this.selectedForestUnitId);
+    } 
+    else {
+      this.forestUnitFilter.loadAndFilter();
+    }
   }
-
-  selectedDivision() : void {
-
-    this.subareaService.getSubareas(this.selectedDivisionId, undefined, undefined)
-      .subscribe({
-          next: (value: IPage<ISubarea>) => {
-              this.subareas = value.data;
-          }
-      });
-  }
-
-  
 
   loadPage() : void {
     this.dataSource.loadPlanItems(
@@ -102,8 +83,40 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  createPlanItemDialog() : void {
+  filter() : void {
+    this.paginator.pageIndex = 0;
+    this.loadPage();
+  }
 
+  selectedForestUnitChange() : void {
+    this.selectedDivisionId = undefined;
+    this.selectedPlanId = undefined;
+    this.selectedSubareaId = undefined;
+
+    this.filter();
+
+    this.divisionFilter.load(this.selectedForestUnitId);
+    this.planFilter.load(this.selectedForestUnitId);
+    this.subareaFilter.subareas = [];
+  }
+
+  selectedDivisionChange() : void {
+    this.selectedSubareaId = undefined;
+
+    this.filter();
+
+    this.subareaFilter.load(this.selectedDivisionId);
+  }
+
+  selectedSubareaChange() : void {
+    this.filter();
+  }
+
+  selectedPlanChange() : void {
+    this.filter();
+  }  
+
+  createPlanItemDialog() : void {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -133,10 +146,5 @@ export class PlanItemListComponent implements OnInit, AfterViewInit {
     }
 
     return values;
-  }
-
-  filter() {
-    this.paginator.pageIndex = 0;
-    this.loadPage();
   }
 }

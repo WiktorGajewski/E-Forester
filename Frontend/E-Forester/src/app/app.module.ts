@@ -53,6 +53,9 @@ import { CardComponent } from './components/dashboard/card/card.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
+import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
+import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
+import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 
 const material = [
   MatToolbarModule,
@@ -97,7 +100,10 @@ const material = [
     AnnualResultsChartComponent,
     LastDecadeResultsChartComponent,
     EnumToArrayPipe,
-    ForestUnitFilterComponent
+    ForestUnitFilterComponent,
+    DivisionFilterComponent,
+    SubareaFilterComponent,
+    PlanFilterComponent
   ],
   imports: [
     material,

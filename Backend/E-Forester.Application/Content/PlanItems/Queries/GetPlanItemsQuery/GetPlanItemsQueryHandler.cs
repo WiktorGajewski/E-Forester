@@ -15,19 +15,11 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
     public class GetPlanItemsQueryHandler : IRequestHandler<GetPlanItemsQuery, Page<PlanItemDto>>
     {
         private readonly IPlanItemRepository _planItemRepository;
-        private readonly IDivisionRepository _divisionRepository;
-        private readonly IForestUnitRepository _forestUnitRepository;
-
         private readonly IMapper _mapper;
 
-        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, 
-            IDivisionRepository divisionRepository,
-            IForestUnitRepository forestUnitRepository,
-            IMapper mapper)
+        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper)
         {
             _planItemRepository = planItemRepository;
-            _divisionRepository = divisionRepository;
-            _forestUnitRepository = forestUnitRepository;
             _mapper = mapper;
         }
 
@@ -68,17 +60,19 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
         private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId)
         {
-            if (subareaId != null)
+            if (forestUnitId != null)
             {
-                planItemsQuery = planItemsQuery.Where(d => d.SubareaId == subareaId);
+                planItemsQuery = planItemsQuery.Where(p => p.Plan.ForestUnitId == (int)forestUnitId);
             }
-            else if (divisionId != null)
+
+            if (divisionId != null)
             {
                 planItemsQuery = planItemsQuery.Where(p => p.Subarea.DivisionId == (int)divisionId);
             }
-            else if (forestUnitId != null)
+
+            if (subareaId != null)
             {
-                planItemsQuery = planItemsQuery.Where(p => p.Plan.ForestUnitId == (int)forestUnitId);
+                planItemsQuery = planItemsQuery.Where(d => d.SubareaId == subareaId);
             }
 
             if (planId != null)

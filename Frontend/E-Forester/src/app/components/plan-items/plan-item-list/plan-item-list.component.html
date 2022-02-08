@@ -10,39 +10,21 @@
 
   <br>
 
-  <mat-form-field appearance="standard" #inputDivisionId>
-    <mat-label>Filtruj po oddziale</mat-label>
-    <mat-select  matInput type="number" (selectionChange)="selectedDivision();filter()" [(value)]="selectedDivisionId">
-
-        <mat-option *ngFor="let division of divisions" [value]="division.id">
-            {{division.address}}
-        </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-division-filter [selectedDivisionId]="selectedDivisionId"
+    (selectedDivisionIdChange)="selectedDivisionId=$event; selectedDivisionChange();">
+  </app-division-filter>
 
   <br>
 
-  <mat-form-field appearance="standard" #inputSubareaId>
-    <mat-label>Filtruj po wydzieleniu</mat-label>
-    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="selectedSubareaId">
-
-        <mat-option *ngFor="let subarea of subareas" [value]="subarea.id">
-            {{subarea.address}}
-        </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-subarea-filter [selectedSubareaId]="selectedSubareaId"
+    (selectedSubareaIdChange)="selectedSubareaId=$event; selectedSubareaChange();">
+  </app-subarea-filter>
 
   <br>
 
-  <mat-form-field appearance="standard" #inputPlanId>
-    <mat-label>Filtruj po planie</mat-label>
-    <mat-select  matInput type="number" (selectionChange)="filter()" [(value)]="selectedPlanId">
-
-        <mat-option *ngFor="let plan of plans" [value]="plan.id">
-            {{plan.year}}
-        </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-plan-filter [selectedPlanId]="selectedPlanId"
+    (selectedPlanIdChange)="selectedPlanId=$event; selectedPlanChange();">
+  </app-plan-filter>
 
   <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
