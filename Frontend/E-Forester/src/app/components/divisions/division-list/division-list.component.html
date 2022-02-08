@@ -4,6 +4,10 @@
         <mat-divider></mat-divider>
     </h1>
 
+    <app-forest-unit-filter [selectedForestUnitId]="selectedForestUnitId"
+        (selectedForestUnitIdChange)="selectedForestUnitId=$event; selectedForestUnitChange();">
+    </app-forest-unit-filter>
+
     <div class="table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
             <ng-container matColumnDef="id">

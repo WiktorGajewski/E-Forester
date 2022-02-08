@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { DivisionsDataSource } from 'src/app/services/divisions/divisions.data-source';
+import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
 import { CreateDivisionComponent } from '../create-division/create-division.component';
 
 @Component({
@@ -16,7 +17,11 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private divisionService : DivisionService, private dialog : MatDialog) {
+  @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
+  selectedForestUnitId: number | null = null;
+
+  constructor(private divisionService : DivisionService,
+    private dialog : MatDialog) {
 
   }
 
@@ -26,16 +31,27 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.forestUnitFilter.load();
+
     this.paginator.page
       .subscribe(() => this.loadPage());
   }
 
   loadPage() : void {
     this.dataSource.loadDivisions(
-      undefined,
+      this.selectedForestUnitId,
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
+  }
+
+  filter() : void {
+    this.paginator.pageIndex = 0;
+    this.loadPage();
+  }
+
+  selectedForestUnitChange() : void {
+    this.filter();
   }
 
   createDivisionDialog() : void {

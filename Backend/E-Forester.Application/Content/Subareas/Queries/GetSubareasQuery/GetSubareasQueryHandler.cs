@@ -29,6 +29,11 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
 
             var subareas = new List<Subarea>();
 
+            if (request.ForestUnitId != null)
+            {
+                subareasQuery = subareasQuery.Where(p => p.Division.ForestUnitId == (int)request.ForestUnitId);
+            }
+
             if (request.DivisionId != null)
             {
                 subareasQuery = subareasQuery.Where(s => s.DivisionId == request.DivisionId);

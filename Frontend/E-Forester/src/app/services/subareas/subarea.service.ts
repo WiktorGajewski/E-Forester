@@ -15,7 +15,8 @@ export class SubareaService {
 
    }
 
-  getSubareas(divisionId: number | null, pageIndex : number | null, pageSize: number | null): Observable<IPage<ISubarea>> {
+  getSubareas(forestUnitId: number | null, divisionId: number | null,
+    pageIndex : number | null, pageSize: number | null): Observable<IPage<ISubarea>> {
     
     let params = new HttpParams();
 
@@ -24,7 +25,12 @@ export class SubareaService {
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
     }
-    
+
+    if(forestUnitId) {
+      params = params
+        .append("ForestUnitId", forestUnitId);
+    }
+
     if(divisionId) {
       params = params
         .append("DivisionId", divisionId);

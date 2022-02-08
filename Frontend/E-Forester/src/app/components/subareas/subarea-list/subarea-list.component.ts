@@ -1,9 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-source';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateSubareaComponent } from '../create-subarea/create-subarea.component';
+import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
+import { DivisionFilterComponent } from '../../filters/division-filter/division-filter.component';
 
 @Component({
   selector: 'app-subarea-list',
@@ -16,7 +18,14 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private subareaService : SubareaService, private dialog : MatDialog) { 
+  @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
+  selectedForestUnitId: number | null = null;
+
+  @ViewChild(DivisionFilterComponent) divisionFilter !: DivisionFilterComponent;
+  selectedDivisionId: number | null = null;
+
+  constructor(private subareaService : SubareaService,
+    private dialog : MatDialog) { 
 
   }
   
@@ -26,16 +35,36 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.forestUnitFilter.load();
+
     this.paginator.page
       .subscribe(() => this.loadPage());
   }
 
   loadPage() : void {
     this.dataSource.loadSubareas(
-      undefined,
+      this.selectedForestUnitId,
+      this.selectedDivisionId,
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
+  }
+
+  filter() : void {
+    this.paginator.pageIndex = 0;
+    this.loadPage();
+  }
+
+  selectedForestUnitChange() : void {
+    this.selectedDivisionId = null;
+
+    this.filter();
+
+    this.divisionFilter.load(this.selectedForestUnitId);
+  }
+
+  selectedDivisionChange() : void {
+    this.filter();
   }
 
   createSubareaDialog() : void {

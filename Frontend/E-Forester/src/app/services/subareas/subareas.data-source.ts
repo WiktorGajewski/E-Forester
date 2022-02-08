@@ -27,11 +27,12 @@ export class SubareasDataSource implements DataSource<ISubarea> {
         this.totalCountSubject.complete();
     }
 
-    loadSubareas(divisionId: number | null = null, pageIndex = 1, pageSize = 10) : void {
+    loadSubareas(forestUnitId: number|null = null, divisionId: number | null = null,
+        pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.subareaService.getSubareas(divisionId, pageIndex, pageSize)
+        this.subareaService.getSubareas(forestUnitId, divisionId, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<ISubarea>) => {

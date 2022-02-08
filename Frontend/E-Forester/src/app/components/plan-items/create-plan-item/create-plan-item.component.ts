@@ -85,7 +85,7 @@ export class CreatePlanItemComponent implements OnInit {
   }
 
   divisionSelected(divisionId: number) {
-    this.subareaService.getSubareas(divisionId, null, null)
+    this.subareaService.getSubareas(null, divisionId, null, null)
             .subscribe({
                 next: (value: IPage<ISubarea>) => {
                     this.subareas = value.data;
