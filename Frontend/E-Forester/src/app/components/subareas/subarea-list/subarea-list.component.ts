@@ -18,10 +18,8 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
   selectedForestUnitId: number | null = null;
 
-  @ViewChild(DivisionFilterComponent) divisionFilter !: DivisionFilterComponent;
   selectedDivisionId: number | null = null;
 
   constructor(private subareaService : SubareaService,
@@ -31,11 +29,9 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
     this.dataSource = new SubareasDataSource(this.subareaService);
-    this.dataSource.loadSubareas();
   }
 
   ngAfterViewInit(): void {
-    this.forestUnitFilter.load();
 
     this.paginator.page
       .subscribe(() => this.loadPage());
@@ -53,18 +49,6 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
   filter() : void {
     this.paginator.pageIndex = 0;
     this.loadPage();
-  }
-
-  selectedForestUnitChange() : void {
-    this.selectedDivisionId = null;
-
-    this.filter();
-
-    this.divisionFilter.load(this.selectedForestUnitId);
-  }
-
-  selectedDivisionChange() : void {
-    this.filter();
   }
 
   createSubareaDialog() : void {

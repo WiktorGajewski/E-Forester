@@ -12,9 +12,31 @@ export class PlanFilterComponent implements OnInit {
 
   plans: IPlan[] = [];
 
-
   @Input() selectedPlanId: number|null = null;
   @Output() selectedPlanIdChange = new EventEmitter<number|null>();
+
+  private _forestUnitId: number|null = null;
+
+  @Input() set forestUnitId(value: number|null) {
+    
+    if(this._forestUnitId != null) {
+      this.selectedPlanId = null;
+      this.planIdChange();
+    }
+
+    this._forestUnitId = value;
+    
+    if(value) {
+      this.load();
+    }
+    else {
+      this.plans = [];
+    }
+  }
+
+  get forestUnitId() : number| null {
+    return this._forestUnitId;
+  }
 
   constructor(private planService : PlanService) { }
 
@@ -22,8 +44,8 @@ export class PlanFilterComponent implements OnInit {
 
   }
 
-  load(forestUnitId: number|null ) : void {
-    this.planService.getPlans(forestUnitId, null, null)
+  load() : void {
+    this.planService.getPlans(this.forestUnitId, null, null)
       .subscribe({
           next: (value: IPage<IPlan>) => {
               this.plans = value.data;
@@ -31,7 +53,7 @@ export class PlanFilterComponent implements OnInit {
       });
   }
 
-  filter() : void {
+  planIdChange() : void {
     this.selectedPlanIdChange.emit(this.selectedPlanId);
   }
 }

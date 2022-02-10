@@ -1,0 +1,48 @@
+<div class="container">
+    <h1 style="margin-bottom: 10px;">
+      Pozycje planu
+      <mat-divider></mat-divider>
+    </h1>
+  
+    <app-forest-unit-filter 
+        [selectedForestUnitId]="selectedForestUnitId"
+        (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+    </app-forest-unit-filter>
+  
+    <br>
+  
+    <app-division-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedDivisionId]="selectedDivisionId"
+        (selectedDivisionIdChange)="selectedDivisionId=$event;">
+    </app-division-filter>
+  
+    <br>
+  
+    <app-subarea-filter
+        [divisionId]="selectedDivisionId"
+        [selectedSubareaId]="selectedSubareaId"
+        (selectedSubareaIdChange)="selectedSubareaId=$event;">
+    </app-subarea-filter>
+  
+    <br>
+  
+    <app-plan-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedPlanId]="selectedPlanId"
+        (selectedPlanIdChange)="selectedPlanId=$event;">
+    </app-plan-filter>
+
+    <app-plan-items-table
+        [selectedForestUnitId]="selectedForestUnitId"
+        [selectedDivisionId]="selectedDivisionId"
+        [selectedSubareaId]="selectedSubareaId"
+        [selectedPlanId]="selectedPlanId">
+    </app-plan-items-table>
+
+    <div class="button-container">
+        <button mat-mini-fab color="primary" (click)="createPlanItemDialog()" class="open-dialog-button">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

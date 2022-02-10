@@ -17,7 +17,6 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  @ViewChild(ForestUnitFilterComponent) forestUnitFilter !: ForestUnitFilterComponent;
   selectedForestUnitId: number | null = null;
 
   constructor(private divisionService : DivisionService,
@@ -27,11 +26,9 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource = new DivisionsDataSource(this.divisionService);
-    this.dataSource.loadDivisions();
   }
 
   ngAfterViewInit(): void {
-    this.forestUnitFilter.load();
 
     this.paginator.page
       .subscribe(() => this.loadPage());
@@ -48,10 +45,6 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
   filter() : void {
     this.paginator.pageIndex = 0;
     this.loadPage();
-  }
-
-  selectedForestUnitChange() : void {
-    this.filter();
   }
 
   createDivisionDialog() : void {

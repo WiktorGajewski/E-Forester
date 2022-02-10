@@ -15,14 +15,37 @@ export class SubareaFilterComponent implements OnInit {
   @Input() selectedSubareaId: number|null = null;
   @Output() selectedSubareaIdChange = new EventEmitter<number|null>();
 
+  private _divisionId: number|null = null;
+
+  @Input() set divisionId(value: number|null) {
+
+    if(this._divisionId != null) {
+      this.selectedSubareaId = null;
+      this.subareaIdChange();
+    }
+
+    this._divisionId = value;
+    
+    if(value) {
+      this.load();
+    }
+    else {
+      this.subareas = [];
+    }
+  }
+
+  get divisionId() : number| null {
+    return this._divisionId;
+  }
+
   constructor(private subareaService : SubareaService) { }
 
   ngOnInit(): void {
 
   }
 
-  load(divisionId: number|null) : void {
-    this.subareaService.getSubareas(null, divisionId, null, null)
+  load() : void {
+    this.subareaService.getSubareas(null, this.divisionId, null, null)
       .subscribe({
           next: (value: IPage<ISubarea>) => {
               this.subareas = value.data;
@@ -30,7 +53,7 @@ export class SubareaFilterComponent implements OnInit {
       });
   }
 
-  filter() : void {
+  subareaIdChange() : void {
     this.selectedSubareaIdChange.emit(this.selectedSubareaId);
   }
 }

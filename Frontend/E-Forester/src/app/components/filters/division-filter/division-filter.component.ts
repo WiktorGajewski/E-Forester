@@ -15,14 +15,37 @@ export class DivisionFilterComponent implements OnInit {
   @Input() selectedDivisionId: number|null = null;
   @Output() selectedDivisionIdChange = new EventEmitter<number|null>();
 
+  private _forestUnitId: number|null = null;
+
+  @Input() set forestUnitId(value: number|null) {
+
+    if(this._forestUnitId != null) {
+      this.selectedDivisionId = null;
+      this.divisionIdChange();
+    }
+
+    this._forestUnitId = value;
+
+    if(value) {
+      this.load();
+    }
+    else {
+      this.divisions = [];
+    }
+  }
+
+  get forestUnitId() : number| null {
+    return this._forestUnitId;
+  }
+
   constructor(private divisionService : DivisionService) { }
 
   ngOnInit(): void {
 
   }
 
-  load(forestUnitId: number|null) : void {
-    this.divisionService.getDivisions(forestUnitId, null, null)
+  load() : void {
+    this.divisionService.getDivisions(this.forestUnitId, null, null)
       .subscribe({
           next: (value: IPage<IDivision>) => {
               this.divisions = value.data;
@@ -30,7 +53,7 @@ export class DivisionFilterComponent implements OnInit {
       });
   }
 
-  filter() : void {
+  divisionIdChange() : void {
     this.selectedDivisionIdChange.emit(this.selectedDivisionId);
   }
 }

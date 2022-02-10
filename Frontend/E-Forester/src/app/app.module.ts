@@ -20,7 +20,8 @@ import { PlanListComponent } from './components/plans/plan-list/plan-list.compon
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
 import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
-import { PlanItemListComponent } from './components/plan-items/plan-item-list/plan-item-list.component';
+import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
+import { PlanItemsTableComponent } from './components/plan-items/plan-items-table/plan-items-table.component';
 import { PlanExecutionListComponent } from './components/plan-executions/plan-execution-list/plan-execution-list.component';
 import { CreateForestUnitComponent } from './components/forest-units/create-forest-unit/create-forest-unit.component';
 import { CreateDivisionComponent } from './components/divisions/create-division/create-division.component';
@@ -33,6 +34,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
 import { LastDecadeResultsChartComponent } from './components/dashboard/charts/last-decade-results-chart/last-decade-results-chart.component';
 import { EnumToArrayPipe } from './helpers/enum-to-array.pipe';
+import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
+import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
+import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
+import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -52,10 +57,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
-import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
-import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
-import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 
 const material = [
   MatToolbarModule,
@@ -86,7 +87,8 @@ const material = [
     SubareaListComponent,
     DivisionListComponent,
     ForestUnitListComponent,
-    PlanItemListComponent,
+    PlanItemsTableComponent,
+    PlanItemsPageComponent,
     PlanExecutionListComponent,
     CreateForestUnitComponent,
     CreateDivisionComponent,

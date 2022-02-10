@@ -6,7 +6,7 @@ import { DivisionListComponent } from './components/divisions/division-list/divi
 import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlanExecutionListComponent } from './components/plan-executions/plan-execution-list/plan-execution-list.component';
-import { PlanItemListComponent } from './components/plan-items/plan-item-list/plan-item-list.component';
+import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "subareas", component: SubareaListComponent },
   { path: "divisions", component: DivisionListComponent },
   { path: "forest-units", component: ForestUnitListComponent },
-  { path: "plan-items", component: PlanItemListComponent },
+  { path: "plan-items", component: PlanItemsPageComponent },
   { path: "plan-executions", component: PlanExecutionListComponent },
   { path: "cockpit", component: CockpitComponent },
   { path: "dashboard", component: DashboardComponent }
