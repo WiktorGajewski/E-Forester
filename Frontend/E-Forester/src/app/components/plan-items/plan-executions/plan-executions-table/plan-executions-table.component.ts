@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { PlanExecutionService } from 'src/app/services/plan-executions/plan-execution.service';
@@ -6,15 +6,31 @@ import { PlanExecutionsDataSource } from 'src/app/services/plan-executions/plan-
 import { CreatePlanExecutionComponent } from '../create-plan-execution/create-plan-execution.component';
 
 @Component({
-  selector: 'app-plan-execution-list',
-  templateUrl: './plan-execution-list.component.html',
-  styleUrls: ['./plan-execution-list.component.css']
+  selector: 'app-plan-executions-table',
+  templateUrl: './plan-executions-table.component.html',
+  styleUrls: ['./plan-executions-table.component.css']
 })
-export class PlanExecutionListComponent implements OnInit, AfterViewInit {
+export class PlanExecutionsTableComponent implements OnInit, AfterViewInit {
   dataSource !: PlanExecutionsDataSource;
   displayedColumns = ["executedHectares", "harvestedCubicMeters", "planItemId"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
+
+  private _selectedPlanItemId: number|null = null;
+
+  @Input() set selectedPlanItemId(value: number|null) {
+
+    if(value !== undefined && this.selectedPlanItemId !== value) {
+      this._selectedPlanItemId = value;
+      if(this.dataSource){
+        this.reloadTable();
+      }
+    }
+  }
+
+  get selectedPlanItemId() : number| null {
+    return this._selectedPlanItemId;
+  }
 
   constructor(private planExecutionService: PlanExecutionService, private dialog : MatDialog) {
 
@@ -22,16 +38,16 @@ export class PlanExecutionListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource = new PlanExecutionsDataSource(this.planExecutionService);
-    this.dataSource.loadPlanExecutions();
   }
 
   ngAfterViewInit(): void {
     this.paginator.page
-      .subscribe(() => this.loadPage());
+      .subscribe(() => this.reloadTable());
   }
 
-  loadPage() : void {
+  reloadTable() : void {
     this.dataSource.loadPlanExecutions(
+      this.selectedPlanItemId,
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
@@ -49,7 +65,7 @@ export class PlanExecutionListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(
       result =>  {
         if(result == true) {
-          this.loadPage(); 
+          this.reloadTable(); 
         }
       }
     ); 

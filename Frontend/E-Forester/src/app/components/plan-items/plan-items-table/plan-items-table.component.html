@@ -1,5 +1,5 @@
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" multiTemplateDataRows> 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> # </th>
         <td mat-cell *matCellDef="let planItem"> {{planItem.id}} </td>
@@ -39,9 +39,33 @@
         <th mat-header-cell *matHeaderCellDef> Współczynnik </th>
         <td mat-cell *matCellDef="let planItem"> {{planItem.factor}} </td>
       </ng-container>
+
+      <ng-container matColumnDef="planExecutions">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="plan-executions"
+               [@expendRow]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+              <div class="inner-table-container">
+                <h2 style="margin-bottom: 0px;">
+                  Wykonania
+                  <mat-divider></mat-divider>
+                </h2>
+
+                <app-plan-executions-table 
+                  [selectedPlanItemId]="element == expandedElement ? element?.id : undefined">
+                </app-plan-executions-table>
+              </div>
+          </div>
+        </td>
+      </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === row"
+        (click)="expandElement(row)">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['planExecutions']" class="element-plan-executions-row"></tr>
   
       <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell" colspan="10" style="text-align:center;">

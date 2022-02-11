@@ -72,3 +72,29 @@
     justify-content: center;
     margin: 10px;
 }
+  
+tr.element-plan-executions-row {
+    height: 0;
+}
+
+tr.element-row:hover td{
+    background: darkolivegreen;
+}
+
+tr.element-row:active td{
+    background: darkgreen;
+}  
+
+.expanded-row td {
+    background-color: rgb(50, 85, 50);
+}
+  
+.plan-executions {
+    overflow: hidden;
+}
+
+.inner-table-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}

@@ -27,11 +27,11 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
         this.totalCountSubject.complete();
     }
 
-    loadPlanExecutions(pageIndex = 1, pageSize = 10) : void {
+    loadPlanExecutions(pageItemId: number|null = null, pageIndex = 1, pageSize = 10) : void {
 
         this.loadingSubject.next(true);
 
-        this.planExecutionService.getPlanExecutions(null, null, pageIndex, pageSize)
+        this.planExecutionService.getPlanExecutions(pageItemId, null, pageIndex, pageSize)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlanExecution>) => {

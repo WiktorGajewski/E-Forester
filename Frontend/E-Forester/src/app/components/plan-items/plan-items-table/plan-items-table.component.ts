@@ -1,13 +1,21 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ActionGroup, WoodAssortment } from 'src/app/models/plan-item.model';
+import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item.model';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
 
 @Component({
   selector: 'app-plan-items-table',
   templateUrl: './plan-items-table.component.html',
-  styleUrls: ['./plan-items-table.component.css']
+  styleUrls: ['./plan-items-table.component.css'],
+  animations: [
+    trigger('expendRow', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges {
   dataSource !: PlanItemsDataSource;
@@ -19,6 +27,9 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
   @Input() selectedDivisionId: number | null = null;
   @Input() selectedSubareaId: number | null = null;
   @Input() selectedPlanId: number | null = null;
+
+  expandedElement: IPlanItem | null = null;
+  expandedElementPlanItemId: number | null = null;
 
   actionGroups = ActionGroup;
     
@@ -65,5 +76,10 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
     }
 
     return values;
+  }
+
+  expandElement(row: IPlanItem) : void {
+    this.expandedElement = this.expandedElement === row ? null : row;
+    this.expandedElementPlanItemId = this.expandedElement?.id ? this.expandedElement.id : null;
   }
 }

@@ -1,9 +1,9 @@
 <mat-form-field appearance="standard" #inputPlanId>
     <mat-label>Filtruj po planie</mat-label>
     <mat-select  matInput type="number" (selectionChange)="planIdChange()" [(value)]="selectedPlanId">
-        <mat-option><mat-icon>cancel</mat-icon>Anuluj</mat-option>
         <mat-option *ngFor="let plan of plans" [value]="plan.id">
             {{plan.year}}
         </mat-option>
+        <mat-option *ngIf="plans.length > 0"><mat-icon>cancel</mat-icon>Anuluj</mat-option>
     </mat-select>
 </mat-form-field>

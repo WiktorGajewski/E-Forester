@@ -1,9 +1,9 @@
 <mat-form-field appearance="standard" #inputSubareaId>
     <mat-label>Filtruj po wydzieleniu</mat-label>
     <mat-select  matInput type="number" (selectionChange)="subareaIdChange()" [(value)]="selectedSubareaId">
-        <mat-option><mat-icon>cancel</mat-icon>Anuluj</mat-option>
         <mat-option *ngFor="let subarea of subareas" [value]="subarea.id">
             {{subarea.address}}
         </mat-option>
+        <mat-option *ngIf="subareas.length > 0"><mat-icon>cancel</mat-icon>Anuluj</mat-option>
     </mat-select>
 </mat-form-field>
