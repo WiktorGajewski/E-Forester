@@ -25,19 +25,21 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    const val = this.loginForm.value;
-    this.loading = true;
+    if(this.loginForm.valid) {
+      const val = this.loginForm.value;
+      this.loading = true;
 
-    this.authService.login(val.login, val.password)
-      .subscribe({
-          complete : () => {
-            this.router.navigate(["/"]);
-          },
-          error : () => {
-            this.loading = false;
-            this.loginInvalid = true;
-          }
-        });
+      this.authService.login(val.login, val.password)
+        .subscribe({
+            complete : () => {
+              this.router.navigate(["/"]);
+            },
+            error : () => {
+              this.loading = false;
+              this.loginInvalid = true;
+            }
+          });
+    }
   }
 
   cancel(): void {

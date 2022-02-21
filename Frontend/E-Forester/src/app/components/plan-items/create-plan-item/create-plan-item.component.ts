@@ -95,27 +95,29 @@ export class CreatePlanItemComponent implements OnInit {
   }
 
   submit(): void {
-    const val = this.Form.value;
-    let assortments = 0;
-
-    if(val.assortments) {
-      const selectedAssortmentsArray : [] = val.assortments;
-      assortments = selectedAssortmentsArray.reduce((a, b) => a + b, 0);
+    if(this.Form.valid) {
+      const val = this.Form.value;
+      let assortments = 0;
+  
+      if(val.assortments) {
+        const selectedAssortmentsArray : [] = val.assortments;
+        assortments = selectedAssortmentsArray.reduce((a, b) => a + b, 0);
+      }
+  
+      this.loading = true;
+      this.planItemService.createPlanItem(val.plannedHectares, val.plannedCubicMeters, assortments, val.actionGroup,
+        val.difficultyLevel, val.factor, val.planId, val.subareaId)
+        .subscribe({
+          complete : () => {
+            this.loading = false;
+            this.dialogRef.close(true);
+          },
+          error : () => {
+            this.loading = false;
+            this.errorMessage = true;
+          }
+        });
     }
-
-    this.loading = true;
-    this.planItemService.createPlanItem(val.plannedHectares, val.plannedCubicMeters, assortments, val.actionGroup,
-      val.difficultyLevel, val.factor, val.planId, val.subareaId)
-      .subscribe({
-        complete : () => {
-          this.loading = false;
-          this.dialogRef.close(true);
-        },
-        error : () => {
-          this.loading = false;
-          this.errorMessage = true;
-        }
-      });
   }
 
   cancel(): void {

@@ -122,19 +122,21 @@ export class CreatePlanExecutionComponent implements OnInit {
   }
 
   submit(): void {
-    const val = this.Form.value;
-    this.loading = true;
-    this.planExecutionService.createPlanExecution(val.executedHectares, val.harvestedCubicMeters, val.planItemId, val.planId)
-      .subscribe({
-        complete : () => {
-          this.loading = false;
-          this.dialogRef.close(true);
-        },
-        error : () => {
-          this.loading = false;
-          this.errorMessage = true;
-        }
-      });
+    if(this.Form.valid) {
+      const val = this.Form.value;
+      this.loading = true;
+      this.planExecutionService.createPlanExecution(val.executedHectares, val.harvestedCubicMeters, val.planItemId, val.planId)
+        .subscribe({
+          complete : () => {
+            this.loading = false;
+            this.dialogRef.close(true);
+          },
+          error : () => {
+            this.loading = false;
+            this.errorMessage = true;
+          }
+        });
+    }
   }
 
   cancel(): void {

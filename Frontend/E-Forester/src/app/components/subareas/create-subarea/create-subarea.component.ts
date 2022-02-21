@@ -62,19 +62,21 @@ export class CreateSubareaComponent implements OnInit {
   }
 
   submit(): void {
-    const val = this.Form.value;
-    this.loading = true;
-    this.subareaService.createSubarea(val.address, val.area, val.division.id)
-      .subscribe({
-        complete : () => {
-          this.loading = false;
-          this.dialogRef.close(true);
-        },
-        error : () => {
-          this.loading = false;
-          this.errorMessage = true;
-        }
-      });
+    if(this.Form.valid) {
+      const val = this.Form.value;
+      this.loading = true;
+      this.subareaService.createSubarea(val.address, val.area, val.division.id)
+        .subscribe({
+          complete : () => {
+            this.loading = false;
+            this.dialogRef.close(true);
+          },
+          error : () => {
+            this.loading = false;
+            this.errorMessage = true;
+          }
+        });
+    }
   }
 
   cancel(): void {
