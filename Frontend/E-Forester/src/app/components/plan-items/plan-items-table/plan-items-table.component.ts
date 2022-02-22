@@ -19,7 +19,7 @@ import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data
 })
 export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges {
   dataSource !: PlanItemsDataSource;
-  displayedColumns = ["isCompleted", "plannedHectares", "plannedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor"];
+  displayedColumns = ["address", "isCompleted", "plannedHectares", "plannedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 

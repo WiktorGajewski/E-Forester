@@ -15,11 +15,19 @@ namespace E_Forester.Application.AutoMapper
         public MapProfiles()
         {
             CreateMap<Plan, PlanDto>();
+
             CreateMap<ForestUnit, ForestUnitDto>();
+
             CreateMap<Division, DivisionDto>();
+
             CreateMap<Subarea, SubareaDto>();
-            CreateMap<PlanItem, PlanItemDto>();
+
+            CreateMap<PlanItem, PlanItemDto>()
+                .ForMember(dest => dest.Address,
+                    opt => opt.MapFrom(p => p.Subarea.Address));
+
             CreateMap<PlanExecution, PlanExecutionDto>();
+
             CreateMap<User, UserDto>();
         }
     }

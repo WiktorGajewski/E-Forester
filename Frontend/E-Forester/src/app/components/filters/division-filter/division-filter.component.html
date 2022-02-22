@@ -4,6 +4,7 @@
         <mat-option *ngFor="let division of divisions" [value]="division.id">
             {{division.address}}
         </mat-option>
+        <mat-option *ngIf="divisions.length === 0"><mat-icon>report_problem</mat-icon>Brak dostępnych opcji</mat-option>
         <mat-option *ngIf="divisions.length > 0"><mat-icon>cancel</mat-icon>Anuluj</mat-option>
     </mat-select>
 </mat-form-field>

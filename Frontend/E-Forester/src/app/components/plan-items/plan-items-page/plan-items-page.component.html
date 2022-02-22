@@ -3,30 +3,26 @@
       Pozycje planu
       <mat-divider></mat-divider>
     </h1>
-  
+
     <app-forest-unit-filter 
         [selectedForestUnitId]="selectedForestUnitId"
         (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
     </app-forest-unit-filter>
-  
-    <br>
-  
+
     <app-division-filter 
         [forestUnitId]="selectedForestUnitId"
         [selectedDivisionId]="selectedDivisionId"
         (selectedDivisionIdChange)="selectedDivisionId=$event;">
     </app-division-filter>
-  
+    
     <br>
-  
+
     <app-subarea-filter
         [divisionId]="selectedDivisionId"
         [selectedSubareaId]="selectedSubareaId"
         (selectedSubareaIdChange)="selectedSubareaId=$event;">
     </app-subarea-filter>
-  
-    <br>
-  
+
     <app-plan-filter 
         [forestUnitId]="selectedForestUnitId"
         [selectedPlanId]="selectedPlanId"

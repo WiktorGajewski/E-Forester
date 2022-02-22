@@ -38,7 +38,9 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             else
             {
                 planItems = await planItemsQuery
-                    .OrderBy(p => p.Id)
+                    .OrderBy(p => p.Subarea.Address)
+                    .ThenBy(p => p.Id)
+                    .Include(p => p.Subarea)
                     .ToListAsync();
             }
 
@@ -52,9 +54,11 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
         private async Task<List<PlanItem>> SelectPage(IQueryable<PlanItem> planItemsQuery, int pageIndex, int pageSize)
         {
             return await planItemsQuery
-                    .OrderBy(p => p.Id)
+                    .OrderBy(p => p.Subarea.Address)
+                    .ThenBy(p => p.Id)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
+                    .Include(p => p.Subarea)
                     .ToListAsync();
         }
 

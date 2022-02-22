@@ -10,7 +10,8 @@ export interface IPlanItem {
     createdAt: Date,
     planId: number,
     subareaId: number,
-    creatorId: number
+    creatorId: number,
+    address: string
 }
 
 export enum WoodAssortment {
