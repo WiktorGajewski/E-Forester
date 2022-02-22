@@ -16,9 +16,9 @@
         <td mat-cell *matCellDef="let plan"> {{plan.year}} </td>
       </ng-container>
     
-      <ng-container matColumnDef="forestUnitId">
-        <th mat-header-cell *matHeaderCellDef> Id Leśnictwa </th>
-        <td mat-cell *matCellDef="let plan"> {{plan.forestUnitId}} </td>
+      <ng-container matColumnDef="forestUnitName">
+        <th mat-header-cell *matHeaderCellDef> Leśnictwo </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.forestUnitName}} </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

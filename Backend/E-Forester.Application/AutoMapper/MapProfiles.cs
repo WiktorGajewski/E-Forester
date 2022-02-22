@@ -14,7 +14,9 @@ namespace E_Forester.Application.AutoMapper
     {
         public MapProfiles()
         {
-            CreateMap<Plan, PlanDto>();
+            CreateMap<Plan, PlanDto>()
+                .ForMember(dest => dest.ForestUnitName,
+                    opt => opt.MapFrom(p => p.ForestUnit.Name));
 
             CreateMap<ForestUnit, ForestUnitDto>();
 

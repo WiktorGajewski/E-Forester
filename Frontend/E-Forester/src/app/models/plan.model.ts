@@ -3,5 +3,6 @@ export interface IPlan {
     year: number,
     createdAt: Date,
     forestUnitId: number,
-    creatorId: number
+    creatorId: number,
+    forestUnitName: string
 }

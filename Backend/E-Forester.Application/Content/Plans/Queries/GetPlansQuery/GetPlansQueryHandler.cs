@@ -42,6 +42,8 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
             {
                 plans = await plansQuery
                     .OrderByDescending(p => p.Year)
+                    .ThenBy(p => p.ForestUnitId)
+                    .Include(p => p.ForestUnit)
                     .ToListAsync();
             }
 
@@ -56,8 +58,10 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
         {
             return await plansQuery
                     .OrderByDescending(p => p.Year)
+                    .ThenBy(p => p.ForestUnitId)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
+                    .Include(p => p.ForestUnit)
                     .ToListAsync();
         }
     }

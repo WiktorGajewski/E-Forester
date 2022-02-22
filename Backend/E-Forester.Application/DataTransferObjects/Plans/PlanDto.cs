@@ -9,5 +9,6 @@ namespace E_Forester.Application.DataTransferObjects.Plans
         public DateTime CreatedAt { get; set; }
         public int ForestUnitId { get; set; }
         public int CreatorId { get; set; }
+        public string ForestUnitName { get; set; }
     }
 }
