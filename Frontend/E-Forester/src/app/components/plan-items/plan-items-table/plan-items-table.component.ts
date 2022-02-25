@@ -37,16 +37,23 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
 
   ngOnInit(): void {
     this.dataSource = new PlanItemsDataSource(this.planItemService);
+
+    if(this.selectedForestUnitId != null || this.selectedPlanId != null) {
+      this.dataSource.loadPlanItems(
+        this.selectedForestUnitId,
+        this.selectedDivisionId,
+        this.selectedSubareaId,
+        this.selectedPlanId
+      );
+    }
   }
 
   ngAfterViewInit(): void {
-
     this.paginator.page
       .subscribe(() => this.reloadTable());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if(this.dataSource){
       this.reloadTable();
     }
