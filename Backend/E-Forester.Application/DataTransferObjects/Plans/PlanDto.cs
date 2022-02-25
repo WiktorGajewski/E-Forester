@@ -10,5 +10,9 @@ namespace E_Forester.Application.DataTransferObjects.Plans
         public int ForestUnitId { get; set; }
         public int CreatorId { get; set; }
         public string ForestUnitName { get; set; }
+        public double PlannedHectares { get; set; }
+        public double PlannedCubicMeters { get; set; }
+        public double ExecutedHectares { get; set; }
+        public double HarvestedCubicMeters { get; set; }
     }
 }

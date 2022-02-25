@@ -20,6 +20,26 @@
         <th mat-header-cell *matHeaderCellDef> Leśnictwo </th>
         <td mat-cell *matCellDef="let plan"> {{plan.forestUnitName}} </td>
       </ng-container>
+
+      <ng-container matColumnDef="plannedHectares">
+        <th mat-header-cell *matHeaderCellDef> Ilość planowanych hektarów </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.plannedHectares}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="executedHectares">
+        <th mat-header-cell *matHeaderCellDef> Ilość wykonanych hektarów </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.executedHectares}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="plannedCubicMeters">
+        <th mat-header-cell *matHeaderCellDef> Ilość planowanych metrów sześciennych (m<sup>3</sup>) </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.plannedCubicMeters}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="harvestedCubicMeters">
+        <th mat-header-cell *matHeaderCellDef> Ilość pozyskanych metrów sześciennych (m<sup>3</sup>) </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.harvestedCubicMeters}} </td>
+      </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr 
@@ -27,7 +47,7 @@
         *matRowDef="let row; columns: displayedColumns;"></tr>
   
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="3" style="text-align:center;">
+        <td class="mat-cell" colspan="6" style="text-align:center;">
           <div *ngIf="!(dataSource.loading | async)">
             Brak danych do wyświetlenia
           </div>

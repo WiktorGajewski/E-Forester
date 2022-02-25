@@ -15,9 +15,9 @@
             <td mat-cell *matCellDef="let planExecution"> {{planExecution.harvestedCubicMeters}} </td>
         </ng-container>
         
-        <ng-container matColumnDef="planItemId">
-            <th mat-header-cell *matHeaderCellDef> Id Pozycji planu </th>
-            <td mat-cell *matCellDef="let planExecution"> {{planExecution.planItemId}} </td>
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> Data dodania </th>
+            <td mat-cell *matCellDef="let planExecution"> {{planExecution.createdAt}} </td>
         </ng-container>
     
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

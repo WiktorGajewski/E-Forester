@@ -12,7 +12,7 @@ import { CreatePlanExecutionComponent } from '../create-plan-execution/create-pl
 })
 export class PlanExecutionsTableComponent implements OnInit, AfterViewInit {
   dataSource !: PlanExecutionsDataSource;
-  displayedColumns = ["executedHectares", "harvestedCubicMeters", "planItemId"];
+  displayedColumns = ["executedHectares", "harvestedCubicMeters", "createdAt"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 

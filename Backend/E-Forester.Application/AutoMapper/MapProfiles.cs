@@ -7,6 +7,7 @@ using E_Forester.Application.DataTransferObjects.Plans;
 using E_Forester.Application.DataTransferObjects.Subareas;
 using E_Forester.Application.DataTransferObjects.Users;
 using E_Forester.Model.Database;
+using System.Linq;
 
 namespace E_Forester.Application.AutoMapper
 {
@@ -16,7 +17,15 @@ namespace E_Forester.Application.AutoMapper
         {
             CreateMap<Plan, PlanDto>()
                 .ForMember(dest => dest.ForestUnitName,
-                    opt => opt.MapFrom(p => p.ForestUnit.Name));
+                    opt => opt.MapFrom(p => p.ForestUnit.Name))
+                .ForMember(dest => dest.PlannedHectares,
+                    opt => opt.MapFrom(p => p.PlanItems.Sum(x => x.PlannedHectares)))
+                .ForMember(dest => dest.PlannedCubicMeters,
+                    opt => opt.MapFrom(p => p.PlanItems.Sum(x => x.PlannedCubicMeters)))
+                .ForMember(dest => dest.ExecutedHectares,
+                    opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.ExecutedHectares)))
+                .ForMember(dest => dest.HarvestedCubicMeters,
+                        opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.HarvestedCubicMeters)));
 
             CreateMap<ForestUnit, ForestUnitDto>();
 
@@ -26,7 +35,11 @@ namespace E_Forester.Application.AutoMapper
 
             CreateMap<PlanItem, PlanItemDto>()
                 .ForMember(dest => dest.Address,
-                    opt => opt.MapFrom(p => p.Subarea.Address));
+                    opt => opt.MapFrom(p => p.Subarea.Address))
+                .ForMember(dest => dest.ExecutedHectares,
+                    opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.ExecutedHectares)))
+                .ForMember(dest => dest.HarvestedCubicMeters,
+                    opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.HarvestedCubicMeters)));
 
             CreateMap<PlanExecution, PlanExecutionDto>();
 

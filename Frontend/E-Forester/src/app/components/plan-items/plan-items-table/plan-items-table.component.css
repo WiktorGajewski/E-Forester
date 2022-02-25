@@ -19,13 +19,6 @@
     text-align: center;
 }
 
-.mat-column-isCompleted{
-    border-right: 1px solid grey;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
-}
-
 .mat-column-plannedHectares{
     border-right: 1px solid grey;
     padding-left: 20px;
@@ -33,7 +26,21 @@
     text-align: center;
 }
 
+.mat-column-executedHectares{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
 .mat-column-plannedCubicMeters{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-harvestedCubicMeters{
     border-right: 1px solid grey;
     padding-left: 20px;
     padding-right: 20px;
@@ -69,6 +76,13 @@
 }
 
 .mat-column-factor{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-isCompleted{
     padding-left: 20px;
     text-align: center;
 }

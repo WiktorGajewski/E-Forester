@@ -4,5 +4,9 @@ export interface IPlan {
     createdAt: Date,
     forestUnitId: number,
     creatorId: number,
-    forestUnitName: string
+    forestUnitName: string,
+    plannedHectares: number,
+    plannedCubicMeters: number
+    executedHectares: number,
+    harvestedCubicMeters: number
 }

@@ -41,6 +41,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                     .OrderBy(p => p.Subarea.Address)
                     .ThenBy(p => p.Id)
                     .Include(p => p.Subarea)
+                    .Include(p => p.PlanExecutions)
                     .ToListAsync();
             }
 
@@ -59,6 +60,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .Include(p => p.Subarea)
+                    .Include(p => p.PlanExecutions)
                     .ToListAsync();
         }
 

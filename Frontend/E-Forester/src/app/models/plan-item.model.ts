@@ -11,7 +11,9 @@ export interface IPlanItem {
     planId: number,
     subareaId: number,
     creatorId: number,
-    address: string
+    address: string,
+    executedHectares: number,
+    harvestedCubicMeters: number
 }
 
 export enum WoodAssortment {
