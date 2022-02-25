@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(`${this.apiUrl}account/revoke-token`, {}, { withCredentials: true });
+    this.http.post(`${this.apiUrl}account/revoke-token`, {}, { withCredentials: true }).subscribe();
     this.clearSession();
     this.stopRefreshTokenTimer();
   }
