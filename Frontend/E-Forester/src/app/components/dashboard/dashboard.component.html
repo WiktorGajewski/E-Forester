@@ -3,13 +3,25 @@
     Kokpit
     <mat-divider></mat-divider>
   </h1>
+
+  <app-forest-unit-filter 
+      [selectedForestUnitId]="selectedForestUnitId"
+      (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+  </app-forest-unit-filter>
+
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
     <mat-grid-tile
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <app-card title="Wyniki z ostatniej dekady">
-        <last-decade-results-chart></last-decade-results-chart>
+      <app-card title="Wyniki z ostatnich lat (ha)">
+        <last-decade-results-chart
+          [dataSet1]="plannedHectares"
+          [dataLabel1]="'Planowana liczba hektarów (ha)'"
+          [dataSet2]="executedHectares"
+          [dataLabel2]="'Wykonana liczba hektarów (ha)'"
+          [labels]="labels">
+        </last-decade-results-chart>
       </app-card>
 
     </mat-grid-tile>
@@ -19,7 +31,8 @@
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
       <app-card title="Aktualny rok">
-        <app-annual-results-chart></app-annual-results-chart>
+        <app-annual-results-chart>
+        </app-annual-results-chart>
       </app-card>
       
     </mat-grid-tile>

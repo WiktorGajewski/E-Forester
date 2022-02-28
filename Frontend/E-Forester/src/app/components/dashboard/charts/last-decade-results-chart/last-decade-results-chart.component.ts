@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChartType } from 'chart.js';
 
 @Component({
@@ -6,7 +6,16 @@ import { ChartType } from 'chart.js';
   templateUrl: './last-decade-results-chart.component.html',
   styleUrls: ['./last-decade-results-chart.component.css']
 })
-export class LastDecadeResultsChartComponent implements OnInit {
+export class LastDecadeResultsChartComponent implements OnChanges {
+
+  @Input() dataSet1 : number[] = [];
+  @Input() dataLabel1 : string = "";
+
+  @Input() dataSet2 : number[] = [];
+  @Input() dataLabel2 : string = "";
+
+  @Input() public labels : string[] = [];
+
   public type : ChartType = "bar";
 
   public options = {
@@ -16,15 +25,17 @@ export class LastDecadeResultsChartComponent implements OnInit {
 
   public legend = true;
 
-  public labels = ["2011","2012","2013","2014","2015","2016","2017"];
-
   public data = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: "Plan"},
-    {data: [28, 48, 40, 19, 36, 57, 20], label: "Wykonanie"},
+    {data: this.dataSet1, label: this.dataLabel1},
+    {data: this.dataSet2, label: this.dataLabel2},
   ];
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    this.data = [
+      {data: this.dataSet1, label: this.dataLabel1},
+      {data: this.dataSet2, label: this.dataLabel2},
+    ];
   }
 }
