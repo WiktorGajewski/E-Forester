@@ -1,6 +1,15 @@
 <div class="container">
     <p>cockpit works!</p>
 
+    <canvas
+        baseChart
+        [type]="'bar'"
+        [legend]="true"
+        [datasets]="chartDataTest"
+        [labels]="chartLabelsTest"
+        [options]="chartOptionsTest">
+    </canvas>
+
     <canvas baseChart 
         [datasets]="barChartData"
         [labels]="barChartLabels"
@@ -28,4 +37,24 @@
         [options]="barChartOptions"
         [legend]="barChartLegend"
         [type]="pieChartType"></canvas>
+
+        <canvas baseChart 
+        [datasets]="scatterData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="scatterChartType"></canvas>
+        
+        <canvas baseChart 
+        [datasets]="combinedChart"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"></canvas>
+
+        <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [legend]="barChartLegend"
+        [type]="lineChartType"></canvas>
 </div>

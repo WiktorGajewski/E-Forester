@@ -31,6 +31,8 @@ import { CreatePlanItemComponent } from './components/plan-items/create-plan-ite
 import { CreatePlanExecutionComponent } from './components/plan-items/plan-executions/create-plan-execution/create-plan-execution.component';
 import { CockpitComponent } from './components/cockpit/cockpit.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CardComponent } from './components/dashboard/card/card.component';
+import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
 import { LastDecadeResultsChartComponent } from './components/dashboard/charts/last-decade-results-chart/last-decade-results-chart.component';
 import { EnumToArrayPipe } from './helpers/enum-to-array.pipe';
@@ -54,7 +56,6 @@ import { MatPaginatorIntlPl } from './localization/pl/mat-paginator-intl.pl';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { CardComponent } from './components/dashboard/card/card.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
@@ -99,13 +100,14 @@ const material = [
     CockpitComponent,
     DashboardComponent,
     CardComponent,
+    MiniCardComponent,
     AnnualResultsChartComponent,
     LastDecadeResultsChartComponent,
     EnumToArrayPipe,
     ForestUnitFilterComponent,
     DivisionFilterComponent,
     SubareaFilterComponent,
-    PlanFilterComponent
+    PlanFilterComponent,
   ],
   imports: [
     material,

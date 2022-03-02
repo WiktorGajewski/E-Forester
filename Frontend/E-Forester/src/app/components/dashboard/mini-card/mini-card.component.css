@@ -1,0 +1,32 @@
+.dashboard-card {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    max-height: 80px;
+    min-height: 70px;
+}
+
+
+mat-card-header {
+    justify-content: center;
+}
+
+.value {
+    margin: 0;
+}
+
+.title {
+    margin: 0;
+    text-align: center;
+}
+
+mat-card-title{
+    margin: 0 !important;
+}
+
+
+

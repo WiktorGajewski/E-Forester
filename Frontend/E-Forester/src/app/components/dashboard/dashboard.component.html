@@ -9,17 +9,70 @@
       (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
   </app-forest-unit-filter>
 
+  <app-plan-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedPlanId]="selectedPlanId"
+        (selectedPlanIdChange)="selectedPlanId=$event;">
+  </app-plan-filter>
+
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
+
+    <div *ngIf="selectedPlanId">
+      <mat-grid-tile
+        [colspan]="( cardLayout | async )?.miniCard?.cols" 
+        [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+        <app-mini-card 
+          [title]="title" 
+          [value]="value">
+        </app-mini-card>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="( cardLayout | async )?.miniCard?.cols" 
+        [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+        <app-mini-card 
+          [title]="title" 
+          [value]="value">
+        </app-mini-card>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="( cardLayout | async )?.miniCard?.cols" 
+        [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+        <app-mini-card
+          [title]="title" 
+          [value]="value">
+        </app-mini-card>
+
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        [colspan]="( cardLayout | async )?.miniCard?.cols" 
+        [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+        <app-mini-card 
+          [title]="title" 
+          [value]="value">
+        </app-mini-card>
+
+      </mat-grid-tile>
+    </div>
+
     <mat-grid-tile
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <app-card title="Wyniki z ostatnich lat (ha)">
+      <app-card title="Wyniki z ostatnich lat (hektary)">
         <last-decade-results-chart
           [dataSet1]="plannedHectares"
-          [dataLabel1]="'Planowana liczba hektarów (ha)'"
+          [dataLabel1]="'Planowana liczba hektarów'"
           [dataSet2]="executedHectares"
-          [dataLabel2]="'Wykonana liczba hektarów (ha)'"
+          [dataLabel2]="'Wykonana liczba hektarów'"
           [labels]="labels">
         </last-decade-results-chart>
       </app-card>
@@ -30,11 +83,17 @@
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <app-card title="Aktualny rok">
-        <app-annual-results-chart>
-        </app-annual-results-chart>
+      <app-card title="Wyniki z ostatnich lat (metry sześcienne)">
+        <last-decade-results-chart
+          [dataSet1]="plannedCubicMeters"
+          [dataLabel1]="'Planowana liczba metrów sześciennych'"
+          [dataSet2]="harvestedCubicMeters"
+          [dataLabel2]="'Wykonana liczba metrów sześciennych'"
+          [labels]="labels">
+        </last-decade-results-chart>
       </app-card>
-      
+
     </mat-grid-tile>
+
   </mat-grid-list>
 </div>

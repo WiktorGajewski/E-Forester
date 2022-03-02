@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ChartType } from 'chart.js';
 
 @Component({
@@ -6,7 +6,15 @@ import { ChartType } from 'chart.js';
   templateUrl: './annual-results-chart.component.html',
   styleUrls: ['./annual-results-chart.component.css']
 })
-export class AnnualResultsChartComponent implements OnInit {
+export class AnnualResultsChartComponent implements OnChanges {
+
+  @Input() dataSet1 : number[] = [];
+  @Input() dataLabel1 : string = "";
+
+  @Input() dataSet2 : number[] = [];
+  @Input() dataLabel2 : string = "";
+
+  @Input() public labels : string[] = [];
 
   public type : ChartType = "line";
 
@@ -17,16 +25,18 @@ export class AnnualResultsChartComponent implements OnInit {
 
   public legend = true;
 
-  public labels = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-
   public data = [
-    {data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100], label: "Plan"},
-    {data: [2, 12, 23, 34, 46, 57, 63, 69, 75, 82, 90, 102], label: "Wykonanie"},
+    {data: this.dataSet1, label: this.dataLabel1},
+    {data: this.dataSet2, label: this.dataLabel2},
   ];
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    this.data = [
+      {data: this.dataSet1, label: this.dataLabel1},
+      {data: this.dataSet2, label: this.dataLabel2},
+    ];
   }
 
 }
