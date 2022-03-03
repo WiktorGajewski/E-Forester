@@ -34,7 +34,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
-import { LastDecadeResultsChartComponent } from './components/dashboard/charts/last-decade-results-chart/last-decade-results-chart.component';
 import { EnumToArrayPipe } from './helpers/enum-to-array.pipe';
 import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
 import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
@@ -102,7 +101,6 @@ const material = [
     CardComponent,
     MiniCardComponent,
     AnnualResultsChartComponent,
-    LastDecadeResultsChartComponent,
     EnumToArrayPipe,
     ForestUnitFilterComponent,
     DivisionFilterComponent,

@@ -1,5 +1,5 @@
 <mat-form-field appearance="standard" #inputDivisionId>
-    <mat-label>Filtruj po oddziale</mat-label>
+    <mat-label>Oddział</mat-label>
     <mat-select  matInput type="number" (selectionChange)="divisionIdChange()" [(value)]="selectedDivisionId">
         <mat-option *ngFor="let division of divisions" [value]="division.id">
             {{division.address}}

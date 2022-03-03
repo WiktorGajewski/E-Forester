@@ -40,8 +40,12 @@ export class DashboardComponent {
     return this._selectedForestUnitId;
   }
 
-  _selectedPlanId: number | null = null;
+  selectedPlan : IPlan | null = null;
+  areaCompletionPercentage : number = 0;
+  massCompletionPercentage : number = 0;
 
+  _selectedPlanId: number | null = null;
+ 
   set selectedPlanId(value: number|null) {
     this._selectedPlanId = value;
     this.planIdChange();
@@ -50,7 +54,6 @@ export class DashboardComponent {
   get selectedPlanId() : number| null {
     return this._selectedPlanId;
   }
-  
 
   plannedHectares : number[] = [];
   executedHectares : number[] = [];
@@ -58,40 +61,65 @@ export class DashboardComponent {
   harvestedCubicMeters : number[] = [];
   labels : string[] = [];
 
-  //mini-cards
-  title ="Tytuł";
-  value = "50%";
-  //
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private planService : PlanService) {}
 
-    forestUnitIdChange(): void {
-    this.planService.getPlans(this.selectedForestUnitId, 1, 10)
-        .subscribe({
-          next: (value: IPage<IPlan>) => {
-            value.data.reverse()
+  forestUnitIdChange(): void {
+    if(this.selectedForestUnitId) {
+      this.planService.getPlans(this.selectedForestUnitId, 1, 10)
+      .subscribe({
+        next: (value: IPage<IPlan>) => {
+          this.selectedPlanId = value.data[0].id;
 
-            this.plannedHectares = value.data.map(p => p.plannedHectares);
-            this.executedHectares = value.data.map(p => p.executedHectares);
+          value.data.reverse()
 
-            this.plannedCubicMeters = value.data.map(p => p.plannedCubicMeters);
-            this.harvestedCubicMeters = value.data.map(p => p.harvestedCubicMeters);
+          this.plannedHectares = value.data.map(p => p.plannedHectares);
+          this.executedHectares = value.data.map(p => p.executedHectares);
 
-            this.labels = value.data.map(t => t.year.toString());
+          this.plannedCubicMeters = value.data.map(p => p.plannedCubicMeters);
+          this.harvestedCubicMeters = value.data.map(p => p.harvestedCubicMeters);
 
-            this.selectedPlanId = value.data[0].id;
-          }
-        });
+          this.labels = value.data.map(t => t.year.toString());
+        }
+      });
+    }
+    else {
+      this.plannedHectares = [];
+      this.executedHectares = [];
+      this.plannedCubicMeters = [];
+      this.harvestedCubicMeters = [];
+      this.labels =  [];
+      this.selectedPlanId = null;
+    }
   }
 
   planIdChange(): void {
+    this.selectedPlan = null;
+    this.areaCompletionPercentage = 0;
+    this.massCompletionPercentage = 0;
 
-    console.log("planIdChange",this.selectedPlanId)
-    //
-    this.title ="Plan %TEST%";
-    this.value ="63.3333%";
-    //
+    if(this.selectedPlanId) {
+      this.planService.getPlan(this.selectedPlanId)
+        .subscribe({
+          next: (value: IPlan|undefined) => {
+            if(value) {
+              this.selectedPlan = value;
+
+              if(value.plannedHectares != 0) {
+                this.areaCompletionPercentage = value.executedHectares / value.plannedHectares;
+              }
+
+              if(value.plannedCubicMeters != 0) {
+                this.massCompletionPercentage = value.harvestedCubicMeters / value.plannedCubicMeters;
+              }
+            }
+            else {
+              this.selectedPlanId = null;
+            }
+          }
+        });
+    }
   }
 }

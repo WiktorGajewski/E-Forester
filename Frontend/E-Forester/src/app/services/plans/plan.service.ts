@@ -36,6 +36,14 @@ export class PlanService {
       );
   }
 
+  getPlan(planId: number): Observable<IPlan|undefined> {
+
+    return this.http.get<IPlan>(`${this.apiUrl}plans/${planId}`)
+      .pipe(
+        catchError(this.handleError<IPlan>('getPlan', undefined ))
+      );
+  }
+
   createBlankPage() : IPage<IPlan> {
     const blankPage : IPage<IPlan> = {
       pageIndex: 0,

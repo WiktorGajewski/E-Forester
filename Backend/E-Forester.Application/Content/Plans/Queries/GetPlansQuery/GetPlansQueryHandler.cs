@@ -29,14 +29,21 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
 
             var plans = new List<Plan>();
 
-            if (request.ForestUnitId != null)
-            {
-                plansQuery = plansQuery.Where(d => d.ForestUnitId == request.ForestUnitId);
-            }
+            plansQuery = Filter(plansQuery, request.ForestUnitId, request.YearFrom, request.YearTo);
 
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
                 plans = await SelectPage(plansQuery, (int)request.PageIndex, (int)request.PageSize);
+            }
+            else if(request.YearFrom != null && request.YearTo != null)
+            {
+                plans = await plansQuery
+                    .OrderByDescending(p => p.Year)
+                    .ThenBy(p => p.ForestUnitId)
+                    .Include(p => p.ForestUnit)
+                    .Include(p => p.PlanExecutions)
+                    .Include(p => p.PlanItems)
+                    .ToListAsync();
             }
             else
             {
@@ -64,6 +71,26 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
                     .Include(p => p.PlanExecutions)
                     .Include(p => p.PlanItems)
                     .ToListAsync();
+        }
+
+        private IQueryable<Plan> Filter(IQueryable<Plan> plansQuery, int? forestUnitId, int? yearFrom, int? yearTo)
+        {
+            if (forestUnitId != null)
+            {
+                plansQuery = plansQuery.Where(d => d.ForestUnitId == forestUnitId);
+            }
+
+            if (yearFrom != null)
+            {
+                plansQuery = plansQuery.Where(d => d.Year >= yearFrom);
+            }
+
+            if (yearTo != null)
+            {
+                plansQuery = plansQuery.Where(d => d.Year <= yearTo);
+            }
+
+            return plansQuery;
         }
     }
 }

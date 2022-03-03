@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MiniCardComponent {
   @Input() title : string | undefined;
-  @Input() value : string | undefined;
+  @Input() value : number | undefined;
+  @Input() unit : string | undefined;
 
   constructor() { }
 }

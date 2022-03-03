@@ -40,8 +40,6 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                 planItems = await planItemsQuery
                     .OrderBy(p => p.Subarea.Address)
                     .ThenBy(p => p.Id)
-                    .Include(p => p.Subarea)
-                    .Include(p => p.PlanExecutions)
                     .ToListAsync();
             }
 

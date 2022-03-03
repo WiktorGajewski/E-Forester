@@ -1,5 +1,5 @@
 <mat-form-field appearance="standard" #inputForestUnitId>
-    <mat-label>Filtruj po leśnictwie</mat-label>
+    <mat-label>Leśnictwo</mat-label>
     <mat-select  matInput type="number" (selectionChange)="forestUnitIdChange();" [(value)]="selectedForestUnitId">
         <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id" label="somet">
             {{forestUnit.name}}

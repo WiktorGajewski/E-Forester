@@ -23,8 +23,9 @@
         [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
         <app-mini-card 
-          [title]="title" 
-          [value]="value">
+          [title]="'Powierzchnia'" 
+          [value]="selectedPlan?.executedHectares"
+          [unit]="'ha'">
         </app-mini-card>
 
       </mat-grid-tile>
@@ -34,8 +35,9 @@
         [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
         <app-mini-card 
-          [title]="title" 
-          [value]="value">
+          [title]="'Powierzchnia'" 
+          [value]="areaCompletionPercentage"
+          [unit]="'%'">
         </app-mini-card>
 
       </mat-grid-tile>
@@ -45,8 +47,9 @@
         [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
         <app-mini-card
-          [title]="title" 
-          [value]="value">
+          [title]="'Masa'" 
+          [value]="selectedPlan?.harvestedCubicMeters"
+          [unit]="'m3'">
         </app-mini-card>
 
       </mat-grid-tile>
@@ -56,8 +59,9 @@
         [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
         <app-mini-card 
-          [title]="title" 
-          [value]="value">
+          [title]="'Masa'" 
+          [value]="massCompletionPercentage"
+          [unit]="'%'">
         </app-mini-card>
 
       </mat-grid-tile>
@@ -67,15 +71,14 @@
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <app-card title="Wyniki z ostatnich lat (hektary)">
-        <last-decade-results-chart
-          [dataSet1]="plannedHectares"
-          [dataLabel1]="'Planowana liczba hektarów'"
-          [dataSet2]="executedHectares"
-          [dataLabel2]="'Wykonana liczba hektarów'"
-          [labels]="labels">
-        </last-decade-results-chart>
-      </app-card>
+      <annual-results-chart
+        title="Masa"
+        [dataSet1]="plannedHectares"
+        [dataLabel1]="'Plan'"
+        [dataSet2]="executedHectares"
+        [dataLabel2]="'Wykonanie'"
+        [labels]="labels">
+      </annual-results-chart>
 
     </mat-grid-tile>
 
@@ -83,15 +86,14 @@
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <app-card title="Wyniki z ostatnich lat (metry sześcienne)">
-        <last-decade-results-chart
-          [dataSet1]="plannedCubicMeters"
-          [dataLabel1]="'Planowana liczba metrów sześciennych'"
-          [dataSet2]="harvestedCubicMeters"
-          [dataLabel2]="'Wykonana liczba metrów sześciennych'"
-          [labels]="labels">
-        </last-decade-results-chart>
-      </app-card>
+      <annual-results-chart
+        title="Masa"
+        [dataSet1]="plannedCubicMeters"
+        [dataLabel1]="'Plan'"
+        [dataSet2]="harvestedCubicMeters"
+        [dataLabel2]="'Wykonanie'"
+        [labels]="labels">
+      </annual-results-chart>
 
     </mat-grid-tile>
 

@@ -9,5 +9,7 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
         public int? PageIndex { get; set; } = null;
         public int? PageSize { get; set; } = null;
         public int? ForestUnitId { get; set; } = null;
+        public int? YearFrom { get; set; } = null;
+        public int? YearTo { get; set; } = null;
     }
 }

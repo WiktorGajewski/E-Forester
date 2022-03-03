@@ -1,8 +1,25 @@
-<div class="chartContainer">
-    <canvas baseChart width="400" height="400"
-        [datasets]="data"
-        [labels]="labels"
-        [options]="options"
-        [legend]="legend"
-        [type]="type"></canvas>
-</div>
+<mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>
+        {{title}}
+      </mat-card-title>
+
+      <span class="button-container">
+        <button mat-mini-fab color="primary" (click)="changeChartType()">
+          <mat-icon *ngIf="chartType === 'bar'">timeline</mat-icon>
+          <mat-icon *ngIf="chartType !== 'bar'">view_column</mat-icon>
+        </button>
+      </span>
+
+    </mat-card-header>
+    <mat-card-content class="dashboard-card-content">
+        <div class="chartContainer">
+            <canvas baseChart width="400" height="400"
+                [datasets]="data"
+                [labels]="labels"
+                [options]="options"
+                [legend]="legend"
+                [type]="chartType"></canvas>
+        </div>
+    </mat-card-content>
+</mat-card>
