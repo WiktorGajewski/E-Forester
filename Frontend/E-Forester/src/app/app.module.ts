@@ -39,6 +39,7 @@ import { ForestUnitFilterComponent } from './components/filters/forest-unit-filt
 import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
 import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
 import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
+import { YearDateRangeFilterComponent } from './components/filters/year-date-range-filter/year-date-range-filter.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -57,6 +58,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 const material = [
   MatToolbarModule,
@@ -74,7 +78,10 @@ const material = [
   MatDialogModule,
   MatGridListModule,
   MatSelectModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatMomentDateModule
 ]
 
 @NgModule({
@@ -106,6 +113,7 @@ const material = [
     DivisionFilterComponent,
     SubareaFilterComponent,
     PlanFilterComponent,
+    YearDateRangeFilterComponent
   ],
   imports: [
     material,
