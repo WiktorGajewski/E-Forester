@@ -75,7 +75,7 @@ export class CreatePlanItemComponent implements OnInit {
           }
       });
     
-    this.planService.getPlans(forestUnitId, null, null)
+    this.planService.getPlans(forestUnitId, null, null, null, null)
       .subscribe({
           next: (value: IPage<IPlan>) => {
               this.plans = value.data;

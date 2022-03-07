@@ -4,78 +4,100 @@
     <mat-divider></mat-divider>
   </h1>
 
-  <year-date-range-filter>
-  </year-date-range-filter>
+  <div style="font-size: large;text-align: center;">
+    Leśnictwo:
 
-  <app-forest-unit-filter 
+    <app-forest-unit-filter 
       [selectedForestUnitId]="selectedForestUnitId"
-      (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+      (selectedForestUnitIdChange)="forestUnitIdChange($event);">
+    </app-forest-unit-filter>
+  </div>
+  
+  <!-- <app-forest-unit-filter style="font-size: x-large"
+      [selectedForestUnitId]="selectedForestUnitId"
+      (selectedForestUnitIdChange)="forestUnitIdChange($event);">
   </app-forest-unit-filter>
 
-  <app-plan-filter 
+  <mat-divider></mat-divider> -->
+
+  <div style="font-size: medium;text-align: center;">
+    Plan:
+
+    <app-plan-filter 
         [forestUnitId]="selectedForestUnitId"
         [selectedPlanId]="selectedPlanId"
-        (selectedPlanIdChange)="selectedPlanId=$event;">
-  </app-plan-filter>
+        (selectedPlanIdChange)="planIdChange($event);">
+    </app-plan-filter>
+  </div>
+
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" *ngIf="selectedPlanId">
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card 
+        [title]="'Powierzchnia'" 
+        [value]="selectedPlan?.executedHectares"
+        [unit]="'ha'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card 
+        [title]="'Powierzchnia'" 
+        [value]="areaCompletionPercentage"
+        [unit]="'%'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card
+        [title]="'Masa'" 
+        [value]="selectedPlan?.harvestedCubicMeters"
+        [unit]="'m3'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card 
+        [title]="'Masa'" 
+        [value]="massCompletionPercentage"
+        [unit]="'%'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+    <div style="font-size: medium;text-align: center;">
+      <year-date-range-filter
+        (dateRangeChange)="dateRangeChange($event);">
+      </year-date-range-filter>
+    </div>
+
+    <mat-divider></mat-divider>
 
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
-
-    <div *ngIf="selectedPlanId">
-      <mat-grid-tile
-        [colspan]="( cardLayout | async )?.miniCard?.cols" 
-        [rowspan]="( cardLayout | async )?.miniCard?.rows">
-
-        <app-mini-card 
-          [title]="'Powierzchnia'" 
-          [value]="selectedPlan?.executedHectares"
-          [unit]="'ha'">
-        </app-mini-card>
-
-      </mat-grid-tile>
-
-      <mat-grid-tile
-        [colspan]="( cardLayout | async )?.miniCard?.cols" 
-        [rowspan]="( cardLayout | async )?.miniCard?.rows">
-
-        <app-mini-card 
-          [title]="'Powierzchnia'" 
-          [value]="areaCompletionPercentage"
-          [unit]="'%'">
-        </app-mini-card>
-
-      </mat-grid-tile>
-
-      <mat-grid-tile
-        [colspan]="( cardLayout | async )?.miniCard?.cols" 
-        [rowspan]="( cardLayout | async )?.miniCard?.rows">
-
-        <app-mini-card
-          [title]="'Masa'" 
-          [value]="selectedPlan?.harvestedCubicMeters"
-          [unit]="'m3'">
-        </app-mini-card>
-
-      </mat-grid-tile>
-
-      <mat-grid-tile
-        [colspan]="( cardLayout | async )?.miniCard?.cols" 
-        [rowspan]="( cardLayout | async )?.miniCard?.rows">
-
-        <app-mini-card 
-          [title]="'Masa'" 
-          [value]="massCompletionPercentage"
-          [unit]="'%'">
-        </app-mini-card>
-
-      </mat-grid-tile>
-    </div>
 
     <mat-grid-tile
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
       <annual-results-chart
-        title="Masa"
+        title="Powierzchnia"
         [dataSet1]="plannedHectares"
         [dataLabel1]="'Plan'"
         [dataSet2]="executedHectares"

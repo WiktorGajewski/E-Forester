@@ -31,7 +31,7 @@ export class PlansDataSource implements DataSource<IPlan> {
 
         this.loadingSubject.next(true);
 
-        this.planService.getPlans(forestUnitId, pageIndex, pageSize)
+        this.planService.getPlans(forestUnitId, pageIndex, pageSize, null, null)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlan>) => {

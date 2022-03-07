@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { PlanService } from 'src/app/services/plans/plan.service';
 import { IPage } from 'src/app/models/page.model';
 import { IPlan } from 'src/app/models/plan.model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   cardLayout = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium]).pipe(
     map(({ matches }) => {
       if (matches) {
@@ -29,31 +30,15 @@ export class DashboardComponent {
     })
   );
   
-  _selectedForestUnitId: number | null = null;
+  selectedForestUnitId: number|null = null;
+  selectedPlanId: number|null = null;
 
-  set selectedForestUnitId(value: number|null) {
-    this._selectedForestUnitId = value;
-    this.forestUnitIdChange();
-  }
-
-  get selectedForestUnitId() : number| null {
-    return this._selectedForestUnitId;
-  }
+  fromYear: number|null = null;
+  toYear: number|null = null;
 
   selectedPlan : IPlan | null = null;
   areaCompletionPercentage : number = 0;
   massCompletionPercentage : number = 0;
-
-  _selectedPlanId: number | null = null;
- 
-  set selectedPlanId(value: number|null) {
-    this._selectedPlanId = value;
-    this.planIdChange();
-  }
-
-  get selectedPlanId() : number| null {
-    return this._selectedPlanId;
-  }
 
   plannedHectares : number[] = [];
   executedHectares : number[] = [];
@@ -61,17 +46,23 @@ export class DashboardComponent {
   harvestedCubicMeters : number[] = [];
   labels : string[] = [];
 
-
   constructor(
     private breakpointObserver: BreakpointObserver,
     private planService : PlanService) {}
 
-  forestUnitIdChange(): void {
+  ngOnInit(): void {
+    this.fromYear = moment().subtract(10,"years").year();
+    this.toYear = moment().year();
+  }
+
+  forestUnitIdChange(selectedForestUnitId: number|null): void {
+    this.selectedForestUnitId = selectedForestUnitId
+
     if(this.selectedForestUnitId) {
-      this.planService.getPlans(this.selectedForestUnitId, 1, 10)
+      this.planService.getPlans(this.selectedForestUnitId, null, null, this.fromYear, this.toYear)
       .subscribe({
         next: (value: IPage<IPlan>) => {
-          this.selectedPlanId = value.data[0].id;
+          this.planIdChange(value.data[0].id);
 
           value.data.reverse()
 
@@ -85,17 +76,10 @@ export class DashboardComponent {
         }
       });
     }
-    else {
-      this.plannedHectares = [];
-      this.executedHectares = [];
-      this.plannedCubicMeters = [];
-      this.harvestedCubicMeters = [];
-      this.labels =  [];
-      this.selectedPlanId = null;
-    }
   }
 
-  planIdChange(): void {
+  planIdChange(selectedPlanId : number|null): void {
+    this.selectedPlanId = selectedPlanId;
     this.selectedPlan = null;
     this.areaCompletionPercentage = 0;
     this.massCompletionPercentage = 0;
@@ -115,11 +99,30 @@ export class DashboardComponent {
                 this.massCompletionPercentage = value.harvestedCubicMeters / value.plannedCubicMeters;
               }
             }
-            else {
-              this.selectedPlanId = null;
-            }
           }
         });
+    }
+  }
+
+  dateRangeChange(dateRange: [number, number]): void {
+    this.fromYear = dateRange[0];
+    this.toYear = dateRange[1];
+
+    if(this.selectedForestUnitId) {
+      this.planService.getPlans(this.selectedForestUnitId, null, null, this.fromYear, this.toYear)
+      .subscribe({
+        next: (value: IPage<IPlan>) => {
+          value.data.reverse()
+
+          this.plannedHectares = value.data.map(p => p.plannedHectares);
+          this.executedHectares = value.data.map(p => p.executedHectares);
+
+          this.plannedCubicMeters = value.data.map(p => p.plannedCubicMeters);
+          this.harvestedCubicMeters = value.data.map(p => p.harvestedCubicMeters);
+
+          this.labels = value.data.map(t => t.year.toString());
+        }
+      });
     }
   }
 }

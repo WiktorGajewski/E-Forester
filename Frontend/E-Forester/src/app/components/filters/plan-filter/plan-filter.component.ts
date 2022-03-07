@@ -45,7 +45,7 @@ export class PlanFilterComponent implements OnInit {
   }
 
   load() : void {
-    this.planService.getPlans(this.forestUnitId, null, null)
+    this.planService.getPlans(this.forestUnitId, null, null, null, null)
       .subscribe({
           next: (value: IPage<IPlan>) => {
               this.plans = value.data;

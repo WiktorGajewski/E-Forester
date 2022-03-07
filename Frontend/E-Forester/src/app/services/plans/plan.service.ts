@@ -15,7 +15,8 @@ export class PlanService {
 
    }
 
-  getPlans(forestUnitId: number | null, pageIndex : number | null, pageSize: number | null): Observable<IPage<IPlan>> {
+  getPlans(forestUnitId: number | null, pageIndex : number | null, pageSize: number | null,
+      yearFrom: number | null, yearTo: number | null): Observable<IPage<IPlan>> {
 
     let params = new HttpParams();
 
@@ -23,6 +24,12 @@ export class PlanService {
       params = params
         .append("PageIndex", pageIndex)
         .append("PageSize", pageSize);
+    }
+
+    if(yearFrom && yearTo) {
+      params = params
+        .append("YearFrom", yearFrom)
+        .append("YearTo", yearTo);
     }
 
     if(forestUnitId) {
@@ -36,7 +43,7 @@ export class PlanService {
       );
   }
 
-  getPlan(planId: number): Observable<IPlan|undefined> {
+  getPlan(planId: number): Observable<IPlan> {
 
     return this.http.get<IPlan>(`${this.apiUrl}plans/${planId}`)
       .pipe(

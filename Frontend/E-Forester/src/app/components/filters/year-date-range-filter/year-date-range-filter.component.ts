@@ -30,7 +30,7 @@ const MY_FORMATS = {
   ]
 })
 export class YearDateRangeFilterComponent {
-  @Output() dateRangeFilter = new EventEmitter<[number,number]>();
+  @Output() dateRangeChange = new EventEmitter<[number,number]>();
 
   start = new FormControl(moment().subtract(10,"years"), Validators.required);
   end = new FormControl(moment(), Validators.required);
@@ -65,7 +65,7 @@ export class YearDateRangeFilterComponent {
 
   filter(): void {
     if(this.range.valid) {
-      this.dateRangeFilter.emit([this.start.value.year(),this.end.value.year()]);
+      this.dateRangeChange.emit([this.start.value.year(),this.end.value.year()]);
     }
   }
 }
