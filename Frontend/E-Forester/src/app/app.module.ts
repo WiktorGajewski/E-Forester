@@ -42,6 +42,7 @@ import { PlanFilterComponent } from './components/filters/plan-filter/plan-filte
 import { YearDateRangeFilterComponent } from './components/filters/year-date-range-filter/year-date-range-filter.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
+import { AssignForestUnitComponent } from './components/users/assign-forest-unit/assign-forest-unit.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -117,7 +118,8 @@ const material = [
     PlanFilterComponent,
     YearDateRangeFilterComponent,
     UserListComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    AssignForestUnitComponent
   ],
   imports: [
     material,

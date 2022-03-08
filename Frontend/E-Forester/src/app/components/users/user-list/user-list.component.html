@@ -43,11 +43,17 @@
                         </h3>
     
                         <mat-list>
-                            <mat-list-item *ngIf="element.assignedForestUnits.length == 0">
+                            <mat-list-item *ngIf="element.assignedForestUnits.length == 0" style="margin-left:10px;">
                                 Brak
                             </mat-list-item>
-                            <mat-list-item *ngFor="let forestUnit in element.assignedForestUnits">
-                                 {{forestUnit.name}}
+                            <mat-list-item *ngFor="let forestUnit in element.assignedForestUnits" style="margin-left:10px;">
+                                {{forestUnit.name}}
+                            </mat-list-item>
+                            <mat-list-item>
+                                <button mat-icon-button color="primary" (click)="assignForestUnitDialog()">
+                                    <mat-icon>add_box</mat-icon>
+                                </button>
+                                Dodaj
                             </mat-list-item>
                         </mat-list>
                     </div>

@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { IUser, Role } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/users/user.service';
 import { UsersDataSource } from 'src/app/services/users/users.data-source';
+import { AssignForestUnitComponent } from '../assign-forest-unit/assign-forest-unit.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
@@ -66,6 +67,26 @@ export class UserListComponent implements OnInit, AfterViewInit {
         }
       }
     ); 
+  }
+
+  assignForestUnitDialog() : void {
+    if(this.expandedElement != null) {
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+
+      const dialogRef = this.dialog.open(AssignForestUnitComponent, dialogConfig);
+      dialogRef.componentInstance.user = this.expandedElement;
+
+      dialogRef.afterClosed().subscribe(
+        result =>  {
+          if(result == true) {
+            this.loadPage(); 
+          }
+        }
+      ); 
+    }
   }
 
   expandElement(row: IUser) : void {
