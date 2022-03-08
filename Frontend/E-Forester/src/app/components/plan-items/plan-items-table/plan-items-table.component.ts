@@ -10,7 +10,7 @@ import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data
   templateUrl: './plan-items-table.component.html',
   styleUrls: ['./plan-items-table.component.css'],
   animations: [
-    trigger('expendRow', [
+    trigger('expandRow', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
