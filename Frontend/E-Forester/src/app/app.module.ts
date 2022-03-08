@@ -34,12 +34,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
-import { EnumToArrayPipe } from './helpers/enum-to-array.pipe';
+import { EnumToArrayPipe } from './helpers/pipes/enum-to-array.pipe';
 import { ForestUnitFilterComponent } from './components/filters/forest-unit-filter/forest-unit-filter.component';
 import { DivisionFilterComponent } from './components/filters/division-filter/division-filter.component';
 import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
 import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 import { YearDateRangeFilterComponent } from './components/filters/year-date-range-filter/year-date-range-filter.component';
+import { UserListComponent } from './components/users/user-list/user-list.component';
+import { CreateUserComponent } from './components/users/create-user/create-user.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -113,7 +115,9 @@ const material = [
     DivisionFilterComponent,
     SubareaFilterComponent,
     PlanFilterComponent,
-    YearDateRangeFilterComponent
+    YearDateRangeFilterComponent,
+    UserListComponent,
+    CreateUserComponent
   ],
   imports: [
     material,
