@@ -64,8 +64,28 @@
     margin-bottom: 10px;
 }
 
-.mat-row:hover {
-    background: dimgrey;
+tr.expanded-detail-row {
+    height: 0;
+}
+
+tr.element-row:hover td{
+    background: darkolivegreen;
+}
+
+tr.element-row:active td{
+    background: darkgreen;
+}  
+
+.expanded-row td {
+    background-color: rgb(50, 85, 50);
+}
+  
+.expanded-detail {
+    overflow: hidden;
+}
+
+.assigned-forest-units {
+    margin: 10px 0;
 }
 
 @media only screen and (max-width: 1100px) {

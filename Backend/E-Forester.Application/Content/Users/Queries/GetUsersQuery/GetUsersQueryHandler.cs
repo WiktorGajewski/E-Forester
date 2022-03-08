@@ -53,6 +53,7 @@ namespace E_Forester.Application.Content.Users.Queries.GetUsersQuery
                     .OrderBy(u => u.Id)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
+                    .Include(u => u.AssignedForestUnits)
                     .ToListAsync();
         }
     }

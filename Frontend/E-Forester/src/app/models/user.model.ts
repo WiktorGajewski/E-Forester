@@ -1,9 +1,12 @@
+import { IForestUnit } from "./forest-unit.model";
+
 export interface IUser {
     id: number,
     name: string,
     registrationDate: Date,
     role: Role,
-    isActive: boolean
+    isActive: boolean,
+    assignedForestUnits: IForestUnit[]
 }
 
 export enum Role {
