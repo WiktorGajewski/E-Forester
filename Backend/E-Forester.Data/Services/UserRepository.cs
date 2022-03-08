@@ -59,6 +59,12 @@ namespace E_Forester.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task AssignForestUnitAsync(User user, ForestUnit forestUnit)
+        {
+            user.AssignedForestUnits.Add(forestUnit);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddRefreshToken(RefreshToken token, User user)
         {
             user.RefreshTokens.Add(token);

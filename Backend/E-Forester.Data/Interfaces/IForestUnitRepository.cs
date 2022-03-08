@@ -7,6 +7,7 @@ namespace E_Forester.Data.Interfaces
     public interface IForestUnitRepository
     {
         IQueryable<ForestUnit> GetForestUnits();
+        Task<ForestUnit> GetForestUnitAsync(int id);
         Task CreateForestUnitAsync(ForestUnit newForestUnit);
     }
 }

@@ -43,6 +43,10 @@ export class UserService {
     return this.http.post(`${this.apiUrl}account/register`, { name, login, password, role });
   }
 
+  assignForestUnit(userId: number, forestUnitId: number) : Observable<Object> {
+    return this.http.post(`${this.apiUrl}users/forestUnits`, { userId, forestUnitId });
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

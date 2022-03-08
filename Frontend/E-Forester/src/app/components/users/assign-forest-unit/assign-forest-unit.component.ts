@@ -43,18 +43,18 @@ export class AssignForestUnitComponent implements OnInit {
     if(this.Form.valid) {
       const val = this.Form.value;
       this.loading = true;
-      // this.userService.assignForestUnit(this.user.id, val.forestUnitId)
-      //   .subscribe({
-      //     complete : () => {
-      //       this.loading = false;
-      //       this.dialogRef.close(true);
-      //     },
-      //     error : err => {
-      //       this.loading = false;
-      //       this.errorMessage = true;
-      //       this.error = err;
-      //     }
-      //   });
+      this.userService.assignForestUnit(this.user.id, val.forestUnitId)
+        .subscribe({
+          complete : () => {
+            this.loading = false;
+            this.dialogRef.close(true);
+          },
+          error : err => {
+            this.loading = false;
+            this.errorMessage = true;
+            this.error = err;
+          }
+        });
     }
   }
 

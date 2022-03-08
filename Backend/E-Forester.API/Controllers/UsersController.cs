@@ -1,4 +1,5 @@
-﻿using E_Forester.Application.Content.Users.Queries.GetUsersQuery;
+﻿using E_Forester.Application.Content.Users.Commands.AssignForestUnitCommand;
+using E_Forester.Application.Content.Users.Queries.GetUsersQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,13 @@ namespace E_Forester.API.Controllers
         {
             var result = await _mediator.Send(query);
             return Ok(result);
+        }
+
+        [HttpPost("forest-units")]
+        public async Task<IActionResult> AssignForestUnit([FromBody] AssignForestUnitCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }
