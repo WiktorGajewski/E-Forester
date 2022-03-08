@@ -15,6 +15,9 @@ export class CreateUserComponent implements OnInit {
 
   loading = false;
   errorMessage = false;
+  error = "";
+
+  hide = true;
 
   roles = Role;
 
@@ -31,7 +34,7 @@ export class CreateUserComponent implements OnInit {
         { type: "required", message: "Pole jest wymagane" },
         { type: "maxlength", message: "Pole może mieć nie wiecej niż 70 znaków" },
         { type: "minlength", message: "Hało musi składać się z conajmniej 8 znaków" },
-        { type: "pattern", message: "Hasło musi składać się conajmniej jednej małej i dużej litery oraz cyfry" }
+        { type: "pattern", message: "Hasło musi składać się z małych i dużych liter, cyfr oraz znaków specjalnych: !@#$%^&*?" }
       ],
       "role": [
         { type: "required", message: "Pole jest wymagane" },
@@ -53,7 +56,7 @@ export class CreateUserComponent implements OnInit {
       password: new FormControl("", Validators.compose([
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$"),
+        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?])[a-zA-Z0-9!@#$%^&*?]+$"),
         Validators.maxLength(70)
       ])),
       role: new FormControl(null, Validators.required)
@@ -70,9 +73,10 @@ export class CreateUserComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          error : () => {
+          error : err => {
             this.loading = false;
             this.errorMessage = true;
+            this.error = err;
           }
         });
     }

@@ -4,7 +4,7 @@
     <form [formGroup]="Form" (ngSubmit)="submit()">
 
         <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
-            Wystąpił błąd przy próbie utworzenia obiektu
+            Wystąpił błąd przy próbie utworzenia obiektu: {{error}}
         </mat-error>
 
         <mat-dialog-content>
@@ -26,7 +26,10 @@
         
             <mat-form-field appearance="fill">
                 <mat-label>Hasło</mat-label>
-                <input matInput formControlName="password" id="password" type="password" class="form-control" required>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" id="password" type="password" class="form-control" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error *ngFor="let validation of validation_messages.password">
                     <mat-error class="error-message" *ngIf="Form.get('password')?.hasError(validation.type) && (Form.get('password')?.dirty || Form.get('password')?.touched)">{{validation.message}}</mat-error>
                 </mat-error>
