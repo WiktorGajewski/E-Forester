@@ -7,18 +7,11 @@
   <div style="font-size: large;text-align: center;">
     Leśnictwo:
 
-    <app-forest-unit-filter 
+    <app-forest-unit-filter
       [selectedForestUnitId]="selectedForestUnitId"
       (selectedForestUnitIdChange)="forestUnitIdChange($event);">
     </app-forest-unit-filter>
   </div>
-  
-  <!-- <app-forest-unit-filter style="font-size: x-large"
-      [selectedForestUnitId]="selectedForestUnitId"
-      (selectedForestUnitIdChange)="forestUnitIdChange($event);">
-  </app-forest-unit-filter>
-
-  <mat-divider></mat-divider> -->
 
   <div style="font-size: medium;text-align: center;">
     Plan:
@@ -36,10 +29,11 @@
       [colspan]="( cardLayout | async )?.miniCard?.cols" 
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
-      <app-mini-card 
+      <app-mini-card matTooltip="Ilość wykonanej powierzchni w roku {{selectedPlan?.year}}"
         [title]="'Powierzchnia'" 
         [value]="selectedPlan?.executedHectares"
-        [unit]="'ha'">
+        [unit]="'ha'"
+        >
       </app-mini-card>
 
     </mat-grid-tile>
@@ -48,7 +42,8 @@
       [colspan]="( cardLayout | async )?.miniCard?.cols" 
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
-      <app-mini-card 
+      <app-mini-card
+        matTooltip="Procent wykonanej powierzchni w roku {{selectedPlan?.year}} w stosunku do planu na ten rok"
         [title]="'Powierzchnia'" 
         [value]="areaCompletionPercentage"
         [unit]="'%'">
@@ -60,7 +55,7 @@
       [colspan]="( cardLayout | async )?.miniCard?.cols" 
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
-      <app-mini-card
+      <app-mini-card matTooltip="Ilość wykonanej masy w roku {{selectedPlan?.year}}"
         [title]="'Masa'" 
         [value]="selectedPlan?.harvestedCubicMeters"
         [unit]="'m3'">
@@ -73,6 +68,7 @@
       [rowspan]="( cardLayout | async )?.miniCard?.rows">
 
       <app-mini-card 
+        matTooltip="Procent wykonanej masy w roku {{selectedPlan?.year}} w stosunku do planu na ten rok"
         [title]="'Masa'" 
         [value]="massCompletionPercentage"
         [unit]="'%'">
@@ -93,10 +89,12 @@
   <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
 
     <mat-grid-tile
+      matTooltip="Plan i wykonanie powierzchni w hektarach"
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
-      <annual-results-chart
+      <annual-results-chart 
+        
         title="Powierzchnia"
         [dataSet1]="plannedHectares"
         [dataLabel1]="'Plan'"
@@ -108,6 +106,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile
+      matTooltip="Plan i wykonanie masy w metrach sześciennych"
       [colspan]="( cardLayout | async )?.chart?.cols" 
       [rowspan]="( cardLayout | async )?.chart?.rows">
 
