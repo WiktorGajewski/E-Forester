@@ -43,6 +43,14 @@ export class UserService {
     return this.http.post(`${this.apiUrl}account/register`, { name, login, password, role });
   }
 
+  reactivateUser(userId: number) : Observable<Object> {
+    return this.http.put(`${this.apiUrl}users/${userId}/reactivate`,{});
+  }
+
+  deactivateUser(userId: number) : Observable<Object> {
+    return this.http.delete(`${this.apiUrl}users/${userId}`);
+  }
+
   assignForestUnit(userId: number, forestUnitId: number) : Observable<Object> {
     return this.http.put(`${this.apiUrl}users/${userId}/forest-units/${forestUnitId}`,{});
   }

@@ -24,7 +24,7 @@ import { CreateUserComponent } from '../create-user/create-user.component';
 })
 export class UserListComponent implements OnInit, AfterViewInit {
   dataSource !: UsersDataSource;
-  displayedColumns = ["name", "registrationDate", "role", "isActive"];
+  displayedColumns = ["name", "registrationDate", "role", "isActive", "actions"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
@@ -71,6 +71,80 @@ export class UserListComponent implements OnInit, AfterViewInit {
     ); 
   }
 
+  openSnackBarSuccess(message: string) : void {
+    this._snackBar.open(message, "" , {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+      horizontalPosition: "center",
+      verticalPosition: "bottom"
+    });
+  }
+
+  openSnackBarError(message: string) : void {
+    this._snackBar.open(message, "" , {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: "center",
+      verticalPosition: "bottom"
+    });
+  }
+
+  deleteUser(userId: number, userName: string) : void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
+    dialogRef.componentInstance.message = `Czy na pewno chcesz usunąć użytkownika ${userName}? (zostanie on oznaczony jako nieaktywny a konto zablokowane)`;
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.userService.deactivateUser(userId)
+            .subscribe({
+              complete : () => {
+                this.loadPage();
+                this.openSnackBarSuccess("Użytkownik pomyślnie usunięty (zablokowany)");
+              },
+              error : err => {
+                console.error(err);
+                this.openSnackBarError("Wystąpił błąd podczas próby usunięcia (zablokowania) użytkownika");
+              }
+            });
+        }
+      }
+    ); 
+  }
+
+  restoreUser(userId: number, userName: string) : void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
+    dialogRef.componentInstance.message = `Czy na pewno chcesz przywrócić użytkownika ${userName}? (zostanie on oznaczony jako aktywny a konto odblokowane)`;
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.userService.reactivateUser(userId)
+            .subscribe({
+              complete : () => {
+                this.loadPage();
+                this.openSnackBarSuccess("Pomyślnie przywrócono użytkownika");
+              },
+              error : err => {
+                console.error(err);
+                this.openSnackBarError("Wystąpił błąd podczas próby przywrócenia użytkownika");
+              }
+            });
+        }
+      }
+    ); 
+  }
+
   assignForestUnitDialog() : void {
     if(this.expandedElement != null) {
       const dialogConfig = new MatDialogConfig();
@@ -89,24 +163,6 @@ export class UserListComponent implements OnInit, AfterViewInit {
         }
       ); 
     }
-  }
-
-  openSnackBarSuccess(message : string) : void {
-    this._snackBar.open(message, "" , {
-      duration: 3000,
-      panelClass: ['mat-toolbar', 'mat-primary'],
-      horizontalPosition: "center",
-      verticalPosition: "bottom"
-    });
-  }
-
-  openSnackBarError(message : string) : void {
-    this._snackBar.open(message, "" , {
-      duration: 3000,
-      panelClass: ['mat-toolbar', 'mat-warn'],
-      horizontalPosition: "center",
-      verticalPosition: "bottom"
-    });
   }
 
   unassignForestUnit(forestUnitId: number, forestUnitName: string, userId: number, userName: string) : void {

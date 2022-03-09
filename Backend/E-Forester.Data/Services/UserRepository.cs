@@ -61,6 +61,18 @@ namespace E_Forester.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task ReactivateUserAsync(User user)
+        {
+            user.IsActive = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeactivateUserAsync(User user)
+        {
+            user.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AssignForestUnitAsync(User user, ForestUnit forestUnit)
         {
             user.AssignedForestUnits.Add(forestUnit);
