@@ -2,10 +2,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser, Role } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/users/user.service';
 import { UsersDataSource } from 'src/app/services/users/users.data-source';
 import { AssignForestUnitComponent } from '../assign-forest-unit/assign-forest-unit.component';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
@@ -30,7 +32,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   roles = Role;
 
-  constructor(private userService: UserService, private dialog : MatDialog) { 
+  constructor(private userService: UserService, private dialog : MatDialog, private _snackBar: MatSnackBar) { 
     
   }
 
@@ -87,6 +89,52 @@ export class UserListComponent implements OnInit, AfterViewInit {
         }
       ); 
     }
+  }
+
+  openSnackBarSuccess(message : string) : void {
+    this._snackBar.open(message, "" , {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+      horizontalPosition: "center",
+      verticalPosition: "bottom"
+    });
+  }
+
+  openSnackBarError(message : string) : void {
+    this._snackBar.open(message, "" , {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-warn'],
+      horizontalPosition: "center",
+      verticalPosition: "bottom"
+    });
+  }
+
+  unassignForestUnit(forestUnitId: number, forestUnitName: string, userId: number, userName: string) : void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
+    dialogRef.componentInstance.message = `Czy na pewno chcesz anulować przypisanie do leśnictwa ${forestUnitName} użytkownikowi ${userName}?`;
+
+    dialogRef.afterClosed().subscribe(
+      result =>  {
+        if(result == true) {
+          this.userService.unassignForestUnit(userId, forestUnitId)
+            .subscribe({
+              complete : () => {
+                this.loadPage();
+                this.openSnackBarSuccess("Przypisania do leśnictwa zostało anulowane");
+              },
+              error : err => {
+                console.error(err);
+                this.openSnackBarError("Wystąpił błąd podczas próby anulowania przypisania");
+              }
+            });
+        }
+      }
+    ); 
   }
 
   expandElement(row: IUser) : void {

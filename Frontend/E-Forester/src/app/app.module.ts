@@ -43,6 +43,7 @@ import { YearDateRangeFilterComponent } from './components/filters/year-date-ran
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
 import { AssignForestUnitComponent } from './components/users/assign-forest-unit/assign-forest-unit.component';
+import { ConfirmationComponent } from './components/users/confirmation/confirmation.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -64,6 +65,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const material = [
   MatToolbarModule,
@@ -84,7 +86,8 @@ const material = [
   MatCheckboxModule,
   MatNativeDateModule,
   MatDatepickerModule,
-  MatMomentDateModule
+  MatMomentDateModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
@@ -119,7 +122,8 @@ const material = [
     YearDateRangeFilterComponent,
     UserListComponent,
     CreateUserComponent,
-    AssignForestUnitComponent
+    AssignForestUnitComponent,
+    ConfirmationComponent,
   ],
   imports: [
     material,

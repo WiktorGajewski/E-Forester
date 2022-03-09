@@ -44,7 +44,11 @@ export class UserService {
   }
 
   assignForestUnit(userId: number, forestUnitId: number) : Observable<Object> {
-    return this.http.post(`${this.apiUrl}users/forestUnits`, { userId, forestUnitId });
+    return this.http.put(`${this.apiUrl}users/${userId}/forest-units/${forestUnitId}`,{});
+  }
+
+  unassignForestUnit(userId: number, forestUnitId: number) : Observable<Object>  {
+    return this.http.delete(`${this.apiUrl}users/${userId}/forest-units/${forestUnitId}`)
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

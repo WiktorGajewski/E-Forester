@@ -12,6 +12,7 @@ namespace E_Forester.Data.Interfaces
         Task<User> GetUserAsync(string login);
         Task RegisterUserAsync(User newUser);
         Task AssignForestUnitAsync(User user, ForestUnit forestUnit);
+        Task UnassignForestUnitAsync(User user, ForestUnit forestUnit);
         Task AddRefreshToken(RefreshToken token, User user);
         Task<User> GetUserByRefreshTokenAsync(string token);
         Task RevokeRefreshTokenAsync(RefreshToken token);

@@ -38,7 +38,9 @@ namespace E_Forester.Data.Services
 
         public async Task<User> GetUserAsync(int id)
         {
-            return await _context.AppUsers.FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.AppUsers
+                .Include(u => u.AssignedForestUnits)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserAsync(string login)
@@ -62,6 +64,14 @@ namespace E_Forester.Data.Services
         public async Task AssignForestUnitAsync(User user, ForestUnit forestUnit)
         {
             user.AssignedForestUnits.Add(forestUnit);
+            forestUnit.AssignedUsers.Add(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UnassignForestUnitAsync(User user, ForestUnit forestUnit)
+        {
+            user.AssignedForestUnits.Remove(forestUnit);
+            forestUnit.AssignedUsers.Remove(user);
             await _context.SaveChangesAsync();
         }
 

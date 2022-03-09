@@ -34,7 +34,8 @@ export class AssignForestUnitComponent implements OnInit {
     this.forestUnitService.getForestUnits(null, null)
             .subscribe({
                 next: (value: IPage<IForestUnit>) => {
-                    this.forestUnits = value.data.filter(forestUnit => !this.user.assignedForestUnits.includes(forestUnit));
+                    this.forestUnits = value.data.filter(forestUnit => 
+                      !this.user.assignedForestUnits.some(e => e.id == forestUnit.id));
                 }
             });
   }
@@ -43,7 +44,7 @@ export class AssignForestUnitComponent implements OnInit {
     if(this.Form.valid) {
       const val = this.Form.value;
       this.loading = true;
-      this.userService.assignForestUnit(this.user.id, val.forestUnitId)
+      this.userService.assignForestUnit(this.user.id, val.forestUnit.id)
         .subscribe({
           complete : () => {
             this.loading = false;

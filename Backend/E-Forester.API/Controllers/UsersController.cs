@@ -1,4 +1,5 @@
 ﻿using E_Forester.Application.Content.Users.Commands.AssignForestUnitCommand;
+using E_Forester.Application.Content.Users.Commands.UnassignForestUnitCommand;
 using E_Forester.Application.Content.Users.Queries.GetUsersQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,17 @@ namespace E_Forester.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("forest-units")]
-        public async Task<IActionResult> AssignForestUnit([FromBody] AssignForestUnitCommand command)
+        [HttpPut("{userId}/forest-units/{forestUnitId}")]
+        public async Task<IActionResult> AssignForestUnit([FromRoute] int userId, int forestUnitId) 
         {
-            await _mediator.Send(command);
+            await _mediator.Send(new AssignForestUnitCommand() { UserId = userId, ForestUnitId = forestUnitId });
+            return Ok();
+        }
+
+        [HttpDelete("{userId}/forest-units/{forestUnitId}")]
+        public async Task<IActionResult> UnassignForestUnit([FromRoute] int userId, int forestUnitId)
+        {
+            await _mediator.Send(new UnassignForestUnitCommand() { UserId = userId, ForestUnitId = forestUnitId });
             return Ok();
         }
     }

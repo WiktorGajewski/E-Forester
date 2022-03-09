@@ -1,6 +1,7 @@
 ﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +23,9 @@ namespace E_Forester.Data.Services
 
         public async Task<ForestUnit> GetForestUnitAsync(int id)
         {
-            return await _context.ForestUnits.FindAsync(id);
+            return await _context.ForestUnits
+                .Include(f => f.AssignedUsers)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task CreateForestUnitAsync(ForestUnit newForestUnit)
