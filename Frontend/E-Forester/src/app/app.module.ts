@@ -29,7 +29,6 @@ import { CreateSubareaComponent } from './components/subareas/create-subarea/cre
 import { CreatePlanComponent } from './components/plans/create-plan/create-plan.component';
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
 import { CreatePlanExecutionComponent } from './components/plan-items/plan-executions/create-plan-execution/create-plan-execution.component';
-import { CockpitComponent } from './components/cockpit/cockpit.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CardComponent } from './components/dashboard/card/card.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
@@ -111,7 +110,6 @@ const material = [
     CreatePlanComponent,
     CreatePlanItemComponent,
     CreatePlanExecutionComponent,
-    CockpitComponent,
     DashboardComponent,
     CardComponent,
     MiniCardComponent,
