@@ -11,6 +11,8 @@ namespace E_Forester.Model.Database
 
         public int Year { get; set; }
 
+        public bool IsCompleted { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public ICollection<PlanItem> PlanItems { get; set; }

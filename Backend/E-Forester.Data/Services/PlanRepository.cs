@@ -30,6 +30,18 @@ namespace E_Forester.Data.Services
                 .FirstOrDefaultAsync(p => p.Id == planId);
         }
 
+        public async Task ClosePlanAsync(Plan plan)
+        {
+            plan.IsCompleted = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task OpenPlanAsync(Plan plan)
+        {
+            plan.IsCompleted = false;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task CreatePlanAsync(Plan newPlan)
         {
             await _context.Plans.AddAsync(newPlan);

@@ -14,7 +14,7 @@ import { CreatePlanComponent } from '../create-plan/create-plan.component';
 })
 export class PlanListComponent implements OnInit, AfterViewInit {
   dataSource !: PlansDataSource;
-  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters"];
+  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "isCompleted", "actions"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
@@ -49,6 +49,35 @@ export class PlanListComponent implements OnInit, AfterViewInit {
     }
 
     this.router.navigate(["/plan-items"], navigationsExtras);
+  }
+
+  markPlanCompleted(planId: number, event: Event) : void {
+    event.stopPropagation();
+    
+    this.planService.markPlanCompleted(planId)
+      .subscribe({
+        complete : () => {
+          this.loadPage();
+        },
+        error : err => {
+          console.error(err);
+        }
+      });
+  }
+
+  markPlanIncompleted(planId: number, event: Event) : void {
+    event.stopPropagation();
+    console.log("open")
+
+    this.planService.markPlanIncompleted(planId)
+      .subscribe({
+        complete : () => {
+          this.loadPage();
+        },
+        error : err => {
+          console.error(err);
+        }
+      });
   }
 
   createPlanDialog() : void {

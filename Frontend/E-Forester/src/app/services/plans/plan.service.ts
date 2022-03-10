@@ -65,6 +65,14 @@ export class PlanService {
     return this.http.post(`${this.apiUrl}plans`, { year, forestUnitId });
   }
 
+  markPlanCompleted(planId : number) : Observable<Object> {
+    return this.http.put(`${this.apiUrl}plans/${planId}/close`, {});
+  }
+
+  markPlanIncompleted(planId : number) : Observable<Object> {
+    return this.http.put(`${this.apiUrl}plans/${planId}/open`, {});
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

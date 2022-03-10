@@ -49,6 +49,8 @@ namespace E_Forester.Data.Database
 
             modelBuilder.Entity<Plan>(entity =>
             {
+                entity.HasIndex(e => new { e.ForestUnitId, e.Year}).IsUnique();
+
                 entity.HasOne(e => e.ForestUnit)
                     .WithMany(e => e.Plans)
                     .HasForeignKey(e => e.ForestUnitId);
