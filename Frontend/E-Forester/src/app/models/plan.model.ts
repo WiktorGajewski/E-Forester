@@ -2,6 +2,8 @@ export interface IPlan {
     id: number,
     year: number,
     isComplete: number,
+    completedPlanItems: number,
+    planItemsNumber: number,
     createdAt: Date,
     forestUnitId: number,
     creatorId: number,

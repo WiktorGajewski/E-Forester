@@ -25,7 +25,11 @@ namespace E_Forester.Application.AutoMapper
                 .ForMember(dest => dest.ExecutedHectares,
                     opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.ExecutedHectares)))
                 .ForMember(dest => dest.HarvestedCubicMeters,
-                        opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.HarvestedCubicMeters)));
+                        opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.HarvestedCubicMeters)))
+                .ForMember(dest => dest.CompletedPlanItems,
+                        opt => opt.MapFrom(p => p.PlanItems.Count(x => x.IsCompleted == true)))
+                .ForMember(dest => dest.PlanItemsNumber,
+                        opt => opt.MapFrom(p => p.PlanItems.Count()));
 
             CreateMap<ForestUnit, ForestUnitDto>();
 

@@ -41,6 +41,11 @@
         <td mat-cell *matCellDef="let plan"> {{plan.harvestedCubicMeters}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="completedPlanItems">
+        <th mat-header-cell *matHeaderCellDef> Ukończone pozycje planu </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.completedPlanItems}} / {{(plan.planItemsNumber)}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="isCompleted">
         <th mat-header-cell *matHeaderCellDef> Ukończony </th>
         <td mat-cell *matCellDef="let plan"> {{plan.isCompleted ? "TAK" : "NIE"}} </td>
@@ -90,7 +95,8 @@
   </mat-paginator>
 
   <div class="button-container">
-    <button mat-mini-fab color="primary" (click)="createPlanDialog()" class="open-dialog-button">
+    <button mat-mini-fab color="primary" (click)="createPlanDialog()" class="open-dialog-button"
+      matTooltip="Dodaj nowy plan">
       <mat-icon>add</mat-icon>
     </button>
   </div>

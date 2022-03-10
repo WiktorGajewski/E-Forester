@@ -30,10 +30,12 @@
     </app-plan-filter>
 
     <div class="button-container" *ngIf="isPlanItemSelected">
-        <button mat-raised-button color="primary" (click)="markPlanItemsCompleted()">
+        <button mat-raised-button color="primary" (click)="markPlanItemsCompleted()"
+            matTooltip="Pozycja planu zostanie oznaczona jako ukończona, dodawanie nowych wykonań zostanie zablokowane">
             Oznacz jako ukończone
         </button>
-        <button mat-raised-button color="accent" style="margin-left:10px;" (click)="markPlanItemsIncompleted()">
+        <button mat-raised-button color="accent" style="margin-left:10px;" (click)="markPlanItemsIncompleted()"
+            matTooltip="Pozycja planu zostanie oznaczona jako nieukończona, dodawanie nowych wykonań zostanie odblokowane">
             Oznacz jako nieukończone
         </button>
     </div>
@@ -47,7 +49,8 @@
     </app-plan-items-table>
 
     <div class="add-button-container">
-        <button mat-mini-fab color="primary" (click)="createPlanItemDialog()" class="open-dialog-button">
+        <button mat-mini-fab color="primary" (click)="createPlanItemDialog()" class="open-dialog-button"
+            matTooltip="Dodaj nową pozycje planu">
           <mat-icon>add</mat-icon>
         </button>
     </div>

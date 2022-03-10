@@ -14,7 +14,7 @@ import { CreatePlanComponent } from '../create-plan/create-plan.component';
 })
 export class PlanListComponent implements OnInit, AfterViewInit {
   dataSource !: PlansDataSource;
-  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "isCompleted", "actions"];
+  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "completedPlanItems", "isCompleted", "actions"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
