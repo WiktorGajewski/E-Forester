@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { CreatePlanItemComponent } from '../create-plan-item/create-plan-item.component';
 import { PlanItemsTableComponent } from '../plan-items-table/plan-items-table.component';
 
@@ -19,9 +20,12 @@ export class PlanItemsPageComponent implements OnInit {
 
   selectedPlanId: number | null = null;
 
+  isPlanItemSelected = false;
+
   @ViewChild(PlanItemsTableComponent) planItemsTable !: PlanItemsTableComponent;
 
   constructor(
+    private planItemService: PlanItemService,
     private route: ActivatedRoute,
     private dialog : MatDialog) { }
 
@@ -34,6 +38,36 @@ export class PlanItemsPageComponent implements OnInit {
 
   reloadTable() : void {
     this.planItemsTable.reloadTable();
+  }
+
+  tableSelectionChange(selectedPlanId: boolean) : void {
+    this.isPlanItemSelected = selectedPlanId;
+  }
+
+  markPlanItemsCompleted() : void {
+    const selected = this.planItemsTable.selection.selected;
+    this.planItemService.markPlanItemsCompleted(selected.map(s => s.id))
+      .subscribe({
+        complete : () => {
+          this.reloadTable();
+        },
+        error : err => {
+          console.error(err);
+        }
+      });
+  }
+
+  markPlanItemsIncompleted() : void {
+    const selected = this.planItemsTable.selection.selected;
+    this.planItemService.markPlanItemsIncompleted(selected.map(s => s.id))
+      .subscribe({
+        complete : () => {
+          this.reloadTable();
+        },
+        error : err => {
+          console.error(err);
+        }
+      });
   }
 
   createPlanItemDialog() : void {

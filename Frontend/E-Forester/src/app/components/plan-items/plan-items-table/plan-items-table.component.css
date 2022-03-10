@@ -6,6 +6,12 @@
     width: 100%;
 }
 
+.mat-column-select{
+    border-right: 1px solid grey;
+    padding-right: 20px;
+    text-align: center;
+}
+
 .mat-column-id{
     border-right: 1px solid grey;
     padding-right: 20px;

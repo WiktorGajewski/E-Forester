@@ -32,15 +32,15 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Akcje </th>
+          <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let user"> 
             <span class="delete-user-button" *ngIf="user.isActive">
-              <button mat-icon-button (click)="deleteUser(user.id, user.name);">
+              <button mat-icon-button (click)="deleteUser(user.id, user.name, $event);">
                 <mat-icon>delete</mat-icon>
               </button>
             </span>
             <span class="restore-user-button" *ngIf="!user.isActive">
-              <button mat-icon-button (click)="restoreUser(user.id, user.name);">
+              <button mat-icon-button (click)="restoreUser(user.id, user.name, $event);">
                 <mat-icon>restore_from_trash</mat-icon>
               </button>
             </span>

@@ -29,14 +29,24 @@
         (selectedPlanIdChange)="selectedPlanId=$event;">
     </app-plan-filter>
 
+    <div class="button-container" *ngIf="isPlanItemSelected">
+        <button mat-raised-button color="primary" (click)="markPlanItemsCompleted()">
+            Oznacz jako ukończone
+        </button>
+        <button mat-raised-button color="accent" style="margin-left:10px;" (click)="markPlanItemsIncompleted()">
+            Oznacz jako nieukończone
+        </button>
+    </div>
+
     <app-plan-items-table
         [selectedForestUnitId]="selectedForestUnitId"
         [selectedDivisionId]="selectedDivisionId"
         [selectedSubareaId]="selectedSubareaId"
-        [selectedPlanId]="selectedPlanId">
+        [selectedPlanId]="selectedPlanId"
+        (selectionChange)="tableSelectionChange($event)">
     </app-plan-items-table>
 
-    <div class="button-container">
+    <div class="add-button-container">
         <button mat-mini-fab color="primary" (click)="createPlanItemDialog()" class="open-dialog-button">
           <mat-icon>add</mat-icon>
         </button>

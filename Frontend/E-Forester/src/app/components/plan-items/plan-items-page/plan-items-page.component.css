@@ -6,10 +6,15 @@
     text-align: center;
 }
 
-.button-container {
+.add-button-container {
     margin-top: 10px;
     margin-right: 10px;
     text-align: end;
+}
+
+.button-container {
+    margin: 10px;
+    text-align: center;
 }
 
 .open-dialog-button {

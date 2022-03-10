@@ -12,6 +12,7 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
 
     public loading = this.loadingSubject.asObservable();
     public totalCount = this.totalCountSubject.asObservable();
+    public data = this.planItemsSubject.asObservable();
 
     constructor(private planItemService : PlanItemService) {
 

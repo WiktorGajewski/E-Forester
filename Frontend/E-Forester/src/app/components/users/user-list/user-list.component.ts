@@ -89,7 +89,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteUser(userId: number, userName: string) : void {
+  deleteUser(userId: number, userName: string, event: Event) : void {
+    event.stopPropagation();
+
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;
@@ -117,7 +119,9 @@ export class UserListComponent implements OnInit, AfterViewInit {
     ); 
   }
 
-  restoreUser(userId: number, userName: string) : void {
+  restoreUser(userId: number, userName: string, event: Event) : void {
+    event.stopPropagation();
+
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;

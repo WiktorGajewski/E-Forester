@@ -70,6 +70,14 @@ export class PlanItemService {
       actionGroup, difficultyLevel, factor, planId, subareaId });
   }
 
+  markPlanItemsCompleted(planItemIds : number[]) : Observable<Object> {
+    return this.http.put(`${this.apiUrl}plan-items/close`, { planItemIds });
+  }
+
+  markPlanItemsIncompleted(planItemIds : number[]) : Observable<Object> {
+    return this.http.put(`${this.apiUrl}plan-items/open`, { planItemIds });
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

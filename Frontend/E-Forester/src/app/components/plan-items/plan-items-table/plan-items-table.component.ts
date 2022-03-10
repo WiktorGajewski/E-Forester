@@ -1,9 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
 import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item.model';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
+import { CollectionViewer } from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-plan-items-table',
@@ -19,7 +22,8 @@ import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data
 })
 export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges {
   dataSource !: PlanItemsDataSource;
-  displayedColumns = ["address", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor", "isCompleted"];
+  displayedColumns = [ "select", "address", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor", "isCompleted"];
+  data : IPlanItem[] = [];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
@@ -28,9 +32,13 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
   @Input() selectedSubareaId: number | null = null;
   @Input() selectedPlanId: number | null = null;
 
+  @Output() selectionChange = new EventEmitter<boolean>();
+
   expandedElement: IPlanItem | null = null;
   expandedElementPlanItemId: number | null = null;
 
+  selection = new SelectionModel<IPlanItem>(true, []);
+  
   actionGroups = ActionGroup;
     
   constructor(private planItemService: PlanItemService) {}
@@ -46,6 +54,10 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
         this.selectedPlanId
       );
     }
+
+    this.dataSource.data.subscribe({
+        next: data => { this.data = data; }
+      });
   }
 
   ngAfterViewInit(): void {
@@ -68,6 +80,27 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
+
+    this.selection.clear();
+    this.selectionChangedEmit();
+  }
+
+  isAllSelected() : boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() : void {
+    if(this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.data);
+  }
+
+  selectionChangedEmit() : void {
+    this.selectionChange.emit(this.selection.hasValue());
   }
 
   woodAssortmentsToValue(key : WoodAssortment) : string[] {
