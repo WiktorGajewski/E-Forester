@@ -1,8 +1,8 @@
-import { AuthService } from "../auth/auth.service";
+import { AuthService } from "../services/auth/auth.service";
 
-export function appInitializer(auth: AuthService): () => Promise<void> {
+export function appInitializer(authService: AuthService): () => Promise<void> {
     return () => new Promise<void>((resolve, reject) => {
-        auth.refreshToken()
+        authService.refreshToken()
                 .subscribe()
                 .add(resolve);
     });

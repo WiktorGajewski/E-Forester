@@ -1,0 +1,9 @@
+<mat-form-field appearance="standard" #inputForestUnitId>
+    <mat-label>Leśnictwo</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="forestUnitIdChange();" [(value)]="selectedForestUnitId">
+        <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id" label="somet">
+            {{forestUnit.name}}
+        </mat-option>
+        <mat-option *ngIf="forestUnits.length === 0"><mat-icon>report_problem</mat-icon>Brak dostępnych opcji</mat-option>
+    </mat-select>
+</mat-form-field>

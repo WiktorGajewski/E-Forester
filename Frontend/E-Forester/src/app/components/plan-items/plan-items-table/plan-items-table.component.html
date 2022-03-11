@@ -1,0 +1,120 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" multiTemplateDataRows> 
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef> Adres leśny </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.address}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="isCompleted">
+        <th mat-header-cell *matHeaderCellDef> Ukończone </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.isCompleted ? "TAK" : "NIE"}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="plannedHectares">
+        <th mat-header-cell *matHeaderCellDef> Ilość planowanych hektarów </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.plannedHectares}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="executedHectares">
+        <th mat-header-cell *matHeaderCellDef> Ilość wykonanych hektarów </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.executedHectares}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="plannedCubicMeters">
+        <th mat-header-cell *matHeaderCellDef> Ilość planowanych metrów sześciennych (m<sup>3</sup>) </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.plannedCubicMeters}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="harvestedCubicMeters">
+        <th mat-header-cell *matHeaderCellDef> Ilość pozyskanych metrów sześciennych (m<sup>3</sup>) </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.harvestedCubicMeters}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="woodAssortment">
+        <th mat-header-cell *matHeaderCellDef> Sortymenty </th>
+        <td mat-cell *matCellDef="let planItem"> {{woodAssortmentsToValue(planItem.assortments)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actionGroup">
+        <th mat-header-cell *matHeaderCellDef> Grupa Czynności </th>
+        <td mat-cell *matCellDef="let planItem"> {{actionGroups[planItem.actionGroup]}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="difficultyLevel">
+        <th mat-header-cell *matHeaderCellDef> Poziom trudności </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.difficultyLevel}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="factor">
+        <th mat-header-cell *matHeaderCellDef> Współczynnik </th>
+        <td mat-cell *matCellDef="let planItem"> {{planItem.factor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color="primary"
+            (change)="$event ? masterToggle() : null; selectionChangedEmit()"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox color="primary"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null; selectionChangedEmit()"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="planExecutions">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="plan-executions"
+               [@expandRow]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+              <div class="inner-table-container">
+                <h2 style="margin-bottom: 0px;">
+                  Wykonania
+                  <mat-divider></mat-divider>
+                </h2>
+
+                <app-plan-executions-table 
+                  [selectedPlanItemId]="element == expandedElement ? element?.id : undefined">
+                </app-plan-executions-table>
+              </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === row"
+        (click)="expandElement(row)">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['planExecutions']" class="element-plan-executions-row"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="11" style="text-align:center;">
+              <div *ngIf="!(dataSource.loading | async)">
+                  Brak danych do wyświetlenia
+              </div>
+              <div *ngIf="dataSource.loading | async" class="spinner">
+                  <mat-spinner diameter="80"></mat-spinner>
+              </div>
+          </td>
+      </tr>
+  </table>
+</div>
+
+<mat-paginator [length]="(dataSource.totalCount | async)"
+              showFirstLastButtons
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>

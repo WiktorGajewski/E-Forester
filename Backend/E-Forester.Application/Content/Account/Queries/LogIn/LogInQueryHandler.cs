@@ -23,18 +23,22 @@ namespace E_Forester.Application.Content.Account.Queries.Login
         {
             var authenticated = await _userRepository.Authenticate(request.Login, request.Password);
             if (!authenticated)
-                throw new UnauthorizedAccessException("Login failed.");
+                throw new UnauthorizedAccessException("Login failed");
 
             var user = await _userRepository.GetUserAsync(request.Login);
 
+            if(user.IsActive == false)
+                throw new UnauthorizedAccessException("Account is blocked");
+
             var token = _tokenService.GenerateToken(user);
             var refreshToken = _tokenService.GenerateRefreshToken();
+            var userRole = user.Role;
 
             await _userRepository.AddRefreshToken(refreshToken, user);
 
             await _userRepository.RemoveExpiredRefreshTokensAsync(user);
 
-            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token };
+            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token, UserRole = userRole };
         }
     }
 }

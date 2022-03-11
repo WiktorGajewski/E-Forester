@@ -2,7 +2,7 @@
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Forester.Data.Services
@@ -16,9 +16,30 @@ namespace E_Forester.Data.Services
             _context = context;
         }
 
-        public async Task<ICollection<Plan>> GetPlansAsync()
+        public IQueryable<Plan> GetPlans()
         {
-            return await _context.Plans.ToListAsync();
+            return _context.Plans.AsQueryable();
+        }
+
+        public async Task<Plan> GetPlanAsync(int planId)
+        {
+            return await _context.Plans
+                .Include(p => p.ForestUnit)
+                .Include(p => p.PlanExecutions)
+                .Include(p => p.PlanItems)
+                .FirstOrDefaultAsync(p => p.Id == planId);
+        }
+
+        public async Task ClosePlanAsync(Plan plan)
+        {
+            plan.IsCompleted = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task OpenPlanAsync(Plan plan)
+        {
+            plan.IsCompleted = false;
+            await _context.SaveChangesAsync();
         }
 
         public async Task CreatePlanAsync(Plan newPlan)

@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-title>Profil</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <mat-card-content *ngIf="user">
+        <h2>{{user.name}}</h2>
+        <h2>{{roles[user.role]}}</h2>
+        <h3 style="margin-bottom: 0;">Przydzielone leśnictwa</h3>
+
+        <mat-list>
+            <mat-list-item *ngIf="user.assignedForestUnits?.length == 0">
+                <span>
+                    Brak
+                </span>
+            </mat-list-item>
+            <mat-list-item *ngFor="let forestUnit of user.assignedForestUnits">
+                <span class="test">
+                    {{forestUnit.name}}
+                </span>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-button (click)="changePassword()">
+            Zmień hasło
+        </button>
+    </mat-card-actions>
+    
+</mat-card>

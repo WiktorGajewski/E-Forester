@@ -1,0 +1,17 @@
+<mat-form-field appearance="standard">
+    <mat-label>Przedział czasowy</mat-label>
+    <mat-date-range-input [formGroup]="range" [rangePicker]="dp">
+        <input matStartDate formControlName="start" placeholder="Od">
+        <input matEndDate formControlName="end" placeholder="Do">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker-toggle matSuffix (click)="filter()" [disabled]="range.invalid">
+        <mat-icon matDatepickerToggleIcon>search</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-date-range-picker #dp
+                    startView="multi-year"
+                    (yearSelected)="yearSelected($event, dp)">
+    </mat-date-range-picker>
+</mat-form-field>
+
+

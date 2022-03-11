@@ -1,0 +1,22 @@
+mat-card {
+    margin: 2% 5%;
+    text-align: center;
+    width: 60vw;
+    max-width: 1200px;
+}
+
+mat-card-content {
+    margin-top: 15px;
+}
+
+.test {
+    text-align: center;
+    width: 100%; 
+}
+
+
+@media only screen and (max-width: 600px) {
+    mat-card{
+        width: 80vw;
+    }
+}

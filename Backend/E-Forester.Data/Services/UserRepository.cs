@@ -1,11 +1,11 @@
-﻿using BC = BCrypt.Net.BCrypt;
-using E_Forester.Data.Database;
+﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
+using BC = BCrypt.Net.BCrypt;
 
 namespace E_Forester.Data.Services
 {
@@ -31,9 +31,16 @@ namespace E_Forester.Data.Services
             return true;
         }
 
+        public IQueryable<User> GetUsers()
+        {
+            return _context.AppUsers.AsQueryable();
+        }
+
         public async Task<User> GetUserAsync(int id)
         {
-            return await _context.AppUsers.FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.AppUsers
+                .Include(u => u.AssignedForestUnits)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserAsync(string login)
@@ -51,6 +58,38 @@ namespace E_Forester.Data.Services
             newUser.Password = BC.HashPassword(newUser.Password);
 
             await _context.AppUsers.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ReactivateUserAsync(User user)
+        {
+            user.IsActive = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeactivateUserAsync(User user)
+        {
+            user.IsActive = false;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangePasswordAsync(User user, string newPasword)
+        {
+            user.Password = BC.HashPassword(newPasword);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AssignForestUnitAsync(User user, ForestUnit forestUnit)
+        {
+            user.AssignedForestUnits.Add(forestUnit);
+            forestUnit.AssignedUsers.Add(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UnassignForestUnitAsync(User user, ForestUnit forestUnit)
+        {
+            user.AssignedForestUnits.Remove(forestUnit);
+            forestUnit.AssignedUsers.Remove(user);
             await _context.SaveChangesAsync();
         }
 

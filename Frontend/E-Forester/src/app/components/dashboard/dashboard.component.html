@@ -1,0 +1,125 @@
+<div class="container">
+  <h1 style="margin-bottom: 10px;">
+    Kokpit
+    <mat-divider></mat-divider>
+  </h1>
+
+  <div style="font-size: large;text-align: center;">
+    Leśnictwo:
+
+    <app-forest-unit-filter
+      [selectedForestUnitId]="selectedForestUnitId"
+      (selectedForestUnitIdChange)="forestUnitIdChange($event);">
+    </app-forest-unit-filter>
+  </div>
+
+  <div style="font-size: medium;text-align: center;">
+    Plan:
+
+    <app-plan-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedPlanId]="selectedPlanId"
+        (selectedPlanIdChange)="planIdChange($event);">
+    </app-plan-filter>
+  </div>
+
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" *ngIf="selectedPlanId">
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card matTooltip="Ilość wykonanej powierzchni w roku {{selectedPlan?.year}}"
+        [title]="'Powierzchnia'" 
+        [value]="selectedPlan?.executedHectares"
+        [unit]="'ha'"
+        >
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card
+        matTooltip="Procent wykonanej powierzchni w roku {{selectedPlan?.year}} w stosunku do planu na ten rok"
+        [title]="'Powierzchnia'" 
+        [value]="areaCompletionPercentage"
+        [unit]="'%'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card matTooltip="Ilość wykonanej masy w roku {{selectedPlan?.year}}"
+        [title]="'Masa'" 
+        [value]="selectedPlan?.harvestedCubicMeters"
+        [unit]="'m3'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="( cardLayout | async )?.miniCard?.cols" 
+      [rowspan]="( cardLayout | async )?.miniCard?.rows">
+
+      <app-mini-card 
+        matTooltip="Procent wykonanej masy w roku {{selectedPlan?.year}} w stosunku do planu na ten rok"
+        [title]="'Masa'" 
+        [value]="massCompletionPercentage"
+        [unit]="'%'">
+      </app-mini-card>
+
+    </mat-grid-tile>
+
+  </mat-grid-list>
+
+    <div style="font-size: medium;text-align: center;">
+      <year-date-range-filter
+        (dateRangeChange)="dateRangeChange($event);">
+      </year-date-range-filter>
+    </div>
+
+    <mat-divider></mat-divider>
+
+  <mat-grid-list cols="{{ ( cardLayout | async )?.columns }}" >
+
+    <mat-grid-tile
+      matTooltip="Plan i wykonanie powierzchni w hektarach"
+      [colspan]="( cardLayout | async )?.chart?.cols" 
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+
+      <annual-results-chart 
+        
+        title="Powierzchnia"
+        [dataSet1]="plannedHectares"
+        [dataLabel1]="'Plan'"
+        [dataSet2]="executedHectares"
+        [dataLabel2]="'Wykonanie'"
+        [labels]="labels">
+      </annual-results-chart>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      matTooltip="Plan i wykonanie masy w metrach sześciennych"
+      [colspan]="( cardLayout | async )?.chart?.cols" 
+      [rowspan]="( cardLayout | async )?.chart?.rows">
+
+      <annual-results-chart
+        title="Masa"
+        [dataSet1]="plannedCubicMeters"
+        [dataLabel1]="'Plan'"
+        [dataSet2]="harvestedCubicMeters"
+        [dataLabel2]="'Wykonanie'"
+        [labels]="labels">
+      </annual-results-chart>
+
+    </mat-grid-tile>
+
+  </mat-grid-list>
+</div>
