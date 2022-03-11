@@ -6,6 +6,7 @@ import { ForestUnitListComponent } from './components/forest-units/forest-unit-l
 import { LoginComponent } from './components/login/login.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
+import { ProfileComponent } from './components/profile/profile/profile.component';
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: "forest-units", component: ForestUnitListComponent },
   { path: "plan-items", component: PlanItemsPageComponent },
   { path: "dashboard", component: DashboardComponent },
-  { path: "users", component: UserListComponent }
+  { path: "users", component: UserListComponent },
+  { path: "profile", component: ProfileComponent }
 ];
 
 @NgModule({

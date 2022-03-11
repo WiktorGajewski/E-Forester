@@ -73,6 +73,12 @@ namespace E_Forester.Data.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task ChangePasswordAsync(User user, string newPasword)
+        {
+            user.Password = BC.HashPassword(newPasword);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AssignForestUnitAsync(User user, ForestUnit forestUnit)
         {
             user.AssignedForestUnits.Add(forestUnit);

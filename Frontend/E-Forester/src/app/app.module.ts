@@ -43,6 +43,8 @@ import { UserListComponent } from './components/users/user-list/user-list.compon
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
 import { AssignForestUnitComponent } from './components/users/assign-forest-unit/assign-forest-unit.component';
 import { ConfirmationComponent } from './components/users/confirmation/confirmation.component';
+import { ProfileComponent } from './components/profile/profile/profile.component';
+import { ChangePasswordComponent } from './components/profile/change-password/change-password.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -124,6 +126,8 @@ const material = [
     CreateUserComponent,
     AssignForestUnitComponent,
     ConfirmationComponent,
+    ProfileComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     material,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { IUser } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 import { IAuthentication } from '../../models/authentication.model';
 
@@ -16,7 +16,7 @@ export class AuthService {
 
   private readonly apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient) { 
     this.authenticationSubject = new BehaviorSubject<IAuthentication|null>(null);
     this.authentication = this.authenticationSubject.asObservable();
   }
@@ -48,6 +48,14 @@ export class AuthService {
         this.startRefreshTokenTimer();
         return result;
       }));
+  }
+
+  getProfileInfo(): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}account`);
+  }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<Object> {
+    return this.http.post(`${this.apiUrl}account/change-password`, { oldPassword, newPassword });
   }
 
   private setSession(result : IAuthentication): void {
