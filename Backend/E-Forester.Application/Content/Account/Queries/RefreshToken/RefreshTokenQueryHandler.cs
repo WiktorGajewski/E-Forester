@@ -37,6 +37,9 @@ namespace E_Forester.Application.Content.Account.Queries.RefreshToken
             if (refreshToken.IsExpired)
                 throw new UnauthorizedAccessException("Token expired");
 
+            if (user.IsActive == false)
+                throw new UnauthorizedAccessException("Account is blocked");
+
             var newAccessToken = _tokenService.GenerateToken(user);
             var newRefreshToken = _tokenService.GenerateRefreshToken();
             var userRole = user.Role;

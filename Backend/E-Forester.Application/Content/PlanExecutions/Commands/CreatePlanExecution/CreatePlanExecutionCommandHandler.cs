@@ -48,6 +48,9 @@ namespace E_Forester.Application.Content.PlanExecutions.Commands.CreatePlanExecu
                     throw new ForbiddenException();
             }
 
+            if (planItem.IsCompleted)
+                throw new BadRequestException("Plan item is already completed");
+
             var planExecution = new PlanExecution()
             {
                 ExecutedHectares = request.ExecutedHectares,

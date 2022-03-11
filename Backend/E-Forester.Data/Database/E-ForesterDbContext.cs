@@ -62,6 +62,8 @@ namespace E_Forester.Data.Database
 
             modelBuilder.Entity<PlanItem>(entity =>
             {
+                entity.HasIndex(e => new { e.PlanId, e.SubareaId, e.ActionGroup }).IsUnique();
+
                 entity.HasOne(e => e.Plan)
                     .WithMany(e => e.PlanItems)
                     .HasForeignKey(e => e.PlanId);

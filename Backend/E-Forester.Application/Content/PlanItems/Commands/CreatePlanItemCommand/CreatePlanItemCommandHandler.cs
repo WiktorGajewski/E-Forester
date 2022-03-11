@@ -5,6 +5,7 @@ using E_Forester.Model.Database;
 using E_Forester.Model.Enums;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,6 +47,18 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
                 if (!assignedForestUnits.Contains(plan.ForestUnit))
                     throw new ForbiddenException();
             }
+
+            if(plan.IsCompleted)
+                throw new BadRequestException("Plan is already completed");
+
+            var checkDuplicate = _planItemRepository.GetPlanItems().FirstOrDefault(p =>
+                p.PlanId == request.PlanId &&
+                p.SubareaId == request.SubareaId &&
+                p.ActionGroup == request.ActionGroup
+            );
+
+            if(checkDuplicate != null)
+                throw new BadRequestException("Such plan item already exists - duplicate");
 
             var planItem = new PlanItem()
             {
