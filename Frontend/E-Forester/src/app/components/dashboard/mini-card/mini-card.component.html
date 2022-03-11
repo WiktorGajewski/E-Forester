@@ -1,0 +1,18 @@
+<mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h1 class="value" *ngIf="unit === '%'">
+          {{value | percent}}
+        </h1>
+        <h1 class="value" *ngIf="unit === 'm3'">
+          {{value}} m<sup>3</sup>
+        </h1>
+        <h1 class="value" *ngIf="unit !== '%' && unit !== 'm3'">
+          {{value}} {{unit}}
+        </h1>
+      </mat-card-title>
+    </mat-card-header>
+    <h3 class="title">
+        {{title}}
+    </h3>
+</mat-card>

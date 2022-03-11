@@ -1,0 +1,66 @@
+<div class="container">
+    <h2 mat-dialog-title>Dodaj użytkownika</h2>
+    
+    <form [formGroup]="Form" (ngSubmit)="submit()">
+
+        <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
+            Wystąpił błąd przy próbie utworzenia obiektu: {{error}}
+        </mat-error>
+
+        <mat-dialog-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Imię i nazwisko</mat-label>
+                <input matInput formControlName="name" id="name" type="text" class="form-control" required>
+                <mat-error *ngFor="let validation of validation_messages.name">
+                    <mat-error class="error-message" *ngIf="Form.get('name')?.hasError(validation.type) && (Form.get('name')?.dirty || Form.get('name')?.touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Login</mat-label>
+                <input matInput formControlName="login" id="login" type="text" class="form-control" required>
+                <mat-error *ngFor="let validation of validation_messages.login">
+                    <mat-error class="error-message" *ngIf="Form.get('login')?.hasError(validation.type) && (Form.get('login')?.dirty || Form.get('login')?.touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Hasło</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" id="password" type="password" class="form-control" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngFor="let validation of validation_messages.password">
+                    <mat-error class="error-message" *ngIf="Form.get('password')?.hasError(validation.type) && (Form.get('password')?.dirty || Form.get('password')?.touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Rola</mat-label>
+                <mat-select  matInput formControlName="role" id="role" type="number" class="form-control" required>
+                    <mat-option *ngFor="let role of roles | enumToArray" [value]="role.index">
+                        {{role.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngFor="let validation of validation_messages.role">
+                    <mat-error class="error-message" *ngIf="Form.get('role')?.hasError(validation.type) && (Form.get('role')?.dirty || Form.get('role')?.touched)">{{validation.message}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+            
+        </mat-dialog-content>
+
+        <mat-dialog-actions>
+            <div *ngIf="!loading">
+                <button mat-button [disabled]="Form.invalid" type="submit">
+                    Dodaj
+                </button>
+                <button mat-button type="button" (click)="cancel()">Anuluj</button>
+            </div>
+            
+            <div class="spinner" *ngIf="loading">
+                <mat-spinner diameter="40"></mat-spinner>
+            </div>
+        </mat-dialog-actions>
+        
+    </form>
+</div>

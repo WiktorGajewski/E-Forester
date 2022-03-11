@@ -1,0 +1,45 @@
+.dashboard-card {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+}
+
+.dashboard-card-content {
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100%;
+    justify-content: center;
+    align-items: stretch;
+}
+
+mat-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container {
+    width: 100%;
+    text-align: end;
+}
+
+.chartContainer canvas {
+    height: auto;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+.chartContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

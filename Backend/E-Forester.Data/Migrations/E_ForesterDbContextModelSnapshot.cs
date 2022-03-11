@@ -85,6 +85,9 @@ namespace E_Forester.Data.Migrations
                     b.Property<int>("ForestUnitId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
@@ -92,7 +95,8 @@ namespace E_Forester.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("ForestUnitId");
+                    b.HasIndex("ForestUnitId", "Year")
+                        .IsUnique();
 
                     b.ToTable("Plans");
                 });
@@ -110,14 +114,17 @@ namespace E_Forester.Data.Migrations
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
 
+                    b.Property<double>("ExecutedHectares")
+                        .HasColumnType("float");
+
+                    b.Property<double>("HarvestedCubicMeters")
+                        .HasColumnType("float");
+
                     b.Property<int>("PlanId")
                         .HasColumnType("int");
 
                     b.Property<int>("PlanItemId")
                         .HasColumnType("int");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -158,15 +165,13 @@ namespace E_Forester.Data.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MeasureUnit")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<int>("PlanId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
+                    b.Property<double>("PlannedCubicMeters")
+                        .HasColumnType("float");
+
+                    b.Property<double>("PlannedHectares")
                         .HasColumnType("float");
 
                     b.Property<int>("SubareaId")
@@ -176,9 +181,10 @@ namespace E_Forester.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.HasIndex("PlanId");
-
                     b.HasIndex("SubareaId");
+
+                    b.HasIndex("PlanId", "SubareaId", "ActionGroup")
+                        .IsUnique();
 
                     b.ToTable("PlanItems");
                 });

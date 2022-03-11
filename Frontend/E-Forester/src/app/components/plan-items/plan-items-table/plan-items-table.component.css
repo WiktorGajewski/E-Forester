@@ -1,0 +1,127 @@
+.table-container{
+    overflow-x: auto;
+}
+
+.table{
+    width: 100%;
+}
+
+.mat-column-select{
+    border-right: 1px solid grey;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-id{
+    border-right: 1px solid grey;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-address{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;;
+    text-align: center;
+}
+
+.mat-column-plannedHectares{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-executedHectares{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-plannedCubicMeters{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-harvestedCubicMeters{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-measureUnit{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-woodAssortment{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-actionGroup{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-difficultyLevel{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-factor{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-isCompleted{
+    padding-left: 20px;
+    text-align: center;
+}
+
+.spinner{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+  
+tr.element-plan-executions-row {
+    height: 0;
+}
+
+tr.element-row:hover td{
+    background: darkolivegreen;
+}
+
+tr.element-row:active td{
+    background: darkgreen;
+}  
+
+.expanded-row td {
+    background-color: rgb(50, 85, 50);
+}
+  
+.plan-executions {
+    overflow: hidden;
+}
+
+.inner-table-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}

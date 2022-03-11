@@ -12,11 +12,9 @@ namespace E_Forester.Model.Database
 
         public bool IsCompleted { get; set; }
 
-        public double Quantity { get; set; }
+        public double PlannedHectares { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string MeasureUnit { get; set; }
+        public double PlannedCubicMeters { get; set; }
 
         public WoodAssortment Assortments { get; set; }
 
