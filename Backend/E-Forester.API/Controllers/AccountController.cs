@@ -41,6 +41,13 @@ namespace E_Forester.API.Controllers
         }
 
         [AllowAnonymous]
+        [HttpOptions("login")]
+        public IActionResult LoginOptions()
+        {
+            return NoContent();
+        }
+
+        [AllowAnonymous]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
@@ -51,6 +58,13 @@ namespace E_Forester.API.Controllers
             setTokenCookie(result.RefreshToken);
 
             return Ok(result);
+        }
+
+        [AllowAnonymous]
+        [HttpOptions("refresh-token")]
+        public IActionResult RefreshTokenOptions()
+        {
+            return NoContent();
         }
 
         [HttpPost("revoke-token")]
@@ -64,6 +78,12 @@ namespace E_Forester.API.Controllers
             await _mediator.Send(new RevokeTokenCommand() { RefreshToken = refreshToken });
 
             return Ok();
+        }
+
+        [HttpOptions("revoke-token")]
+        public IActionResult RevokeTokenOptions()
+        {
+            return NoContent();
         }
 
         [HttpPost("register")]
