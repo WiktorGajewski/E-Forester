@@ -1,5 +1,7 @@
-﻿using E_Forester.Application.Content.Account.Commands.Register;
+﻿using E_Forester.Application.Content.Account.Commands.ChangePassword;
+using E_Forester.Application.Content.Account.Commands.Register;
 using E_Forester.Application.Content.Account.Commands.RevokeToken;
+using E_Forester.Application.Content.Account.Queries.GetProfileInfo;
 using E_Forester.Application.Content.Account.Queries.Login;
 using E_Forester.Application.Content.Account.Queries.RefreshToken;
 using MediatR;
@@ -20,6 +22,13 @@ namespace E_Forester.API.Controllers
         public AccountController(IMediator mediator, IConfiguration configuration) : base(mediator)
         {
             _configuration = configuration;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfileInfo([FromQuery] GetProfileInfoQuery query)
+        {
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [AllowAnonymous]
@@ -77,9 +86,15 @@ namespace E_Forester.API.Controllers
             return NoContent();
         }
 
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok();
+        }
+
+        [HttpPut("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {
             await _mediator.Send(command);
             return Ok();

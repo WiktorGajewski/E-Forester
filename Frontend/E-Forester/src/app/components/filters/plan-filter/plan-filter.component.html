@@ -1,0 +1,10 @@
+<mat-form-field appearance="standard" #inputPlanId>
+    <mat-label>Plan</mat-label>
+    <mat-select  matInput type="number" (selectionChange)="planIdChange()" [(value)]="selectedPlanId">
+        <mat-option *ngFor="let plan of plans" [value]="plan.id">
+            {{plan.year}}
+        </mat-option>
+        <mat-option *ngIf="plans.length === 0"><mat-icon>report_problem</mat-icon>Brak dostępnych opcji</mat-option>
+        <mat-option *ngIf="plans.length > 0"><mat-icon>cancel</mat-icon>Anuluj</mat-option>
+    </mat-select>
+</mat-form-field>

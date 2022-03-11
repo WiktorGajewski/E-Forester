@@ -1,0 +1,57 @@
+<div class="container">
+    <h1 style="margin-bottom: 10px;">
+      Pozycje planu
+      <mat-divider></mat-divider>
+    </h1>
+
+    <app-forest-unit-filter 
+        [selectedForestUnitId]="selectedForestUnitId"
+        (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+    </app-forest-unit-filter>
+
+    <app-division-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedDivisionId]="selectedDivisionId"
+        (selectedDivisionIdChange)="selectedDivisionId=$event;">
+    </app-division-filter>
+    
+    <br>
+
+    <app-subarea-filter
+        [divisionId]="selectedDivisionId"
+        [selectedSubareaId]="selectedSubareaId"
+        (selectedSubareaIdChange)="selectedSubareaId=$event;">
+    </app-subarea-filter>
+
+    <app-plan-filter 
+        [forestUnitId]="selectedForestUnitId"
+        [selectedPlanId]="selectedPlanId"
+        (selectedPlanIdChange)="selectedPlanId=$event;">
+    </app-plan-filter>
+
+    <div class="button-container" *ngIf="isPlanItemSelected">
+        <button mat-raised-button color="primary" (click)="markPlanItemsCompleted()"
+            matTooltip="Pozycja planu zostanie oznaczona jako ukończona, dodawanie nowych wykonań zostanie zablokowane">
+            Oznacz jako ukończone
+        </button>
+        <button mat-raised-button color="accent" style="margin-left:10px;" (click)="markPlanItemsIncompleted()"
+            matTooltip="Pozycja planu zostanie oznaczona jako nieukończona, dodawanie nowych wykonań zostanie odblokowane">
+            Oznacz jako nieukończone
+        </button>
+    </div>
+
+    <app-plan-items-table
+        [selectedForestUnitId]="selectedForestUnitId"
+        [selectedDivisionId]="selectedDivisionId"
+        [selectedSubareaId]="selectedSubareaId"
+        [selectedPlanId]="selectedPlanId"
+        (selectionChange)="tableSelectionChange($event)">
+    </app-plan-items-table>
+
+    <div class="add-button-container">
+        <button mat-mini-fab color="primary" (click)="createPlanItemDialog()" class="open-dialog-button"
+            matTooltip="Dodaj nową pozycje planu">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

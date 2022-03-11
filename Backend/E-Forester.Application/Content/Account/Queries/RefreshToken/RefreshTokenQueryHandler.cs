@@ -37,15 +37,19 @@ namespace E_Forester.Application.Content.Account.Queries.RefreshToken
             if (refreshToken.IsExpired)
                 throw new UnauthorizedAccessException("Token expired");
 
+            if (user.IsActive == false)
+                throw new UnauthorizedAccessException("Account is blocked");
+
             var newAccessToken = _tokenService.GenerateToken(user);
             var newRefreshToken = _tokenService.GenerateRefreshToken();
+            var userRole = user.Role;
 
             await _userRepository.RevokeRefreshTokenAsync(refreshToken);
             await _userRepository.AddRefreshToken(newRefreshToken, user);
 
             await _userRepository.RemoveExpiredRefreshTokensAsync(user);
 
-            return new TokenDto() { AccessToken = newAccessToken, RefreshToken = newRefreshToken.Token };
+            return new TokenDto() { AccessToken = newAccessToken, RefreshToken = newRefreshToken.Token, UserRole = userRole };
         }
     }
 }

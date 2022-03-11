@@ -1,0 +1,50 @@
+<div class="container">
+    <h2 mat-dialog-title>Dodaj plan</h2>
+    
+    <form [formGroup]="Form" (ngSubmit)="submit()">
+
+        <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
+            Wystąpił błąd przy próbie utworzenia obiektu: {{error}}
+        </mat-error>
+
+        <mat-dialog-content>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Leśnictwo</mat-label>
+                <mat-select  matInput formControlName="forestUnitId" id="forestUnitId" type="number" class="form-control" required>
+
+                    <mat-option *ngFor="let forestUnit of forestUnits" [value]="forestUnit.id">
+                        Leśnictwo {{forestUnit.name}}, Adres leśny: {{forestUnit.address}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Rok</mat-label>
+                <input matInput [matDatepicker]="dp" formControlName="year" id="year" class="form-control" required>
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp
+                                startView="multi-year"
+                                (yearSelected)="yearSelected($event, dp)">
+                </mat-datepicker>
+            </mat-form-field>
+
+        </mat-dialog-content>
+
+        
+
+        <mat-dialog-actions>
+            <div *ngIf="!loading">
+                <button mat-button [disabled]="Form.invalid" type="submit">
+                    Dodaj
+                </button>
+                <button mat-button type="button" (click)="cancel()">Anuluj</button>
+            </div>
+            
+            <div class="spinner" *ngIf="loading">
+                <mat-spinner diameter="40"></mat-spinner>
+            </div>
+        </mat-dialog-actions>
+        
+    </form>
+</div>

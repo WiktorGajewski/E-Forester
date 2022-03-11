@@ -1,3 +1,4 @@
+using E_Forester.API.Filters;
 using E_Forester.Application;
 using E_Forester.Application.AutoMapper;
 using E_Forester.Data;
@@ -25,7 +26,7 @@ namespace E_Forester.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add<ApiExceptionFilter>());
             services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(map => map.AddProfile<MapProfiles>(), typeof(Startup));
             services.AddHttpContextAccessor();
@@ -107,6 +108,10 @@ namespace E_Forester.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseSwagger();

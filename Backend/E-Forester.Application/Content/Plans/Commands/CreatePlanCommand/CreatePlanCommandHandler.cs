@@ -1,8 +1,11 @@
-﻿using E_Forester.Application.Security.Interfaces;
+﻿using E_Forester.Application.CustomExceptions;
+using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using E_Forester.Model.Enums;
 using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,10 +24,26 @@ namespace E_Forester.Application.Content.Plans.Commands.CreatePlanCommand
 
         public async Task<Unit> Handle(CreatePlanCommand request, CancellationToken cancellationToken)
         {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+
+                if (!assignedForestUnits.Any(x => x.Id == request.ForestUnitId))
+                    throw new ForbiddenException();
+            }
+
+            var plansQuery = _planRepository.GetPlans();
+
+            var checkDuplicate = plansQuery.FirstOrDefault(p => p.ForestUnitId == request.ForestUnitId && p.Year == p.Year);
+            
+            if (checkDuplicate != null)
+                throw new BadRequestException("Plan for this year and this forest unit already exists");
+
             var plan = new Plan()
             {
                 Year = request.Year,
-                CreatedAt = DateTime.Now,
+                IsCompleted = false,
+                CreatedAt = DateTime.UtcNow,
                 ForestUnitId = request.ForestUnitId,
                 CreatorId = _authService.GetCurrentUserId()
             };
