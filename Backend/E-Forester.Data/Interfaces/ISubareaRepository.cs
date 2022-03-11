@@ -7,6 +7,7 @@ namespace E_Forester.Data.Interfaces
     public interface ISubareaRepository
     {
         IQueryable<Subarea> GetSubareas();
+        Task<Subarea> GetSubareaAsync(int subareaId);
         Task CreateSubareaAsync(Subarea newSubarea);
     }
 }

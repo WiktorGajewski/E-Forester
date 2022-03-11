@@ -16,7 +16,9 @@ namespace E_Forester.API.Filters
             _exceptionHandlers = new Dictionary<string, Action<ExceptionContext>>
             {
                 {nameof(UnauthorizedAccessException), HandleUnauthorizedAccessException},
-                {nameof(NotFoundException), HandleNotFoundException}
+                {nameof(NotFoundException), HandleNotFoundException},
+                {nameof(BadRequestException), HandleBadRequestException},
+                {nameof(ForbiddenException), HandleForbiddenException}
             };
         }
 
@@ -35,10 +37,13 @@ namespace E_Forester.API.Filters
         }
         private void HandleUnauthorizedAccessException(ExceptionContext context)
         {
+            var exception = context.Exception as UnauthorizedAccessException;
+
             var details = new ProblemDetails
             {
                 Status = StatusCodes.Status401Unauthorized,
-                Title = "Unauthorized"
+                Title = "Unauthorized",
+                Detail = exception.Message
             };
 
             context.Result = new ObjectResult(details);
@@ -54,6 +59,38 @@ namespace E_Forester.API.Filters
             {
                 Status = StatusCodes.Status404NotFound,
                 Title = "The specified resource was not found",
+                Detail = exception.Message
+            };
+
+            context.Result = new ObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleBadRequestException(ExceptionContext context)
+        {
+            var exception = context.Exception as BadRequestException;
+
+            var details = new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Bad request",
+                Detail = exception.Message
+            };
+
+            context.Result = new ObjectResult(details);
+
+            context.ExceptionHandled = true;
+        }
+
+        private void HandleForbiddenException(ExceptionContext context)
+        {
+            var exception = context.Exception as ForbiddenException;
+
+            var details = new ProblemDetails
+            {
+                Status = StatusCodes.Status403Forbidden,
+                Title = "Forbidden",
                 Detail = exception.Message
             };
 

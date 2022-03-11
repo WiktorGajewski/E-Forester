@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.Subareas;
 using E_Forester.Application.Pagination.Wrappers;
+using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,11 +18,13 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
     {
         private readonly ISubareaRepository _subareaRepository;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public GetSubareasQueryHandler(ISubareaRepository subareaRepository, IMapper mapper)
+        public GetSubareasQueryHandler(ISubareaRepository subareaRepository, IMapper mapper, IAuthService authService)
         {
             _subareaRepository = subareaRepository;
             _mapper = mapper;
+            _authService = authService;
         }
 
         public async Task<Page<SubareaDto>> Handle(GetSubareasQuery request, CancellationToken cancellationToken)
@@ -28,6 +32,8 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
             var subareasQuery = _subareaRepository.GetSubareas();
 
             var subareas = new List<Subarea>();
+
+            subareasQuery = await FilterAuth(subareasQuery);
 
             if (request.ForestUnitId != null)
             {
@@ -64,6 +70,18 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
+        }
+
+        private async Task<IQueryable<Subarea>> FilterAuth(IQueryable<Subarea> subareasQuery)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+
+                subareasQuery = subareasQuery.Where(x => assignedForestUnits.Contains(x.Division.ForestUnit));
+            }
+
+            return subareasQuery;
         }
     }
 }

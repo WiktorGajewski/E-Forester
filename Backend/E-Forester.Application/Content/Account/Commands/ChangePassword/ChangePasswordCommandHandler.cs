@@ -1,6 +1,7 @@
 ﻿using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace E_Forester.Application.Content.Account.Commands.ChangePassword
         public ChangePasswordCommandHandler(IUserRepository userRepository, IAuthService authService)
         {
             _userRepository = userRepository;
-            this._authService = authService;
+            _authService = authService;
         }
 
         public async Task<Unit> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
@@ -22,12 +23,11 @@ namespace E_Forester.Application.Content.Account.Commands.ChangePassword
             var userId = _authService.GetCurrentUserId();
             var user = await _userRepository.GetUserAsync(userId);
 
-            var auth = await _userRepository.Authenticate(user.Login, request.OldPassword);
+            var authenticated = await _userRepository.Authenticate(user.Login, request.OldPassword);
+            if (!authenticated)
+                throw new UnauthorizedAccessException("Authorization failed.");
 
-            if(auth)
-            {
-                await _userRepository.ChangePasswordAsync(user, request.NewPassword);
-            }
+            await _userRepository.ChangePasswordAsync(user, request.NewPassword);
 
             return await Task.FromResult(Unit.Value);
         }

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.PlanExecutions;
 using E_Forester.Application.Pagination.Wrappers;
+using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,11 +18,13 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
     {
         private readonly IPlanExecutionRepository _planExecutionRepository;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public GetPlanExecutionsQueryHandler(IPlanExecutionRepository planExecutionRepository, IMapper mapper)
+        public GetPlanExecutionsQueryHandler(IPlanExecutionRepository planExecutionRepository, IMapper mapper, IAuthService authService)
         {
             _planExecutionRepository = planExecutionRepository;
             _mapper = mapper;
+            _authService = authService;
         }
 
         public async Task<Page<PlanExecutionDto>> Handle(GetPlanExecutionsQuery request, CancellationToken cancellationToken)
@@ -28,6 +32,8 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
             var planExecutionsQuery = _planExecutionRepository.GetPlanExecutions();
 
             var planExecutions = new List<PlanExecution>();
+
+            planExecutionsQuery = await FilterAuth(planExecutionsQuery);
 
             if (request.PlanItemId != null)
             {
@@ -64,6 +70,18 @@ namespace E_Forester.Application.Content.PlanExecutions.Queries.GetPlanExecution
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
+        }
+
+        private async Task<IQueryable<PlanExecution>> FilterAuth(IQueryable<PlanExecution> planExecutionsQuery)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+
+                planExecutionsQuery = planExecutionsQuery.Where(x => assignedForestUnits.Contains(x.Plan.ForestUnit));
+            }
+
+            return planExecutionsQuery;
         }
     }
 }

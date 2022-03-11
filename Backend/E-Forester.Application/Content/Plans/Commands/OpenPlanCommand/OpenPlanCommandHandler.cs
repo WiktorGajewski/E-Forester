@@ -1,4 +1,7 @@
-﻿using E_Forester.Data.Interfaces;
+﻿using E_Forester.Application.CustomExceptions;
+using E_Forester.Application.Security.Interfaces;
+using E_Forester.Data.Interfaces;
+using E_Forester.Model.Enums;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,15 +11,25 @@ namespace E_Forester.Application.Content.Plans.Commands.OpenPlanCommand
     public class OpenPlanCommandHandler : IRequestHandler<OpenPlanCommand>
     {
         private readonly IPlanRepository _planRepository;
+        private readonly IAuthService _authService;
 
-        public OpenPlanCommandHandler(IPlanRepository planRepository)
+        public OpenPlanCommandHandler(IPlanRepository planRepository, IAuthService authService)
         {
-            this._planRepository = planRepository;
+            _planRepository = planRepository;
+            _authService = authService;
         }
 
         public async Task<Unit> Handle(OpenPlanCommand request, CancellationToken cancellationToken)
         {
+            var auth = _authService.GetCurrentUserRole() == UserRole.Admin;
+
+            if (!auth)
+                throw new ForbiddenException();
+
             var plan = await _planRepository.GetPlanAsync(request.Id);
+
+            if(plan == null)
+                throw new NotFoundException();
 
             await _planRepository.OpenPlanAsync(plan);
 

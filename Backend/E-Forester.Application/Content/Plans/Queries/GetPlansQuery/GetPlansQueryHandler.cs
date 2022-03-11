@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.Plans;
 using E_Forester.Application.Pagination.Wrappers;
+using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,11 +18,13 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
     {
         private readonly IPlanRepository _planRepository;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public GetPlansQueryHandler(IPlanRepository planRepository, IMapper mapper)
+        public GetPlansQueryHandler(IPlanRepository planRepository, IMapper mapper, IAuthService authService)
         {
             _planRepository = planRepository;
             _mapper = mapper;
+            _authService = authService;
         }
 
         public async Task<Page<PlanDto>> Handle(GetPlansQuery request, CancellationToken cancellationToken)
@@ -28,6 +32,8 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
             var plansQuery = _planRepository.GetPlans();
 
             var plans = new List<Plan>();
+
+            plansQuery = await FilterAuth(plansQuery);
 
             plansQuery = Filter(plansQuery, request.ForestUnitId, request.YearFrom, request.YearTo);
 
@@ -88,6 +94,18 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlansQuery
             if (yearTo != null)
             {
                 plansQuery = plansQuery.Where(d => d.Year <= yearTo);
+            }
+
+            return plansQuery;
+        }
+
+        private async Task<IQueryable<Plan>> FilterAuth(IQueryable<Plan> plansQuery)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+
+                plansQuery = plansQuery.Where(x => assignedForestUnits.Contains(x.ForestUnit));
             }
 
             return plansQuery;

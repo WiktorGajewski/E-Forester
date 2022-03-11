@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.PlanItems;
 using E_Forester.Application.Pagination.Wrappers;
+using E_Forester.Application.Security.Interfaces;
 using E_Forester.Data.Interfaces;
 using E_Forester.Model.Database;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,11 +18,13 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
     {
         private readonly IPlanItemRepository _planItemRepository;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper)
+        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper, IAuthService authService)
         {
             _planItemRepository = planItemRepository;
             _mapper = mapper;
+            _authService = authService;
         }
 
         public async Task<Page<PlanItemDto>> Handle(GetPlanItemsQuery request, CancellationToken cancellationToken)
@@ -28,6 +32,8 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             var planItemsQuery = _planItemRepository.GetPlanItems();
 
             var planItems = new List<PlanItem>();
+
+            planItemsQuery = await FilterAuth(planItemsQuery);
 
             planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId);
 
@@ -82,6 +88,18 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             if (planId != null)
             {
                 planItemsQuery = planItemsQuery.Where(d => d.PlanId == planId);
+            }
+
+            return planItemsQuery;
+        }
+
+        private async Task<IQueryable<PlanItem>> FilterAuth(IQueryable<PlanItem> planItemsQuery)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+
+                planItemsQuery = planItemsQuery.Where(x => assignedForestUnits.Contains(x.Plan.ForestUnit));
             }
 
             return planItemsQuery;
