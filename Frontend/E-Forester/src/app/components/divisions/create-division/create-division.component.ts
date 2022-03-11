@@ -16,6 +16,7 @@ export class CreateDivisionComponent implements OnInit {
 
   loading = false;
   errorMessage = false;
+  error = "";
 
   forestUnits: IForestUnit[] = [];
 
@@ -54,9 +55,10 @@ export class CreateDivisionComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          error : () => {
+          error : err => {
             this.loading = false;
             this.errorMessage = true;
+            this.error = err;
           }
         });
     }

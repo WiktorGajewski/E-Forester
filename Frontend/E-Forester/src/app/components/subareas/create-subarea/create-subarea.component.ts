@@ -18,6 +18,7 @@ export class CreateSubareaComponent implements OnInit {
 
   loading = false;
   errorMessage = false;
+  error = "";
 
   forestUnits: IForestUnit[] = [];
   divisions: IDivision[] = [];
@@ -71,9 +72,10 @@ export class CreateSubareaComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          error : () => {
+          error : err => {
             this.loading = false;
             this.errorMessage = true;
+            this.error = err;
           }
         });
     }

@@ -4,7 +4,7 @@
     <form [formGroup]="Form" (ngSubmit)="submit()">
 
         <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
-            Wystąpił błąd przy próbie utworzenia obiektu
+            Wystąpił błąd przy próbie utworzenia obiektu: {{error}}
         </mat-error>
 
         <mat-dialog-content>

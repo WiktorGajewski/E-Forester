@@ -13,6 +13,7 @@ export class CreateForestUnitComponent implements OnInit {
 
   loading = false;
   errorMessage = false;
+  error = "";
 
   constructor(private forestUnitService : ForestUnitService, private dialogRef: MatDialogRef<CreateForestUnitComponent>) { }
 
@@ -34,9 +35,10 @@ export class CreateForestUnitComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          error : () => {
+          error : err => {
             this.loading = false;
             this.errorMessage = true;
+            this.error = err;
           }
         });
     }

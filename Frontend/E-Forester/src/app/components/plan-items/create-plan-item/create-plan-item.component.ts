@@ -23,6 +23,7 @@ export class CreatePlanItemComponent implements OnInit {
 
   loading = false;
   errorMessage = false;
+  error = "";
 
   forestUnits: IForestUnit[] = [];
   divisions: IDivision[] = [];
@@ -112,9 +113,10 @@ export class CreatePlanItemComponent implements OnInit {
             this.loading = false;
             this.dialogRef.close(true);
           },
-          error : () => {
+          error : err => {
             this.loading = false;
             this.errorMessage = true;
+            this.error = err;
           }
         });
     }
