@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { Role } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { ForestUnitsDataSource } from 'src/app/services/forest-units/forest-units.data-source';
 import { CreateForestUnitComponent } from '../create-forest-unit/create-forest-unit.component';
@@ -17,8 +19,16 @@ export class ForestUnitListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private forestUnitService : ForestUnitService, private dialog : MatDialog) {
+  userRole: Role | undefined;
 
+  constructor(private forestUnitService : ForestUnitService, 
+    private dialog : MatDialog,
+    private authService: AuthService) {
+
+      this.authService.authentication.subscribe(auth => 
+        {
+          this.userRole = auth?.userRole;
+        });
   }
 
   ngOnInit(): void {

@@ -49,7 +49,7 @@
                 aria-label="Select page">
     </mat-paginator>
 
-    <div class="button-container">
+    <div class="button-container" *ngIf="userRole == 1">
         <button mat-mini-fab color="primary" (click)="createDivisionDialog()" class="open-dialog-button"
             matTooltip="Dodaj nowy oddział">
           <mat-icon>add</mat-icon>

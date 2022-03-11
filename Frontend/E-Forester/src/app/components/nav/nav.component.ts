@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Role } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-nav',
@@ -12,6 +13,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class NavComponent{
 
   isAuthenticated = false;
+  userRole: Role | undefined;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -23,6 +25,7 @@ export class NavComponent{
     this.authService.authentication.subscribe(auth => 
       {
         this.isAuthenticated = auth != null ? true : false;
+        this.userRole = auth?.userRole;
       });
   }
 

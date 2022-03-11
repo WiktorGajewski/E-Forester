@@ -1,3 +1,6 @@
+import { Role } from "./user.model";
+
 export interface IAuthentication {
-    accessToken: string
+    accessToken: string,
+    userRole: Role
 }

@@ -11,5 +11,5 @@ export interface IUser {
 
 export enum Role {
     Leśniczy = 0,
-    Adminstrator = 1
+    Administrator = 1
 }

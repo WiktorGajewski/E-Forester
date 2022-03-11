@@ -6,6 +6,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateSubareaComponent } from '../create-subarea/create-subarea.component';
 import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
 import { DivisionFilterComponent } from '../../filters/division-filter/division-filter.component';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Role } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-subarea-list',
@@ -22,9 +24,16 @@ export class SubareaListComponent implements OnInit, AfterViewInit {
 
   selectedDivisionId: number | null = null;
 
-  constructor(private subareaService : SubareaService,
-    private dialog : MatDialog) { 
+  userRole: Role | undefined;
 
+  constructor(private subareaService : SubareaService,
+    private dialog : MatDialog,
+    private authService: AuthService) {
+
+      this.authService.authentication.subscribe(auth => 
+        {
+          this.userRole = auth?.userRole;
+        });
   }
   
   ngOnInit(): void {

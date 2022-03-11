@@ -7,6 +7,7 @@ import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
 import { CollectionViewer } from "@angular/cdk/collections";
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-plan-items-table',
@@ -22,7 +23,7 @@ import { CollectionViewer } from "@angular/cdk/collections";
 })
 export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges {
   dataSource !: PlanItemsDataSource;
-  displayedColumns = [ "select", "address", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor", "isCompleted"];
+  displayedColumns = [ "address", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor", "isCompleted"];
   data : IPlanItem[] = [];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
@@ -41,7 +42,16 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
   
   actionGroups = ActionGroup;
     
-  constructor(private planItemService: PlanItemService) {}
+  constructor(private planItemService: PlanItemService,
+    private authService: AuthService) {
+
+      this.authService.authentication.subscribe(auth => 
+        {
+          if(auth?.userRole == 1) {
+            this.displayedColumns = [ "select", "address", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "woodAssortment", "actionGroup", "difficultyLevel", "factor", "isCompleted"];
+          }
+        });
+  }
 
   ngOnInit(): void {
     this.dataSource = new PlanItemsDataSource(this.planItemService);

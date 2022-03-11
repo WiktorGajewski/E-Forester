@@ -11,7 +11,7 @@
       <a mat-list-item routerLink="forest-units">Leśnictwa</a>
       <a mat-list-item routerLink="divisions">Oddziały</a>
       <a mat-list-item routerLink="subareas">Wydzielenia</a>
-      <a mat-list-item routerLink="users">Użytkownicy</a>
+      <a mat-list-item routerLink="users" *ngIf="userRole == 1">Użytkownicy</a>
       <div style="margin-top:10px;">
         <a mat-list-item routerLink="profile">Profil</a>
         <a mat-list-item routerLink="login" *ngIf="!isAuthenticated">Zaloguj</a>

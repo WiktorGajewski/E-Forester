@@ -29,12 +29,13 @@ namespace E_Forester.Application.Content.Account.Queries.Login
 
             var token = _tokenService.GenerateToken(user);
             var refreshToken = _tokenService.GenerateRefreshToken();
+            var userRole = user.Role;
 
             await _userRepository.AddRefreshToken(refreshToken, user);
 
             await _userRepository.RemoveExpiredRefreshTokensAsync(user);
 
-            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token };
+            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken.Token, UserRole = userRole };
         }
     }
 }

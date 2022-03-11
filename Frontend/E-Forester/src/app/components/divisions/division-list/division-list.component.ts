@@ -1,6 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { Role } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { DivisionsDataSource } from 'src/app/services/divisions/divisions.data-source';
 import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
@@ -19,9 +21,16 @@ export class DivisionListComponent implements OnInit, AfterViewInit {
 
   selectedForestUnitId: number | null = null;
 
-  constructor(private divisionService : DivisionService,
-    private dialog : MatDialog) {
+  userRole: Role | undefined;
 
+  constructor(private divisionService : DivisionService,
+    private dialog : MatDialog,
+    private authService: AuthService) {
+
+      this.authService.authentication.subscribe(auth => 
+        {
+          this.userRole = auth?.userRole;
+        });
   }
 
   ngOnInit(): void {

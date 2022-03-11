@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NavigationExtras, Router } from '@angular/router';
 import { IPlan } from 'src/app/models/plan.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { PlanService } from 'src/app/services/plans/plan.service';
 import { PlansDataSource } from 'src/app/services/plans/plans.data-source';
 import { CreatePlanComponent } from '../create-plan/create-plan.component';
@@ -14,12 +15,19 @@ import { CreatePlanComponent } from '../create-plan/create-plan.component';
 })
 export class PlanListComponent implements OnInit, AfterViewInit {
   dataSource !: PlansDataSource;
-  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "completedPlanItems", "isCompleted", "actions"];
+  displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "completedPlanItems", "isCompleted"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private planService: PlanService, private dialog : MatDialog, private router: Router) {
+  constructor(private planService: PlanService, private dialog : MatDialog, private router: Router,
+    private authService: AuthService) {
 
+      this.authService.authentication.subscribe(auth => 
+        {
+          if(auth?.userRole == 1) {
+            this.displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "completedPlanItems", "isCompleted", "actions"];
+          }
+        });
   }
 
   ngOnInit(): void {

@@ -9,17 +9,48 @@ import { PlanListComponent } from './components/plans/plan-list/plan-list.compon
 import { ProfileComponent } from './components/profile/profile/profile.component';
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { Role } from './models/user.model';
 
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "plans", component: PlanListComponent },
-  { path: "subareas", component: SubareaListComponent },
-  { path: "divisions", component: DivisionListComponent },
-  { path: "forest-units", component: ForestUnitListComponent },
-  { path: "plan-items", component: PlanItemsPageComponent },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "users", component: UserListComponent },
-  { path: "profile", component: ProfileComponent }
+  { 
+    path: "login", component: LoginComponent
+  },
+  { 
+    path: "plans", component: PlanListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "subareas", component: SubareaListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "divisions", component: DivisionListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "forest-units", component: ForestUnitListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "plan-items", component: PlanItemsPageComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "dashboard", component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: "users", component: UserListComponent,
+    canActivate: [AuthGuard], data: { roles: [Role.Administrator]}
+  },
+  { 
+    path: "profile", component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "**", redirectTo: ""
+  }
 ];
 
 @NgModule({
