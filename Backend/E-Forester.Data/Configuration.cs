@@ -1,6 +1,6 @@
 ﻿using E_Forester.Data.Database;
 using E_Forester.Data.Interfaces;
-using E_Forester.Data.Services;
+using E_Forester.Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

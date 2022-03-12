@@ -4,7 +4,7 @@ using E_Forester.Model.Database;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Services
+namespace E_Forester.Data.Repositories
 {
     public class PlanExecutionRepository : IPlanExecutionRepository
     {

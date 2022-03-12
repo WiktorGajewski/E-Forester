@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Services
+namespace E_Forester.Data.Repositories
 {
     public class PlanItemRepository : IPlanItemRepository
     {

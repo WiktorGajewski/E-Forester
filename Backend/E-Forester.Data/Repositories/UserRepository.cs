@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 
-namespace E_Forester.Data.Services
+namespace E_Forester.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
