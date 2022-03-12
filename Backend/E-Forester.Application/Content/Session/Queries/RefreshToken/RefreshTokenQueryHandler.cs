@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace E_Forester.Application.Content.Account.Queries.RefreshToken
+namespace E_Forester.Application.Content.Session.Queries.RefreshToken
 {
     public class RefreshTokenQueryHandler : IRequestHandler<RefreshTokenQuery, TokenDto>
     {

@@ -36,13 +36,13 @@ export class AuthService {
   }
 
   logout(): void {
-    this.http.post(`${this.apiUrl}account/revoke-token`, {}, { withCredentials: true }).subscribe();
+    this.http.post(`${this.apiUrl}session/revoke-token`, {}, { withCredentials: true }).subscribe();
     this.clearSession();
     this.stopRefreshTokenTimer();
   }
 
   refreshToken(): Observable<IAuthentication> {
-    return this.http.post<IAuthentication>(`${this.apiUrl}account/refresh-token`, {}, { withCredentials: true })
+    return this.http.post<IAuthentication>(`${this.apiUrl}session/refresh-token`, {}, { withCredentials: true })
       .pipe(map(result => {
         this.setSession(result);
         this.startRefreshTokenTimer();

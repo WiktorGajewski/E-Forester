@@ -1,9 +1,7 @@
 ﻿using E_Forester.Application.Content.Account.Commands.ChangePassword;
 using E_Forester.Application.Content.Account.Commands.Register;
-using E_Forester.Application.Content.Account.Commands.RevokeToken;
 using E_Forester.Application.Content.Account.Queries.GetProfileInfo;
 using E_Forester.Application.Content.Account.Queries.Login;
-using E_Forester.Application.Content.Account.Queries.RefreshToken;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,45 +41,6 @@ namespace E_Forester.API.Controllers
         [AllowAnonymous]
         [HttpOptions("login")]
         public IActionResult LoginOptions()
-        {
-            return NoContent();
-        }
-
-        [AllowAnonymous]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshToken()
-        {
-            var refreshToken = Request.Cookies["RefreshToken"];
-
-            var result = await _mediator.Send(new RefreshTokenQuery() { RefreshToken = refreshToken });
-
-            setTokenCookie(result.RefreshToken);
-
-            return Ok(result);
-        }
-
-        [AllowAnonymous]
-        [HttpOptions("refresh-token")]
-        public IActionResult RefreshTokenOptions()
-        {
-            return NoContent();
-        }
-
-        [HttpPost("revoke-token")]
-        public async Task<IActionResult> RevokeToken()
-        {
-            var refreshToken = Request.Cookies["RefreshToken"];
-
-            if (refreshToken == null)
-                return BadRequest(new { Error = "Token is required" });
-
-            await _mediator.Send(new RevokeTokenCommand() { RefreshToken = refreshToken });
-
-            return Ok();
-        }
-
-        [HttpOptions("revoke-token")]
-        public IActionResult RevokeTokenOptions()
         {
             return NoContent();
         }

@@ -1,7 +1,7 @@
 ﻿using E_Forester.Application.DataTransferObjects.Account;
 using MediatR;
 
-namespace E_Forester.Application.Content.Account.Queries.RefreshToken
+namespace E_Forester.Application.Content.Session.Queries.RefreshToken
 {
     public class RefreshTokenQuery : IRequest<TokenDto>
     {

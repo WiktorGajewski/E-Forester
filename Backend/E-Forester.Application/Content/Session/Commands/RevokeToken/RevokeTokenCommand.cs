@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace E_Forester.Application.Content.Account.Commands.RevokeToken
+namespace E_Forester.Application.Content.Session.Commands.RevokeToken
 {
     public class RevokeTokenCommand : IRequest
     {
