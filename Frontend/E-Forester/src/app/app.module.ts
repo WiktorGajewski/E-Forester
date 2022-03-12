@@ -30,7 +30,6 @@ import { CreatePlanComponent } from './components/plans/create-plan/create-plan.
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
 import { CreatePlanExecutionComponent } from './components/plan-items/plan-executions/create-plan-execution/create-plan-execution.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CardComponent } from './components/dashboard/card/card.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
 import { EnumToArrayPipe } from './helpers/pipes/enum-to-array.pipe';
@@ -113,7 +112,6 @@ const material = [
     CreatePlanItemComponent,
     CreatePlanExecutionComponent,
     DashboardComponent,
-    CardComponent,
     MiniCardComponent,
     AnnualResultsChartComponent,
     EnumToArrayPipe,
