@@ -19,12 +19,14 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
         private readonly IDivisionRepository _divisionRepository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public GetDivisionsQueryHandler(IDivisionRepository divisionRepository, IMapper mapper, IAuthService authService)
+        public GetDivisionsQueryHandler(IDivisionRepository divisionRepository, IAuthService authService, IUserRepository userRepository, IMapper mapper)
         {
             _divisionRepository = divisionRepository;
             _mapper = mapper;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public async Task<Page<DivisionDto>> Handle(GetDivisionsQuery request, CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
 
             var divisions = new List<Division>();
 
-            divisionsQuery = await FilterAuth(divisionsQuery);
+            divisionsQuery = await FilterAssignedForestUnits(divisionsQuery);
 
             if (request.ForestUnitId != null)
             {
@@ -67,13 +69,14 @@ namespace E_Forester.Application.Content.Divisions.Queries.GetDivisionsQuery
                     .ToListAsync();
         }
 
-        private async Task<IQueryable<Division>> FilterAuth(IQueryable<Division> divisionsQuery)
+        private async Task<IQueryable<Division>> FilterAssignedForestUnits(IQueryable<Division> divisionsQuery)
         {
             if (_authService.GetCurrentUserRole() != UserRole.Admin)
             {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
 
-                divisionsQuery = divisionsQuery.Where(x => assignedForestUnits.Contains(x.ForestUnit));
+                divisionsQuery = divisionsQuery.Where(x => user.AssignedForestUnits.Contains(x.ForestUnit));
             }
 
             return divisionsQuery;

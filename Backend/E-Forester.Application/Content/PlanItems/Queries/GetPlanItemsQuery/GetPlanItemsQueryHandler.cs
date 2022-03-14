@@ -19,12 +19,14 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
         private readonly IPlanItemRepository _planItemRepository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper, IAuthService authService)
+        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IAuthService authService, IUserRepository userRepository, IMapper mapper)
         {
             _planItemRepository = planItemRepository;
             _mapper = mapper;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public async Task<Page<PlanItemDto>> Handle(GetPlanItemsQuery request, CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
             var planItems = new List<PlanItem>();
 
-            planItemsQuery = await FilterAuth(planItemsQuery);
+            planItemsQuery = await FilterAssignedForestUnits(planItemsQuery);
 
             planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId);
 
@@ -93,13 +95,14 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             return planItemsQuery;
         }
 
-        private async Task<IQueryable<PlanItem>> FilterAuth(IQueryable<PlanItem> planItemsQuery)
+        private async Task<IQueryable<PlanItem>> FilterAssignedForestUnits(IQueryable<PlanItem> planItemsQuery)
         {
             if (_authService.GetCurrentUserRole() != UserRole.Admin)
             {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
 
-                planItemsQuery = planItemsQuery.Where(x => assignedForestUnits.Contains(x.Plan.ForestUnit));
+                planItemsQuery = planItemsQuery.Where(x => user.AssignedForestUnits.Contains(x.Plan.ForestUnit));
             }
 
             return planItemsQuery;

@@ -16,13 +16,15 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
         private readonly IPlanItemRepository _planItemRepository;
         private readonly IPlanRepository _planRepository;
         private readonly ISubareaRepository _subareaRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
 
-        public CreatePlanItemCommandHandler(IPlanItemRepository planItemRepository, IPlanRepository planRepository, ISubareaRepository subareaRepository, IAuthService authService)
+        public CreatePlanItemCommandHandler(IPlanItemRepository planItemRepository, IPlanRepository planRepository, ISubareaRepository subareaRepository, IAuthService authService, IUserRepository userRepository)
         {
             _planItemRepository = planItemRepository;
             _planRepository = planRepository;
             _subareaRepository = subareaRepository;
+            _userRepository = userRepository;
             _authService = authService;
         }
 
@@ -40,15 +42,10 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             if (subarea.Division.Id == plan.ForestUnitId)
                 throw new BadRequestException("Plan and subarea belong to two different forest units");
 
-            if (_authService.GetCurrentUserRole() != UserRole.Admin)
-            {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+            if (await CheckAssignedForestUnit(plan.ForestUnit))
+                throw new ForbiddenException();
 
-                if (!assignedForestUnits.Contains(plan.ForestUnit))
-                    throw new ForbiddenException();
-            }
-
-            if(plan.IsCompleted)
+            if (plan.IsCompleted)
                 throw new BadRequestException("Plan is already completed");
 
             var checkDuplicate = _planItemRepository.GetPlanItems().FirstOrDefault(p =>
@@ -78,6 +75,20 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             await _planItemRepository.CreatePlanItemAsync(planItem);
 
             return await Task.FromResult(Unit.Value);
+        }
+
+        private async Task<bool> CheckAssignedForestUnit(ForestUnit checkForestUnit)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
+
+                if (!user.AssignedForestUnits.Contains(checkForestUnit))
+                    return false;
+            }
+
+            return true;
         }
     }
 }
