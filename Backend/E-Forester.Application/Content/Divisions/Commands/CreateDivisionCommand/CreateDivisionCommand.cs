@@ -9,8 +9,10 @@ namespace E_Forester.Application.Content.Divisions.Commands.CreateDivisionComman
         [StringLength(100)]
         public string Address { get; set; }
 
+        [Required]
         public double Area { get; set; }
 
+        [Required]
         public int ForestUnitId { get; set; }
     }
 }

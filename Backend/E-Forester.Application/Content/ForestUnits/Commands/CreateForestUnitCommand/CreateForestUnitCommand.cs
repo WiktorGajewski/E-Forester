@@ -12,7 +12,8 @@ namespace E_Forester.Application.Content.ForestUnits.Commands.CreateForestUnitCo
         [Required]
         [StringLength(100)]
         public string Address { get; set; }
-        
+
+        [Required]
         public double Area { get; set; }
     }
 }
