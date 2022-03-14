@@ -30,7 +30,10 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlanQuery
         {
             var plan = await _planRepository.GetPlanAsync(request.Id);
 
-            if(await CheckAssignedForestUnit(plan.ForestUnit))
+            if(plan == null)
+                throw new NotFoundException();
+
+            if(!await CheckAssignedForestUnit(plan.ForestUnit))
                 throw new ForbiddenException();
 
             var planDto = _mapper.Map<Plan, PlanDto>(plan);

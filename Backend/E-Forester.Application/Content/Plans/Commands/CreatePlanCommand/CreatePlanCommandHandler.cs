@@ -26,7 +26,7 @@ namespace E_Forester.Application.Content.Plans.Commands.CreatePlanCommand
 
         public async Task<Unit> Handle(CreatePlanCommand request, CancellationToken cancellationToken)
         {
-            if (await CheckAssignedForestUnit(request.ForestUnitId))
+            if (!await CheckAssignedForestUnit(request.ForestUnitId))
                 throw new ForbiddenException();
 
             var plansQuery = _planRepository.GetPlans();

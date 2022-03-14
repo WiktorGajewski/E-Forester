@@ -24,9 +24,9 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlan([FromRoute] int Id)
+        public async Task<IActionResult> GetPlan([FromRoute] int id)
         {
-            var result = await _mediator.Send(new GetPlanQuery() { Id = Id });
+            var result = await _mediator.Send(new GetPlanQuery() { Id = id });
             return Ok(result);
         }
 

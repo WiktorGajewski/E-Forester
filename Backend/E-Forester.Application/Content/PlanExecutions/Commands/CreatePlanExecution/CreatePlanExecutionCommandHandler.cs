@@ -42,7 +42,7 @@ namespace E_Forester.Application.Content.PlanExecutions.Commands.CreatePlanExecu
             if (!plan.PlanItems.Contains(planItem))
                 throw new BadRequestException("Given plan item is not part of this plan");
 
-            if (await CheckAssignedForestUnit(plan.ForestUnit))
+            if (!await CheckAssignedForestUnit(plan.ForestUnit))
                 throw new ForbiddenException();
 
             if (planItem.IsCompleted)

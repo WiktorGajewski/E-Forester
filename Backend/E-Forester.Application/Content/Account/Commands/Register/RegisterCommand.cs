@@ -18,7 +18,7 @@ namespace E_Forester.Application.Content.Account.Commands.Register
         [StringLength(70)]
         public string Password { get; set; }
 
-        [Required]
+        [EnumDataType(typeof(UserRole))]
         public UserRole Role { get; set; }
     }
 }

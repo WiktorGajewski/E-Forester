@@ -9,10 +9,8 @@ namespace E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand
         [StringLength(100)]
         public string Address { get; set; }
 
-        [Required]
         public double Area { get; set; }
 
-        [Required]
         public int DivisionId { get; set; }
     }
 }

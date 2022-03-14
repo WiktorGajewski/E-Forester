@@ -42,7 +42,7 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             if (subarea.Division.Id == plan.ForestUnitId)
                 throw new BadRequestException("Plan and subarea belong to two different forest units");
 
-            if (await CheckAssignedForestUnit(plan.ForestUnit))
+            if (!await CheckAssignedForestUnit(plan.ForestUnit))
                 throw new ForbiddenException();
 
             if (plan.IsCompleted)
