@@ -28,8 +28,11 @@ namespace E_Forester.Data.Repositories
                 .FirstOrDefaultAsync(s => s.Id == subareaId);
         }
 
-        public async Task CreateSubareaAsync(Subarea newSubarea)
+        public async Task AddSubareaAsync(Subarea newSubarea)
         {
+            if (newSubarea == null)
+                throw new System.NullReferenceException();
+
             await _context.Subareas.AddAsync(newSubarea);
             await _context.SaveChangesAsync();
         }

@@ -34,7 +34,7 @@ namespace E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand
                 DivisionId = request.DivisionId
             };
 
-            await _subareaRepository.CreateSubareaAsync(subarea);
+            await _subareaRepository.AddSubareaAsync(subarea);
 
             return await Task.FromResult(Unit.Value);
         }

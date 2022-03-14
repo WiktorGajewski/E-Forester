@@ -8,6 +8,6 @@ namespace E_Forester.Data.Interfaces
     {
         IQueryable<Subarea> GetSubareas();
         Task<Subarea> GetSubareaAsync(int subareaId);
-        Task CreateSubareaAsync(Subarea newSubarea);
+        Task AddSubareaAsync(Subarea newSubarea);
     }
 }

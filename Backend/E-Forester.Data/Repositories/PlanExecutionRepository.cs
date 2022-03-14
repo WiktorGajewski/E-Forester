@@ -20,8 +20,11 @@ namespace E_Forester.Data.Repositories
             return _context.PlanExecutions.AsQueryable();
         }
 
-        public async Task CreatePlanExecutionAsync(PlanExecution newPlanExecution)
+        public async Task AddPlanExecutionAsync(PlanExecution newPlanExecution)
         {
+            if (newPlanExecution == null)
+                throw new System.NullReferenceException();
+
             await _context.PlanExecutions.AddAsync(newPlanExecution);
             await _context.SaveChangesAsync();
         }

@@ -7,6 +7,6 @@ namespace E_Forester.Data.Interfaces
     public interface IPlanExecutionRepository
     {
         IQueryable<PlanExecution> GetPlanExecutions();
-        Task CreatePlanExecutionAsync(PlanExecution newPlanExecution);
+        Task AddPlanExecutionAsync(PlanExecution newPlanExecution);
     }
 }

@@ -7,6 +7,6 @@ namespace E_Forester.Data.Interfaces
     public interface IDivisionRepository
     {
         IQueryable<Division> GetDivisions();
-        Task CreateDivisionAsync(Division newDivision);
+        Task AddDivisionAsync(Division newDivision);
     }
 }

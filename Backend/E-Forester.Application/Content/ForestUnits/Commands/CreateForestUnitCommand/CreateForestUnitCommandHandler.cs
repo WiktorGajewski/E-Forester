@@ -34,7 +34,7 @@ namespace E_Forester.Application.Content.ForestUnits.Commands.CreateForestUnitCo
                 Area = request.Area
             };
 
-            await _forestUnitRepository.CreateForestUnitAsync(forestUnit);
+            await _forestUnitRepository.AddForestUnitAsync(forestUnit);
 
             return await Task.FromResult(Unit.Value);
         }

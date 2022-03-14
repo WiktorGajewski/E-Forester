@@ -28,8 +28,11 @@ namespace E_Forester.Data.Repositories
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task CreateForestUnitAsync(ForestUnit newForestUnit)
+        public async Task AddForestUnitAsync(ForestUnit newForestUnit)
         {
+            if (newForestUnit == null)
+                throw new System.NullReferenceException();
+
             await _context.ForestUnits.AddAsync(newForestUnit);
             await _context.SaveChangesAsync();
         }

@@ -10,6 +10,6 @@ namespace E_Forester.Data.Interfaces
         IQueryable<PlanItem> GetPlanItems();
         Task ClosePlanItemsAsync(List<int> planItemIds);
         Task OpenPlanItemsAsync(List<int> planItemIds);
-        Task CreatePlanItemAsync(PlanItem newPlanItem);
+        Task AddPlanItemAsync(PlanItem newPlanItem);
     }
 }

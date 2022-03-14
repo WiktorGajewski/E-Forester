@@ -34,7 +34,7 @@ namespace E_Forester.Application.Content.Divisions.Commands.CreateDivisionComman
                 ForestUnitId = request.ForestUnitId
             };
 
-            await _divisionRepository.CreateDivisionAsync(division);
+            await _divisionRepository.AddDivisionAsync(division);
 
             return await Task.FromResult(Unit.Value);
         }

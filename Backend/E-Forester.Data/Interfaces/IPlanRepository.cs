@@ -10,6 +10,6 @@ namespace E_Forester.Data.Interfaces
         Task<Plan> GetPlanAsync(int planId);
         Task ClosePlanAsync(Plan plan);
         Task OpenPlanAsync(Plan plan);
-        Task CreatePlanAsync(Plan newPlan);
+        Task AddPlanAsync(Plan newPlan);
     }
 }

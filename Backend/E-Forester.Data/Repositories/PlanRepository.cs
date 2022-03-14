@@ -42,8 +42,11 @@ namespace E_Forester.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task CreatePlanAsync(Plan newPlan)
+        public async Task AddPlanAsync(Plan newPlan)
         {
+            if (newPlan == null)
+                throw new System.NullReferenceException();
+
             await _context.Plans.AddAsync(newPlan);
             await _context.SaveChangesAsync();
         }

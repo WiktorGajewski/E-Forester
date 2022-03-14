@@ -20,8 +20,11 @@ namespace E_Forester.Data.Repositories
             return _context.Divisions.AsQueryable();
         }
 
-        public async Task CreateDivisionAsync(Division newDivision)
+        public async Task AddDivisionAsync(Division newDivision)
         {
+            if(newDivision == null)
+                throw new System.NullReferenceException();
+
             await _context.Divisions.AddAsync(newDivision);
             await _context.SaveChangesAsync();
         }

@@ -58,7 +58,7 @@ namespace E_Forester.Application.Content.PlanExecutions.Commands.CreatePlanExecu
                 CreatorId = _authService.GetCurrentUserId()
             };
 
-            await _planExecutionRepository.CreatePlanExecutionAsync(planExecution);
+            await _planExecutionRepository.AddPlanExecutionAsync(planExecution);
 
             return await Task.FromResult(Unit.Value);
         }

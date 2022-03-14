@@ -8,6 +8,6 @@ namespace E_Forester.Data.Interfaces
     {
         IQueryable<ForestUnit> GetForestUnits();
         Task<ForestUnit> GetForestUnitAsync(int id);
-        Task CreateForestUnitAsync(ForestUnit newForestUnit);
+        Task AddForestUnitAsync(ForestUnit newForestUnit);
     }
 }
