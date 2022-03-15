@@ -22,7 +22,7 @@ namespace E_Forester.Application.Content.Account.Commands.Register
             var checkLogin = await _userRepository.GetUserAsync(request.Login);
 
             if (checkLogin != null)
-                throw new BadRequestException("User with such login already exists");
+                throw new BadRequestException("Użytkownik z podanym loginem już istnieje");
 
             var newUser = new User()
             {

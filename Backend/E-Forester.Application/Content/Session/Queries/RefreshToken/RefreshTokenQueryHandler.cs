@@ -26,19 +26,19 @@ namespace E_Forester.Application.Content.Session.Queries.RefreshToken
             var refreshToken = user?.RefreshTokens?.FirstOrDefault(t => t.Token == request.RefreshToken);
 
             if(user == null || refreshToken == null)
-                throw new UnauthorizedAccessException("Invalid token");
+                throw new UnauthorizedAccessException("Niepoprawny token");
 
             if (refreshToken.IsRevoked)
             {
                 await _userRepository.RevokeAllRefreshTokens(user);
-                throw new UnauthorizedAccessException("Invalid token");
+                throw new UnauthorizedAccessException("Niepoprawny token");
             }
 
             if (refreshToken.IsExpired)
-                throw new UnauthorizedAccessException("Token expired");
+                throw new UnauthorizedAccessException("Token wygasł");
 
             if (user.IsActive == false)
-                throw new UnauthorizedAccessException("Account is blocked");
+                throw new UnauthorizedAccessException("Konto jest zablokowane");
 
             var newAccessToken = _tokenService.GenerateToken(user);
             var newRefreshToken = _tokenService.GenerateRefreshToken();

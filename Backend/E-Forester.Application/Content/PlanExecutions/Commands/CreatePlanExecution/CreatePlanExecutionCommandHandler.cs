@@ -34,19 +34,19 @@ namespace E_Forester.Application.Content.PlanExecutions.Commands.CreatePlanExecu
             var planItem = _planItemRepository.GetPlanItems().FirstOrDefault(p => p.Id == request.PlanItemId);
 
             if (plan == null)
-                throw new BadRequestException("Plan not found");
+                throw new BadRequestException("Nie znaleziono planu o podanym Id");
 
             if (planItem == null)
-                throw new BadRequestException("Plan item not found");
+                throw new BadRequestException("Nie znaleziono pozycji planu o podanym Id");
 
             if (!plan.PlanItems.Contains(planItem))
-                throw new BadRequestException("Given plan item is not part of this plan");
+                throw new BadRequestException("Podana pozycja planu nie jest częścią podanego planu");
 
             if (!await CheckAssignedForestUnit(plan.ForestUnit))
-                throw new ForbiddenException();
+                throw new ForbiddenException("Nie masz uprawnień do tego leśnictwa");
 
             if (planItem.IsCompleted)
-                throw new BadRequestException("Plan item is already completed");
+                throw new BadRequestException("Pozycja planu została już ukończona - dodawanie nowych wykonań zablokowane");
 
             var planExecution = new PlanExecution()
             {

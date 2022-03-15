@@ -23,12 +23,12 @@ namespace E_Forester.Application.Content.Account.Queries.Login
         {
             var authenticated = await _userRepository.Authenticate(request.Login, request.Password);
             if (!authenticated)
-                throw new UnauthorizedAccessException("Login failed");
+                throw new UnauthorizedAccessException("Logowanie nie powiodło się");
 
             var user = await _userRepository.GetUserAsync(request.Login);
 
             if(user.IsActive == false)
-                throw new UnauthorizedAccessException("Account is blocked");
+                throw new UnauthorizedAccessException("Konto jest zablokowane");
 
             var token = _tokenService.GenerateToken(user);
             var refreshToken = _tokenService.GenerateRefreshToken();

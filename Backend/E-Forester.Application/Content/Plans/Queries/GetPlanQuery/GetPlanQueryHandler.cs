@@ -31,10 +31,10 @@ namespace E_Forester.Application.Content.Plans.Queries.GetPlanQuery
             var plan = await _planRepository.GetPlanAsync(request.Id);
 
             if(plan == null)
-                throw new NotFoundException();
+                throw new NotFoundException("Nie znaleziono planu o podanym Id");
 
             if(!await CheckAssignedForestUnit(plan.ForestUnit))
-                throw new ForbiddenException();
+                throw new ForbiddenException("Nie masz uprawnień do tego leśnictwa");
 
             var planDto = _mapper.Map<Plan, PlanDto>(plan);
 

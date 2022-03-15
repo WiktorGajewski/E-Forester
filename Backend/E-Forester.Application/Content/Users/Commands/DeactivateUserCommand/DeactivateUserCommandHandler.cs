@@ -20,7 +20,7 @@ namespace E_Forester.Application.Content.Users.Commands.DeactivateUserCommand
             var user = await _userRepository.GetUserAsync(request.UserId);
 
             if (user == null)
-                throw new NotFoundException("User not found");
+                throw new NotFoundException("Nie znaleziono użytkownika o podanym Id");
 
             await _userRepository.DeactivateUserAsync(user);
 

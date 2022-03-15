@@ -34,19 +34,19 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             var subarea = await _subareaRepository.GetSubareaAsync(request.SubareaId);
 
             if(plan == null)
-                throw new BadRequestException("Plan not found");
+                throw new BadRequestException("Nie znaleziono planu o podanym Id");
 
             if (subarea == null)
-                throw new BadRequestException("Subarea not found");
+                throw new BadRequestException("Nie znaleziono wydzielenia o podanym Id");
 
             if (subarea.Division.Id == plan.ForestUnitId)
-                throw new BadRequestException("Plan and subarea belong to two different forest units");
+                throw new BadRequestException("Podany plan i wydzielenie należa do różnych leśnictw");
 
             if (!await CheckAssignedForestUnit(plan.ForestUnit))
-                throw new ForbiddenException();
+                throw new ForbiddenException("Nie masz uprawnień do tego leśnictwa");
 
             if (plan.IsCompleted)
-                throw new BadRequestException("Plan is already completed");
+                throw new BadRequestException("Plan został już ukończony - dodawanie nowych pozycji planu zablokowane");
 
             var checkDuplicate = _planItemRepository.GetPlanItems().FirstOrDefault(p =>
                 p.PlanId == request.PlanId &&
@@ -55,7 +55,7 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             );
 
             if(checkDuplicate != null)
-                throw new BadRequestException("Such plan item already exists - duplicate");
+                throw new BadRequestException("Taka pozycja planu już istnieje");
 
             var planItem = new PlanItem()
             {

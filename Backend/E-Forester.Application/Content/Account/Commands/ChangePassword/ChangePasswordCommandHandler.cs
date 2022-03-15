@@ -25,7 +25,7 @@ namespace E_Forester.Application.Content.Account.Commands.ChangePassword
 
             var authenticated = await _userRepository.Authenticate(user.Login, request.OldPassword);
             if (!authenticated)
-                throw new UnauthorizedAccessException("Authorization failed.");
+                throw new UnauthorizedAccessException("Autoryzacja nie powiodła się");
 
             await _userRepository.ChangePasswordAsync(user, request.NewPassword);
 

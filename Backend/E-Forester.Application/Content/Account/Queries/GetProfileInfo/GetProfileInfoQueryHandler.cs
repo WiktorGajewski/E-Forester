@@ -18,8 +18,8 @@ namespace E_Forester.Application.Content.Account.Queries.GetProfileInfo
         public GetProfileInfoQueryHandler(IUserRepository userRepository, IAuthService authService, IMapper mapper)
         {
             _userRepository = userRepository;
-            this._authService = authService;
-            this._mapper = mapper;
+            _authService = authService;
+            _mapper = mapper;
         }
 
         public async Task<UserDto> Handle(GetProfileInfoQuery request, CancellationToken cancellationToken)

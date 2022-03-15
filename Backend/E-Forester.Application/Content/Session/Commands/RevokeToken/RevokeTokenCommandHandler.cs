@@ -22,7 +22,7 @@ namespace E_Forester.Application.Content.Session.Commands.RevokeToken
             var refreshToken = user?.RefreshTokens?.FirstOrDefault(t => t.Token == request.RefreshToken);
 
             if (user == null || refreshToken == null || refreshToken.IsActive == false)
-                throw new UnauthorizedAccessException("Invalid token");
+                throw new UnauthorizedAccessException("Niepoprawny token");
 
             await _userRepository.RevokeRefreshTokenAsync(refreshToken);
 

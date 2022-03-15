@@ -20,7 +20,7 @@ namespace E_Forester.Application.Content.Plans.Commands.OpenPlanCommand
             var plan = await _planRepository.GetPlanAsync(request.Id);
 
             if(plan == null)
-                throw new NotFoundException();
+                throw new NotFoundException("Nie znaleziono planu o podanym Id");
 
             await _planRepository.OpenPlanAsync(plan);
 

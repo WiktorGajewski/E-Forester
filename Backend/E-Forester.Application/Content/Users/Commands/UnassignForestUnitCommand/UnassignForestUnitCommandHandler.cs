@@ -23,10 +23,10 @@ namespace E_Forester.Application.Content.Users.Commands.UnassignForestUnitComman
             var forestUnit = await _forestUnitRepository.GetForestUnitAsync(request.ForestUnitId);
 
             if (user == null)
-                throw new NotFoundException("User not found");
+                throw new NotFoundException("Nie znaleziono użytkownika o podanym Id");
 
             if (forestUnit == null)
-                throw new NotFoundException("Forest unit not found");
+                throw new NotFoundException("Nie znaleziono leśnictwa o podanym Id");
 
             await _userRepository.UnassignForestUnitAsync(user, forestUnit);
 
