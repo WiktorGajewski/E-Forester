@@ -1,12 +1,12 @@
-﻿using E_Forester.Data.Database;
-using E_Forester.Data.Interfaces;
+﻿using E_Forester.Infrastructure.Database;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Repositories
+namespace E_Forester.Infrastructure.Repositories
 {
     public class PlanItemRepository : IPlanItemRepository
     {

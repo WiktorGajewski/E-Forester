@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Interfaces
+namespace E_Forester.Infrastructure.Interfaces
 {
     public interface IUserRepository
     {

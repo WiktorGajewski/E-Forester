@@ -1,5 +1,5 @@
 ﻿using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using MediatR;
 using System;
 using System.Threading;

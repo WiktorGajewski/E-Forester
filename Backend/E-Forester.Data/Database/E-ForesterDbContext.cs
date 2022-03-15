@@ -1,7 +1,7 @@
 ﻿using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_Forester.Data.Database
+namespace E_Forester.Infrastructure.Database
 {
     public class E_ForesterDbContext : DbContext
     {

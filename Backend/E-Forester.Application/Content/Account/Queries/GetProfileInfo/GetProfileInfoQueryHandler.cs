@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.Users;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using MediatR;
 using System.Threading;

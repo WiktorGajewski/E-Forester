@@ -1,10 +1,10 @@
-﻿using E_Forester.Data.Database;
-using E_Forester.Data.Interfaces;
-using E_Forester.Data.Repositories;
+﻿using E_Forester.Infrastructure.Database;
+using E_Forester.Infrastructure.Interfaces;
+using E_Forester.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace E_Forester.Data
+namespace E_Forester.Infrastructure
 {
     public static class Configuration
     {

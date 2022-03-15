@@ -1,7 +1,7 @@
 using E_Forester.API.Filters;
 using E_Forester.Application;
 using E_Forester.Application.AutoMapper;
-using E_Forester.Data;
+using E_Forester.Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
