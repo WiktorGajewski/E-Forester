@@ -110,8 +110,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
                 this.openSnackBarSuccess("Użytkownik pomyślnie usunięty (zablokowany)");
               },
               error : err => {
-                console.error(err);
-                this.openSnackBarError("Wystąpił błąd podczas próby usunięcia (zablokowania) użytkownika");
+                this.openSnackBarError(`Wystąpił błąd podczas próby usunięcia (zablokowania) użytkownika: ${err}`);
               }
             });
         }
@@ -140,8 +139,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
                 this.openSnackBarSuccess("Pomyślnie przywrócono użytkownika");
               },
               error : err => {
-                console.error(err);
-                this.openSnackBarError("Wystąpił błąd podczas próby przywrócenia użytkownika");
+                this.openSnackBarError(`Wystąpił błąd podczas próby przywrócenia użytkownika: ${err}`);
               }
             });
         }
@@ -185,11 +183,10 @@ export class UserListComponent implements OnInit, AfterViewInit {
             .subscribe({
               complete : () => {
                 this.loadPage();
-                this.openSnackBarSuccess("Przypisania do leśnictwa zostało anulowane");
+                this.openSnackBarSuccess("Przypisanie do leśnictwa zostało anulowane");
               },
               error : err => {
-                console.error(err);
-                this.openSnackBarError("Wystąpił błąd podczas próby anulowania przypisania");
+                this.openSnackBarError(`Wystąpił błąd podczas próby anulowania przypisania: ${err}`);
               }
             });
         }

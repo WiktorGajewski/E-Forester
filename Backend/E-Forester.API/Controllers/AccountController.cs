@@ -55,7 +55,6 @@ namespace E_Forester.API.Controllers
             return Ok();
         }
 
-        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPut("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {

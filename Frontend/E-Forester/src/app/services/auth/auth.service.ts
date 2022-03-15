@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<Object> {
-    return this.http.post(`${this.apiUrl}account/change-password`, { oldPassword, newPassword });
+    return this.http.put(`${this.apiUrl}account/change-password`, { oldPassword, newPassword });
   }
 
   private setSession(result : IAuthentication): void {
