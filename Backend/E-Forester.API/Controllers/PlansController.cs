@@ -1,8 +1,10 @@
-﻿using E_Forester.Application.Content.Plans.Commands.ClosePlanCommand;
+﻿using E_Forester.API.Attributes;
+using E_Forester.Application.Content.Plans.Commands.ClosePlanCommand;
 using E_Forester.Application.Content.Plans.Commands.CreatePlanCommand;
 using E_Forester.Application.Content.Plans.Commands.OpenPlanCommand;
 using E_Forester.Application.Content.Plans.Queries.GetPlanQuery;
 using E_Forester.Application.Content.Plans.Queries.GetPlansQuery;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -37,13 +39,15 @@ namespace E_Forester.API.Controllers
             return NoContent();
         }
 
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPut("{id}/close")]
-        public async Task<IActionResult> UpdatePlan([FromRoute] int id)
+        public async Task<IActionResult> ClosePlan([FromRoute] int id)
         {
             await _mediator.Send(new ClosePlanCommand() { Id = id });
             return NoContent();
         }
 
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPut("{id}/open")]
         public async Task<IActionResult> OpenPlan([FromRoute] int id)
         {

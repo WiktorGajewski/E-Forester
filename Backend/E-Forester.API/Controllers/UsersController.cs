@@ -1,8 +1,10 @@
-﻿using E_Forester.Application.Content.Users.Commands.AssignForestUnitCommand;
+﻿using E_Forester.API.Attributes;
+using E_Forester.Application.Content.Users.Commands.AssignForestUnitCommand;
 using E_Forester.Application.Content.Users.Commands.DeactivateUserCommand;
 using E_Forester.Application.Content.Users.Commands.ReactivateUserCommand;
 using E_Forester.Application.Content.Users.Commands.UnassignForestUnitCommand;
 using E_Forester.Application.Content.Users.Queries.GetUsersQuery;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 namespace E_Forester.API.Controllers
 {
     [Route("api/users")]
+    [AuthorizedRole(new[] { UserRole.Admin })]
     public class UsersController : BaseController
     {
         public UsersController(IMediator mediator) : base(mediator)

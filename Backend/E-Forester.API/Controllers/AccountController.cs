@@ -1,7 +1,9 @@
-﻿using E_Forester.Application.Content.Account.Commands.ChangePassword;
+﻿using E_Forester.API.Attributes;
+using E_Forester.Application.Content.Account.Commands.ChangePassword;
 using E_Forester.Application.Content.Account.Commands.Register;
 using E_Forester.Application.Content.Account.Queries.GetProfileInfo;
 using E_Forester.Application.Content.Account.Queries.Login;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +47,7 @@ namespace E_Forester.API.Controllers
             return NoContent();
         }
 
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
@@ -52,6 +55,7 @@ namespace E_Forester.API.Controllers
             return Ok();
         }
 
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPut("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {

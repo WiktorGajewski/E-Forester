@@ -1,5 +1,7 @@
-﻿using E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand;
+﻿using E_Forester.API.Attributes;
+using E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand;
 using E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace E_Forester.API.Controllers
             return Ok(result);
         }
 
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPost]
         public async Task<IActionResult> CreateSubarea([FromBody] CreateSubareaCommand command)
         {
