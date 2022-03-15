@@ -29,6 +29,13 @@
         (selectedPlanIdChange)="selectedPlanId=$event;">
     </app-plan-filter>
 
+    <br>
+
+    <mat-slide-toggle
+        [(ngModel)]="filterByNotCompleted">
+        Tylko nieukończone
+    </mat-slide-toggle>
+
     <div class="button-container" *ngIf="isPlanItemSelected">
         <button mat-raised-button color="primary" (click)="markPlanItemsCompleted()"
             matTooltip="Pozycja planu zostanie oznaczona jako ukończona, dodawanie nowych wykonań zostanie zablokowane">
@@ -45,6 +52,7 @@
         [selectedDivisionId]="selectedDivisionId"
         [selectedSubareaId]="selectedSubareaId"
         [selectedPlanId]="selectedPlanId"
+        [filterByNotCompleted]="filterByNotCompleted"
         (selectionChange)="tableSelectionChange($event)">
     </app-plan-items-table>
 

@@ -37,7 +37,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
             planItemsQuery = await FilterAssignedForestUnits(planItemsQuery);
 
-            planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId);
+            planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId, request.FilterByNotCompleted);
 
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
@@ -70,7 +70,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                     .ToListAsync();
         }
 
-        private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId)
+        private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId, bool filterByNotCompleted)
         {
             if (forestUnitId != null)
             {
@@ -90,6 +90,11 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
             if (planId != null)
             {
                 planItemsQuery = planItemsQuery.Where(d => d.PlanId == planId);
+            }
+
+            if(filterByNotCompleted)
+            {
+                planItemsQuery = planItemsQuery.Where(p => p.IsCompleted == false);
             }
 
             return planItemsQuery;

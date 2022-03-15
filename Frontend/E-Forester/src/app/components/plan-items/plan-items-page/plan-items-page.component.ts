@@ -20,6 +20,8 @@ export class PlanItemsPageComponent implements OnInit {
 
   selectedPlanId: number | null = null;
 
+  filterByNotCompleted = false;
+
   isPlanItemSelected = false;
 
   @ViewChild(PlanItemsTableComponent) planItemsTable !: PlanItemsTableComponent;

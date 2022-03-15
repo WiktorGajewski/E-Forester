@@ -32,6 +32,7 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
   @Input() selectedDivisionId: number | null = null;
   @Input() selectedSubareaId: number | null = null;
   @Input() selectedPlanId: number | null = null;
+  @Input() filterByNotCompleted: boolean = false;
 
   @Output() selectionChange = new EventEmitter<boolean>();
 
@@ -88,7 +89,8 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
       this.selectedSubareaId,
       this.selectedPlanId,
       this.paginator.pageIndex + 1,
-      this.paginator.pageSize
+      this.paginator.pageSize,
+      this.filterByNotCompleted
     );
 
     this.selection.clear();

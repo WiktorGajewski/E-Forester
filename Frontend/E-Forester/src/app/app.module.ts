@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -67,6 +68,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const material = [
   MatToolbarModule,
@@ -89,7 +91,8 @@ const material = [
   MatDatepickerModule,
   MatMomentDateModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
@@ -135,7 +138,8 @@ const material = [
     LayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgChartsModule
+    NgChartsModule,
+    FormsModule
   ],
   providers: [
     {

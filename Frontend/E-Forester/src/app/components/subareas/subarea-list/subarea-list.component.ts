@@ -4,8 +4,6 @@ import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-sour
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateSubareaComponent } from '../create-subarea/create-subarea.component';
-import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
-import { DivisionFilterComponent } from '../../filters/division-filter/division-filter.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Role } from 'src/app/models/user.model';
 
