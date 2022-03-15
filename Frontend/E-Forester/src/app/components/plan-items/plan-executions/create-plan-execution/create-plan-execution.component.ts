@@ -1,18 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { IDivision } from 'src/app/models/division.model';
-import { IForestUnit } from 'src/app/models/forest-unit.model';
-import { IPage } from 'src/app/models/page.model';
 import { ActionGroup, IPlanItem } from 'src/app/models/plan-item.model';
-import { IPlan } from 'src/app/models/plan.model';
-import { ISubarea } from 'src/app/models/subarea.model';
-import { DivisionService } from 'src/app/services/divisions/division.service';
-import { ForestUnitService } from 'src/app/services/forest-units/forest-unit.service';
 import { PlanExecutionService } from 'src/app/services/plan-executions/plan-execution.service';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
-import { PlanService } from 'src/app/services/plans/plan.service';
-import { SubareaService } from 'src/app/services/subareas/subarea.service';
 
 @Component({
   selector: 'app-create-plan-execution',
@@ -26,107 +17,37 @@ export class CreatePlanExecutionComponent implements OnInit {
   errorMessage = false;
   error = "";
 
-  forestUnits: IForestUnit[] = [];
-  divisions: IDivision[] = [];
-  subareas: ISubarea[] = [];
-  plans: IPlan[] = [];
-  planItems: IPlanItem[] = [];
+  @Input() selectedPlanItemId: number|null = null;
+  selectedPlanItem: IPlanItem|null = null;
 
   actionGroups = ActionGroup;
 
   constructor(private planExecutionService : PlanExecutionService,
     private planItemService : PlanItemService,
-    private planService: PlanService,
-    private subareaService: SubareaService,
-    private divisionService: DivisionService,
-    private forestUnitService: ForestUnitService,
     private dialogRef: MatDialogRef<CreatePlanExecutionComponent>) { }
+  
 
   ngOnInit(): void {
     this.Form= new FormGroup({
-      executedHectares: new FormControl(null, Validators.required),
-      harvestedCubicMeters: new FormControl(null, Validators.required),
-      planItemId: new FormControl(null, Validators.required),
-      planId: new FormControl(null, Validators.required),
-      forestUnitId: new FormControl(null, Validators.required),
-      divisionId: new FormControl({value: null, disabled: true}, Validators.required),
-      subareaId: new FormControl({value: null, disabled: true}, Validators.required)
+      executedHectares: new FormControl(null, Validators.min(0)),
+      harvestedCubicMeters: new FormControl(null, Validators.min(0)),
     });
-
-    this.Form.controls['divisionId'].disable();
-    this.Form.controls['subareaId'].disable();
-    this.Form.controls['planId'].disable();
-    this.Form.controls['planItemId'].disable();
-
-    this.forestUnitService.getForestUnits(null, null)
-            .subscribe({
-                next: (value: IPage<IForestUnit>) => {
-                    this.forestUnits = value.data;
-                }
-            });
-  }
-
-  forestUnitSelected(forestUnitId: number) {
-    this.divisionService.getDivisions(forestUnitId, null, null)
-            .subscribe({
-                next: (value: IPage<IDivision>) => {
-                    this.divisions = value.data;
-                    this.Form.controls['divisionId'].enable()
-                }
-            });
     
-    this.planService.getPlans(forestUnitId, null, null, null, null)
-    .subscribe({
-        next: (value: IPage<IPlan>) => {
-            this.plans = value.data;
-            this.Form.controls['planId'].enable()
-        }
-    });
-  }
-
-  divisionSelected(divisionId: number) {
-    this.subareaService.getSubareas(null, divisionId, null, null)
+    if(this.selectedPlanItemId) {
+      this.planItemService.getPlanItem(this.selectedPlanItemId)
             .subscribe({
-                next: (value: IPage<ISubarea>) => {
-                    this.subareas = value.data;
-                    this.Form.controls['subareaId'].enable()
-                }
+              next: (value: IPlanItem) => {
+                this.selectedPlanItem = value;
+              }
             });
-  }
-
-  subareaSelected() {
-    const subareaId = this.Form.value.subareaId;
-    const planId = this.Form.value.planId;
-
-    if(subareaId && planId) {
-      this.planAndSubareaSelected(subareaId, planId);
     }
-  }
-
-  planSelected() {
-    const subareaId = this.Form.value.subareaId;
-    const planId = this.Form.value.planId;
-
-    if(subareaId && planId) {
-      this.planAndSubareaSelected(subareaId, planId);
-    }
-  }
-
-  planAndSubareaSelected(subareaId: number, planId: number) {
-    this.planItemService.getPlanItems(null, null, subareaId, planId, null, null)
-            .subscribe({
-                next: (value: IPage<IPlanItem>) => {
-                    this.planItems = value.data;
-                    this.Form.controls['planItemId'].enable()
-                }
-            });
   }
 
   submit(): void {
-    if(this.Form.valid) {
+    if(this.Form.valid && this.selectedPlanItem) {
       const val = this.Form.value;
       this.loading = true;
-      this.planExecutionService.createPlanExecution(val.executedHectares, val.harvestedCubicMeters, val.planItemId, val.planId)
+      this.planExecutionService.createPlanExecution(val.executedHectares, val.harvestedCubicMeters, this.selectedPlanItem.id, this.selectedPlanItem.planId)
         .subscribe({
           complete : () => {
             this.loading = false;

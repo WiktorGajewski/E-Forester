@@ -2,6 +2,7 @@
 using E_Forester.Application.Content.PlanItems.Commands.ClosePlanItemCommand;
 using E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemCommand;
 using E_Forester.Application.Content.PlanItems.Commands.OpenPlanItemCommand;
+using E_Forester.Application.Content.PlanItems.Queries.GetPlanItem;
 using E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery;
 using E_Forester.Model.Enums;
 using MediatR;
@@ -21,6 +22,13 @@ namespace E_Forester.API.Controllers
         public async Task<IActionResult> GetPlanItems([FromQuery] GetPlanItemsQuery query)
         {
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPlanItem([FromRoute] int id)
+        {
+            var result = await _mediator.Send(new GetPlanItemQuery() { Id = id });
             return Ok(result);
         }
 

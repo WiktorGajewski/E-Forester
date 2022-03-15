@@ -54,13 +54,13 @@ export class PlanExecutionsTableComponent implements OnInit, AfterViewInit {
   }
 
   createPlanExecutionDialog() : void {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(CreatePlanExecutionComponent, dialogConfig);
+    dialogRef.componentInstance.selectedPlanItemId = this.selectedPlanItemId;
 
     dialogRef.afterClosed().subscribe(
       result =>  {

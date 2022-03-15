@@ -12,6 +12,7 @@ export interface IPlanItem {
     subareaId: number,
     creatorId: number,
     address: string,
+    year: number,
     executedHectares: number,
     harvestedCubicMeters: number
 }
