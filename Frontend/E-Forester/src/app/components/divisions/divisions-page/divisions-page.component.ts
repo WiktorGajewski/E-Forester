@@ -24,7 +24,7 @@ export class DivisionsPageComponent {
       {
         this.userRole = auth?.userRole;
       });
-   }
+  }
 
   reloadTable() : void {
     this.divisionsTable.reloadTable();

@@ -19,7 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
 import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
 import { PlansTableComponent } from './components/plans/plans-table/plans-table.component';
-import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
+import { SubareasPageComponent } from './components/subareas/subareas-page/subareas-page.component';
+import { SubareasTableComponent } from './components/subareas/subareas-table/subareas-table.component';
 import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
 import { DivisionsTableComponent } from './components/divisions/divisions-table/divisions-table.component';
 import { ForestUnitsPageComponent } from './components/forest-units/forest-units-page/forest-units-page.component';
@@ -106,7 +107,8 @@ const material = [
     NavComponent,
     PlansTableComponent,
     PlansPageComponent,
-    SubareaListComponent,
+    SubareasTableComponent,
+    SubareasPageComponent,
     DivisionsTableComponent,
     DivisionsPageComponent,
     ForestUnitsTableComponent,

@@ -7,7 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
 import { ProfileComponent } from './components/profile/profile/profile.component';
-import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
+import { SubareasPageComponent } from './components/subareas/subareas-page/subareas-page.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/user.model';
@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: "subareas", component: SubareaListComponent,
+    path: "subareas", component: SubareasPageComponent,
     canActivate: [AuthGuard]
   },
   { 

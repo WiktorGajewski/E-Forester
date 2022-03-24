@@ -6,39 +6,6 @@
     text-align: center;
 }
 
-.table-container{
-    overflow-x: auto;
-}
-
-.table{
-    width: 100%;
-}
-
-.mat-column-id{
-    border-right: 1px solid grey;
-    padding-right: 20px;
-    text-align: center;
-}
-
-.mat-column-address{
-    border-right: 1px solid grey;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
-}
-
-.mat-column-area{
-    padding-left: 20px;
-    text-align: center;
-}
-
-.spinner{
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-}
-
 .button-container {
     margin-top: 10px;
     margin-right: 10px;
