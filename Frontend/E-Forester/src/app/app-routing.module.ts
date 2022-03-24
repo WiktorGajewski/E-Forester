@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
+import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
 import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: "divisions", component: DivisionListComponent,
+    path: "divisions", component: DivisionsPageComponent,
     canActivate: [AuthGuard]
   },
   { 

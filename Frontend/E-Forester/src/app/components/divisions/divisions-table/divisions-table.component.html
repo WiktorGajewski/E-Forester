@@ -1,0 +1,43 @@
+<div class="table-container">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table"> 
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let division"> {{division.id}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef> Adres leśny </th>
+            <td mat-cell *matCellDef="let division"> {{division.address}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="area">
+            <th mat-header-cell *matHeaderCellDef> Obszar (ha) </th>
+            <td mat-cell *matCellDef="let division"> {{division.area}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3" style="text-align:center;">
+                <div *ngIf="!(dataSource.loading | async)">
+                    Brak danych do wyświetlenia
+                </div>
+                <div *ngIf="dataSource.loading | async" class="spinner">
+                    <mat-spinner diameter="80"></mat-spinner>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<mat-paginator [length]="(dataSource.totalCount | async)"
+            showFirstLastButtons
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 20, 50]"
+            aria-label="Select page">
+</mat-paginator>
+
+
+  
+  
