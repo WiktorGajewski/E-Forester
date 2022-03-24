@@ -40,7 +40,7 @@ export class DivisionsPageComponent {
     const dialogRef = this.dialog.open(CreateDivisionComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      result =>  {
+      (result: Boolean) =>  {
         if(result == true) {
           this.reloadTable(); 
         }

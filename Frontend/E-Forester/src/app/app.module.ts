@@ -25,13 +25,13 @@ import { ForestUnitsPageComponent } from './components/forest-units/forest-units
 import { ForestUnitsTableComponent } from './components/forest-units/forest-units-table/forest-units-table.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanItemsTableComponent } from './components/plan-items/plan-items-table/plan-items-table.component';
-import { PlanExecutionsTableComponent } from './components/plan-items/plan-executions/plan-executions-table/plan-executions-table.component';
+import { PlanExecutionsTableComponent } from './components/plan-executions/plan-executions-table/plan-executions-table.component';
 import { CreateForestUnitComponent } from './components/forest-units/create-forest-unit/create-forest-unit.component';
 import { CreateDivisionComponent } from './components/divisions/create-division/create-division.component';
 import { CreateSubareaComponent } from './components/subareas/create-subarea/create-subarea.component';
 import { CreatePlanComponent } from './components/plans/create-plan/create-plan.component';
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
-import { CreatePlanExecutionComponent } from './components/plan-items/plan-executions/create-plan-execution/create-plan-execution.component';
+import { CreatePlanExecutionComponent } from './components/plan-executions/create-plan-execution/create-plan-execution.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
