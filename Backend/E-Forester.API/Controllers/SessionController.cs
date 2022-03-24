@@ -1,5 +1,6 @@
 ﻿using E_Forester.Application.Content.Session.Commands.RevokeToken;
 using E_Forester.Application.Content.Session.Queries.RefreshToken;
+using E_Forester.Application.DataTransferObjects.Account;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +23,9 @@ namespace E_Forester.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("refresh-token")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RefreshToken()
         {
             var refreshToken = Request.Cookies["RefreshToken"];
@@ -35,12 +39,15 @@ namespace E_Forester.API.Controllers
 
         [AllowAnonymous]
         [HttpOptions("refresh-token")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult RefreshTokenOptions()
         {
             return NoContent();
         }
 
         [HttpPost("revoke-token")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RevokeToken()
         {
             var refreshToken = Request.Cookies["RefreshToken"];
@@ -50,10 +57,11 @@ namespace E_Forester.API.Controllers
 
             await _mediator.Send(new RevokeTokenCommand() { RefreshToken = refreshToken });
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpOptions("revoke-token")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult RevokeTokenOptions()
         {
             return NoContent();
