@@ -1,0 +1,17 @@
+<div class="container">
+  
+    <h1 style="margin-bottom: 10px;">
+      Leśnictwa
+      <mat-divider></mat-divider>
+    </h1>
+
+    <app-forest-units-table></app-forest-units-table>
+
+    <div class="button-container" *ngIf="userRole == 1">
+        <button mat-mini-fab color="primary" (click)="createForestUnitDialog()" class="open-dialog-button"
+        matTooltip="Dodaj nowe leśnictwo">
+        <mat-icon>add</mat-icon>
+        </button>
+    </div>
+  
+</div>

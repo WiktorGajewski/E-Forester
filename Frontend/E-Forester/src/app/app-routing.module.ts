@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
-import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
+import { ForestUnitsPageComponent } from './components/forest-units/forest-units-page/forest-units-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
@@ -29,7 +29,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: "forest-units", component: ForestUnitListComponent,
+    path: "forest-units", component: ForestUnitsPageComponent,
     canActivate: [AuthGuard]
   },
   { 

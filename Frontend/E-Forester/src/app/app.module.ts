@@ -21,7 +21,8 @@ import { PlanListComponent } from './components/plans/plan-list/plan-list.compon
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
 import { DivisionsTableComponent } from './components/divisions/divisions-table/divisions-table.component';
-import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
+import { ForestUnitsPageComponent } from './components/forest-units/forest-units-page/forest-units-page.component';
+import { ForestUnitsTableComponent } from './components/forest-units/forest-units-table/forest-units-table.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanItemsTableComponent } from './components/plan-items/plan-items-table/plan-items-table.component';
 import { PlanExecutionsTableComponent } from './components/plan-items/plan-executions/plan-executions-table/plan-executions-table.component';
@@ -106,7 +107,8 @@ const material = [
     SubareaListComponent,
     DivisionsTableComponent,
     DivisionsPageComponent,
-    ForestUnitListComponent,
+    ForestUnitsTableComponent,
+    ForestUnitsPageComponent,
     PlanItemsTableComponent,
     PlanItemsPageComponent,
     PlanExecutionsTableComponent,
