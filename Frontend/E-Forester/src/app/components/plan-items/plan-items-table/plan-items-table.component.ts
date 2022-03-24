@@ -1,12 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTable } from '@angular/material/table';
 import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item.model';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
-import { CollectionViewer } from "@angular/cdk/collections";
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({

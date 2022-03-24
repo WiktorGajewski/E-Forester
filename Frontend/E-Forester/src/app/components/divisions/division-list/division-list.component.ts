@@ -1,11 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Role } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { DivisionService } from 'src/app/services/divisions/division.service';
 import { DivisionsDataSource } from 'src/app/services/divisions/divisions.data-source';
-import { ForestUnitFilterComponent } from '../../filters/forest-unit-filter/forest-unit-filter.component';
 import { CreateDivisionComponent } from '../create-division/create-division.component';
 
 @Component({

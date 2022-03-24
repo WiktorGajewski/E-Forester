@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { SubareasDataSource } from 'src/app/services/subareas/subareas.data-source';
 import { SubareaService } from 'src/app/services/subareas/subarea.service';
