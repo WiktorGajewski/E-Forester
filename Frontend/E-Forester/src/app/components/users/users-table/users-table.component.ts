@@ -8,12 +8,11 @@ import { UserService } from 'src/app/services/users/user.service';
 import { UsersDataSource } from 'src/app/services/users/users.data-source';
 import { AssignForestUnitComponent } from '../assign-forest-unit/assign-forest-unit.component';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
-import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css'],
+  selector: 'app-users-table',
+  templateUrl: './users-table.component.html',
+  styleUrls: ['./users-table.component.css'],
   animations: [
     trigger('expandRow', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -22,7 +21,7 @@ import { CreateUserComponent } from '../create-user/create-user.component';
     ]),
   ],
 })
-export class UserListComponent implements OnInit, AfterViewInit {
+export class UsersTableComponent implements OnInit, AfterViewInit {
   dataSource !: UsersDataSource;
   displayedColumns = ["name", "registrationDate", "role", "isActive", "actions"];
 
@@ -43,32 +42,14 @@ export class UserListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.paginator.page
-      .subscribe(() => this.loadPage());
+      .subscribe(() => this.reloadTable());
   }
 
-  loadPage() : void {
+  reloadTable() : void {
     this.dataSource.loadUsers(
       this.paginator.pageIndex + 1,
       this.paginator.pageSize
     );
-  }
-
-  createUserDialog() : void {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(CreateUserComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(
-      result =>  {
-        if(result == true) {
-          this.loadPage(); 
-        }
-      }
-    ); 
   }
 
   openSnackBarSuccess(message: string) : void {
@@ -106,7 +87,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
           this.userService.deactivateUser(userId)
             .subscribe({
               complete : () => {
-                this.loadPage();
+                this.reloadTable();
                 this.openSnackBarSuccess("Użytkownik pomyślnie usunięty (zablokowany)");
               },
               error : err => {
@@ -135,7 +116,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
           this.userService.reactivateUser(userId)
             .subscribe({
               complete : () => {
-                this.loadPage();
+                this.reloadTable();
                 this.openSnackBarSuccess("Pomyślnie przywrócono użytkownika");
               },
               error : err => {
@@ -160,7 +141,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
       dialogRef.afterClosed().subscribe(
         result =>  {
           if(result == true) {
-            this.loadPage(); 
+            this.reloadTable(); 
           }
         }
       ); 
@@ -182,7 +163,7 @@ export class UserListComponent implements OnInit, AfterViewInit {
           this.userService.unassignForestUnit(userId, forestUnitId)
             .subscribe({
               complete : () => {
-                this.loadPage();
+                this.reloadTable();
                 this.openSnackBarSuccess("Przypisanie do leśnictwa zostało anulowane");
               },
               error : err => {

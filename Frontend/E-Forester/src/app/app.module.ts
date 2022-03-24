@@ -43,7 +43,8 @@ import { DivisionFilterComponent } from './components/filters/division-filter/di
 import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
 import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 import { YearDateRangeFilterComponent } from './components/filters/year-date-range-filter/year-date-range-filter.component';
-import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
+import { UsersTableComponent } from './components/users/users-table/users-table.component';
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
 import { AssignForestUnitComponent } from './components/users/assign-forest-unit/assign-forest-unit.component';
 import { ConfirmationComponent } from './components/users/confirmation/confirmation.component';
@@ -131,7 +132,8 @@ const material = [
     SubareaFilterComponent,
     PlanFilterComponent,
     YearDateRangeFilterComponent,
-    UserListComponent,
+    UsersTableComponent,
+    UsersPageComponent,
     CreateUserComponent,
     AssignForestUnitComponent,
     ConfirmationComponent,

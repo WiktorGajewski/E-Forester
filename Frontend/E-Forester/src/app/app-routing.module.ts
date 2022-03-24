@@ -8,7 +8,7 @@ import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/
 import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
 import { ProfileComponent } from './components/profile/profile/profile.component';
 import { SubareasPageComponent } from './components/subareas/subareas-page/subareas-page.component';
-import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/user.model';
 
@@ -41,7 +41,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: "users", component: UserListComponent,
+    path: "users", component: UsersPageComponent,
     canActivate: [AuthGuard], data: { roles: [Role.Administrator]}
   },
   { 

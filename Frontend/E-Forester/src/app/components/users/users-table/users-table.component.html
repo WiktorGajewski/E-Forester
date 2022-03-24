@@ -1,0 +1,107 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table" multiTemplateDataRows> 
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> # </th>
+      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Imię i nazwisko </th>
+      <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="registrationDate">
+      <th mat-header-cell *matHeaderCellDef> Data rejestracji </th>
+      <td mat-cell *matCellDef="let user"> {{user.registrationDate | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Rola </th>
+      <td mat-cell *matCellDef="let user"> {{roles[user.role]}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="isActive">
+      <th mat-header-cell *matHeaderCellDef> Aktywny </th>
+      <td mat-cell *matCellDef="let user"> {{user.isActive ? "TAK" : "NIE"}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let user"> 
+        <span class="delete-user-button" *ngIf="user.isActive">
+          <button mat-icon-button (click)="deleteUser(user.id, user.name, $event);">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </span>
+        <span class="restore-user-button" *ngIf="!user.isActive">
+          <button mat-icon-button (click)="restoreUser(user.id, user.name, $event);">
+            <mat-icon>restore_from_trash</mat-icon>
+          </button>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="expanded-detail"
+                [@expandRow]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+                <div class="assigned-forest-units">
+                    <h3 style="margin-bottom: 0px;">
+                        Przydzielone leśnictwa
+                        <mat-divider></mat-divider>
+                    </h3>
+                    
+                    <mat-list>
+                        <mat-list-item *ngIf="element.assignedForestUnits.length == 0" style="margin-left:10px;">
+                            Brak
+                        </mat-list-item>
+                        <mat-list-item *ngFor="let forestUnit of element.assignedForestUnits" style="margin-left:10px;">
+                          <span class="mat-list-forest-unit">
+                            {{forestUnit.name}}
+                          </span>
+                          <span class="unassign-button">
+                            <button mat-icon-button (click)="unassignForestUnit(forestUnit.id, forestUnit.name, element.id, element.name)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </span>
+                        </mat-list-item>
+                        <mat-list-item>
+                            <button mat-icon-button color="primary" (click)="assignForestUnitDialog()">
+                                <mat-icon>add_box</mat-icon>
+                            </button>
+                            Dodaj
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === row"
+        (click)="expandElement(row)">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expanded-detail-row"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="5" style="text-align:center;">
+        <div *ngIf="!(dataSource.loading | async)">
+          Brak danych do wyświetlenia
+        </div>
+        <div *ngIf="dataSource.loading | async" class="spinner">
+          <mat-spinner diameter="80"></mat-spinner>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+  
+<mat-paginator [length]="(dataSource.totalCount | async)"
+            showFirstLastButtons
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 20, 50]"
+            aria-label="Select page">
+</mat-paginator>
