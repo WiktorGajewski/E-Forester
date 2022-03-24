@@ -27,7 +27,7 @@ export class PlansDataSource implements DataSource<IPlan> {
         this.totalCountSubject.complete();
     }
 
-    loadPlans(forestUnitId: number | null = null, pageIndex = 1, pageSize = 10) : void {
+    loadPlans(forestUnitId: number | null = null, pageIndex = 1, pageSize = 5) : void {
 
         this.loadingSubject.next(true);
 
