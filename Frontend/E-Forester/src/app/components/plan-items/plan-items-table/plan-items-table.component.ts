@@ -76,6 +76,7 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.dataSource){
+      this.paginator.pageIndex = 0;
       this.reloadTable();
     }
   }
