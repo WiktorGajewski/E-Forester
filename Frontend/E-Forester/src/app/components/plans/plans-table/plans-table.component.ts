@@ -1,25 +1,23 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { NavigationExtras, Router } from '@angular/router';
 import { IPlan } from 'src/app/models/plan.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PlanService } from 'src/app/services/plans/plan.service';
 import { PlansDataSource } from 'src/app/services/plans/plans.data-source';
-import { CreatePlanComponent } from '../create-plan/create-plan.component';
 
 @Component({
-  selector: 'app-plan-list',
-  templateUrl: './plan-list.component.html',
-  styleUrls: ['./plan-list.component.css']
+  selector: 'app-plans-table',
+  templateUrl: './plans-table.component.html',
+  styleUrls: ['./plans-table.component.css']
 })
-export class PlanListComponent implements OnInit, AfterViewInit {
+export class PlansTableComponent implements OnInit, AfterViewInit {
   dataSource !: PlansDataSource;
   displayedColumns = ["year", "forestUnitName", "plannedHectares", "executedHectares", "plannedCubicMeters", "harvestedCubicMeters", "completedPlanItems", "isCompleted"];
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private planService: PlanService, private dialog : MatDialog, private router: Router,
+  constructor(private planService: PlanService, private router: Router,
     private authService: AuthService) {
 
       this.authService.authentication.subscribe(auth => 
@@ -37,10 +35,10 @@ export class PlanListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.paginator.page
-      .subscribe(() => this.loadPage());
+      .subscribe(() => this.reloadTable());
   }
 
-  loadPage() : void {
+  reloadTable() : void {
     this.dataSource.loadPlans(
       undefined,
       this.paginator.pageIndex + 1,
@@ -65,7 +63,7 @@ export class PlanListComponent implements OnInit, AfterViewInit {
     this.planService.markPlanCompleted(planId)
       .subscribe({
         complete : () => {
-          this.loadPage();
+          this.reloadTable();
         },
         error : err => {
           console.error(err);
@@ -75,34 +73,15 @@ export class PlanListComponent implements OnInit, AfterViewInit {
 
   markPlanIncompleted(planId: number, event: Event) : void {
     event.stopPropagation();
-    console.log("open")
 
     this.planService.markPlanIncompleted(planId)
       .subscribe({
         complete : () => {
-          this.loadPage();
+          this.reloadTable();
         },
         error : err => {
           console.error(err);
         }
       });
-  }
-
-  createPlanDialog() : void {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
-    const dialogRef = this.dialog.open(CreatePlanComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(
-      result =>  {
-        if(result == true) {
-          this.loadPage(); 
-        }
-      }
-    ); 
   }
 }

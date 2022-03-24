@@ -17,7 +17,8 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
-import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
+import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
+import { PlansTableComponent } from './components/plans/plans-table/plans-table.component';
 import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
 import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
 import { DivisionsTableComponent } from './components/divisions/divisions-table/divisions-table.component';
@@ -103,7 +104,8 @@ const material = [
     LoginComponent,
     FooterComponent,
     NavComponent,
-    PlanListComponent,
+    PlansTableComponent,
+    PlansPageComponent,
     SubareaListComponent,
     DivisionsTableComponent,
     DivisionsPageComponent,
