@@ -90,7 +90,7 @@ namespace E_Forester.API.Controllers
                 Expires = DateTime.UtcNow.AddHours(durationTime),
                 Secure = true,
                 IsEssential = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.Lax,
                 MaxAge = TimeSpan.FromHours(durationTime)
             };
 
