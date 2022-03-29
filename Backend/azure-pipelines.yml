@@ -31,7 +31,7 @@ steps:
 - task: efcore-migration-script-generator-task@1
   displayName: 'Generate Migrations Script'
   inputs:
-    projectpath: 'Backend/E-Forester.Data/E-Forester.Data.csproj'
+    projectpath: 'Backend/E-Forester.Infrastructure/E-Forester.Infrastructure.csproj'
     databasecontexts: 'E_ForesterDbContext'
     startupprojectpath: 'Backend/E-Forester.API/E-Forester.API.csproj'
     targetfolder: '$(build.artifactstagingdirectory)/migrations'
