@@ -2,7 +2,7 @@
 using E_Forester.Application.DataTransferObjects.ForestUnits;
 using E_Forester.Application.Pagination.Wrappers;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using E_Forester.Model.Enums;
 using MediatR;
@@ -19,12 +19,14 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
         private readonly IForestUnitRepository _forestUnitRepository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public GetForestUnitsQueryHandler(IForestUnitRepository forestUnitRepository, IMapper mapper, IAuthService authService)
+        public GetForestUnitsQueryHandler(IForestUnitRepository forestUnitRepository, IAuthService authService, IUserRepository userRepository, IMapper mapper)
         {
             _forestUnitRepository = forestUnitRepository;
             _mapper = mapper;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public async Task<Page<ForestUnitDto>> Handle(GetForestUnitsQuery request, CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
 
             var forestUnits = new List<ForestUnit>();
 
-            forestUnitsQuery = await FilterAuth(forestUnitsQuery);
+            forestUnitsQuery = await FilterAssignedForestUnits(forestUnitsQuery);
 
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
@@ -62,13 +64,14 @@ namespace E_Forester.Application.Content.ForestUnits.Queries.GetForestUnitsQuery
                     .ToListAsync();
         }
 
-        private async Task<IQueryable<ForestUnit>> FilterAuth(IQueryable<ForestUnit> forestUnitsQuery)
+        private async Task<IQueryable<ForestUnit>> FilterAssignedForestUnits(IQueryable<ForestUnit> forestUnitsQuery)
         {
             if (_authService.GetCurrentUserRole() != UserRole.Admin)
             {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
 
-                forestUnitsQuery = forestUnitsQuery.Where(x => assignedForestUnits.Contains(x));
+                forestUnitsQuery = forestUnitsQuery.Where(x => user.AssignedForestUnits.Contains(x));
             }
 
             return forestUnitsQuery;

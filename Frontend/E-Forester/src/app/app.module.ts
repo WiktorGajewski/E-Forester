@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,21 +17,24 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './components/nav/nav.component';
-import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
-import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
-import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
-import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
+import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
+import { PlansTableComponent } from './components/plans/plans-table/plans-table.component';
+import { SubareasPageComponent } from './components/subareas/subareas-page/subareas-page.component';
+import { SubareasTableComponent } from './components/subareas/subareas-table/subareas-table.component';
+import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
+import { DivisionsTableComponent } from './components/divisions/divisions-table/divisions-table.component';
+import { ForestUnitsPageComponent } from './components/forest-units/forest-units-page/forest-units-page.component';
+import { ForestUnitsTableComponent } from './components/forest-units/forest-units-table/forest-units-table.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
 import { PlanItemsTableComponent } from './components/plan-items/plan-items-table/plan-items-table.component';
-import { PlanExecutionsTableComponent } from './components/plan-items/plan-executions/plan-executions-table/plan-executions-table.component';
+import { PlanExecutionsTableComponent } from './components/plan-executions/plan-executions-table/plan-executions-table.component';
 import { CreateForestUnitComponent } from './components/forest-units/create-forest-unit/create-forest-unit.component';
 import { CreateDivisionComponent } from './components/divisions/create-division/create-division.component';
 import { CreateSubareaComponent } from './components/subareas/create-subarea/create-subarea.component';
 import { CreatePlanComponent } from './components/plans/create-plan/create-plan.component';
 import { CreatePlanItemComponent } from './components/plan-items/create-plan-item/create-plan-item.component';
-import { CreatePlanExecutionComponent } from './components/plan-items/plan-executions/create-plan-execution/create-plan-execution.component';
+import { CreatePlanExecutionComponent } from './components/plan-executions/create-plan-execution/create-plan-execution.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CardComponent } from './components/dashboard/card/card.component';
 import { MiniCardComponent } from './components/dashboard/mini-card/mini-card.component';
 import { AnnualResultsChartComponent } from './components/dashboard/charts/annual-results-chart/annual-results-chart.component';
 import { EnumToArrayPipe } from './helpers/pipes/enum-to-array.pipe';
@@ -39,7 +43,8 @@ import { DivisionFilterComponent } from './components/filters/division-filter/di
 import { SubareaFilterComponent } from './components/filters/subarea-filter/subarea-filter.component';
 import { PlanFilterComponent } from './components/filters/plan-filter/plan-filter.component';
 import { YearDateRangeFilterComponent } from './components/filters/year-date-range-filter/year-date-range-filter.component';
-import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
+import { UsersTableComponent } from './components/users/users-table/users-table.component';
 import { CreateUserComponent } from './components/users/create-user/create-user.component';
 import { AssignForestUnitComponent } from './components/users/assign-forest-unit/assign-forest-unit.component';
 import { ConfirmationComponent } from './components/users/confirmation/confirmation.component';
@@ -68,6 +73,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const material = [
   MatToolbarModule,
@@ -90,7 +96,8 @@ const material = [
   MatDatepickerModule,
   MatMomentDateModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
@@ -99,10 +106,14 @@ const material = [
     LoginComponent,
     FooterComponent,
     NavComponent,
-    PlanListComponent,
-    SubareaListComponent,
-    DivisionListComponent,
-    ForestUnitListComponent,
+    PlansTableComponent,
+    PlansPageComponent,
+    SubareasTableComponent,
+    SubareasPageComponent,
+    DivisionsTableComponent,
+    DivisionsPageComponent,
+    ForestUnitsTableComponent,
+    ForestUnitsPageComponent,
     PlanItemsTableComponent,
     PlanItemsPageComponent,
     PlanExecutionsTableComponent,
@@ -113,7 +124,6 @@ const material = [
     CreatePlanItemComponent,
     CreatePlanExecutionComponent,
     DashboardComponent,
-    CardComponent,
     MiniCardComponent,
     AnnualResultsChartComponent,
     EnumToArrayPipe,
@@ -122,7 +132,8 @@ const material = [
     SubareaFilterComponent,
     PlanFilterComponent,
     YearDateRangeFilterComponent,
-    UserListComponent,
+    UsersTableComponent,
+    UsersPageComponent,
     CreateUserComponent,
     AssignForestUnitComponent,
     ConfirmationComponent,
@@ -137,7 +148,8 @@ const material = [
     LayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgChartsModule
+    NgChartsModule,
+    FormsModule
   ],
   providers: [
     {

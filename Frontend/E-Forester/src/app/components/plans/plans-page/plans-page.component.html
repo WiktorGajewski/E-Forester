@@ -1,0 +1,15 @@
+<div class="container">
+    <h1 style="margin-bottom: 10px;">
+      Plany
+      <mat-divider></mat-divider>
+    </h1>
+
+    <app-plans-table></app-plans-table>
+
+    <div class="button-container">
+        <button mat-mini-fab color="primary" (click)="createPlanDialog()" class="open-dialog-button"
+          matTooltip="Dodaj nowy plan">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

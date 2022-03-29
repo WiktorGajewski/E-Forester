@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Forester.API", "E-Forester.API\E-Forester.API.csproj", "{5C4778A6-DC1B-4F79-BE0E-AFF61339E73C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Forester.Data", "E-Forester.Data\E-Forester.Data.csproj", "{618550CE-FC99-4A0F-8D20-C66F3B779C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Forester.Infrastructure", "E-Forester.Data\E-Forester.Infrastructure.csproj", "{618550CE-FC99-4A0F-8D20-C66F3B779C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Forester.Application", "E-Forester.Application\E-Forester.Application.csproj", "{891C77E2-DFC5-4682-8EC1-0C7F5AB330D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Forester.Application", "E-Forester.Application\E-Forester.Application.csproj", "{891C77E2-DFC5-4682-8EC1-0C7F5AB330D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Forester.Model", "E-Forester.Model\E-Forester.Model.csproj", "{B0DB1284-028A-4A9F-B77F-EB93825BE3E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Forester.Model", "E-Forester.Model\E-Forester.Model.csproj", "{B0DB1284-028A-4A9F-B77F-EB93825BE3E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

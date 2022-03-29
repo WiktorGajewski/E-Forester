@@ -18,6 +18,7 @@ namespace E_Forester.Application.DataTransferObjects.PlanItems
         public int SubareaId { get; set; }
         public int CreatorId { get; set; }
         public string Address { get; set; }
+        public int Year { get; set; }
         public double ExecutedHectares { get; set; }
         public double HarvestedCubicMeters { get; set; }
 

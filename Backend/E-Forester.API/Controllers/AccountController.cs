@@ -1,9 +1,11 @@
-﻿using E_Forester.Application.Content.Account.Commands.ChangePassword;
+﻿using E_Forester.API.Attributes;
+using E_Forester.Application.Content.Account.Commands.ChangePassword;
 using E_Forester.Application.Content.Account.Commands.Register;
-using E_Forester.Application.Content.Account.Commands.RevokeToken;
 using E_Forester.Application.Content.Account.Queries.GetProfileInfo;
 using E_Forester.Application.Content.Account.Queries.Login;
-using E_Forester.Application.Content.Account.Queries.RefreshToken;
+using E_Forester.Application.DataTransferObjects.Account;
+using E_Forester.Application.DataTransferObjects.Users;
+using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,14 +27,22 @@ namespace E_Forester.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfileInfo([FromQuery] GetProfileInfoQuery query)
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetProfileInfo()
         {
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(new GetProfileInfoQuery());
             return Ok(result);
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login([FromBody] LoginQuery query)
         {
             var result = await _mediator.Send(query);
@@ -42,62 +52,32 @@ namespace E_Forester.API.Controllers
 
         [AllowAnonymous]
         [HttpOptions("login")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult LoginOptions()
         {
             return NoContent();
         }
 
-        [AllowAnonymous]
-        [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshToken()
-        {
-            var refreshToken = Request.Cookies["RefreshToken"];
-
-            var result = await _mediator.Send(new RefreshTokenQuery() { RefreshToken = refreshToken });
-
-            setTokenCookie(result.RefreshToken);
-
-            return Ok(result);
-        }
-
-        [AllowAnonymous]
-        [HttpOptions("refresh-token")]
-        public IActionResult RefreshTokenOptions()
-        {
-            return NoContent();
-        }
-
-        [HttpPost("revoke-token")]
-        public async Task<IActionResult> RevokeToken()
-        {
-            var refreshToken = Request.Cookies["RefreshToken"];
-
-            if (refreshToken == null)
-                return BadRequest(new { Error = "Token is required" });
-
-            await _mediator.Send(new RevokeTokenCommand() { RefreshToken = refreshToken });
-
-            return Ok();
-        }
-
-        [HttpOptions("revoke-token")]
-        public IActionResult RevokeTokenOptions()
-        {
-            return NoContent();
-        }
-
+        [AuthorizedRole(new[] { UserRole.Admin })]
         [HttpPost("register")]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Register([FromBody] RegisterCommand command)
         {
             await _mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut("change-password")]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordCommand command)
         {
             await _mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         private void setTokenCookie(string token)

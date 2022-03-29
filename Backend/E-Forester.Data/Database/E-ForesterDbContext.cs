@@ -1,7 +1,8 @@
-﻿using E_Forester.Model.Database;
+﻿using E_Forester.Data.Database.Configuration;
+using E_Forester.Model.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_Forester.Data.Database
+namespace E_Forester.Infrastructure.Database
 {
     public class E_ForesterDbContext : DbContext
     {
@@ -23,80 +24,19 @@ namespace E_Forester.Data.Database
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.HasIndex(e => e.Login).IsUnique();
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
-                entity.HasMany(e => e.AssignedForestUnits)
-                    .WithMany(e => e.AssignedUsers);
+            modelBuilder.ApplyConfiguration(new ForestUnitConfiguration());
 
-                entity.OwnsMany(e => e.RefreshTokens);
-            });
+            modelBuilder.ApplyConfiguration(new DivisionConfiguration());
 
-            modelBuilder.Entity<Division>(entity =>
-            {
-                entity.HasOne(e => e.ForestUnit)
-                    .WithMany(e => e.Divisions)
-                    .HasForeignKey(e => e.ForestUnitId);
-            });
+            modelBuilder.ApplyConfiguration(new SubareaConfiguration());
 
-            modelBuilder.Entity<Subarea>(entity =>
-            {
-                entity.HasOne(e => e.Division)
-                    .WithMany(e => e.Subareas)
-                    .HasForeignKey(e => e.DivisionId);
-            });
+            modelBuilder.ApplyConfiguration(new PlanConfiguration());
 
-            modelBuilder.Entity<Plan>(entity =>
-            {
-                entity.HasIndex(e => new { e.ForestUnitId, e.Year}).IsUnique();
+            modelBuilder.ApplyConfiguration(new PlanItemConfiguration());
 
-                entity.HasOne(e => e.ForestUnit)
-                    .WithMany(e => e.Plans)
-                    .HasForeignKey(e => e.ForestUnitId);
-
-                entity.HasOne(e => e.Creator)
-                    .WithMany()
-                    .HasForeignKey(e => e.CreatorId);
-            });
-
-            modelBuilder.Entity<PlanItem>(entity =>
-            {
-                entity.HasIndex(e => new { e.PlanId, e.SubareaId, e.ActionGroup }).IsUnique();
-
-                entity.HasOne(e => e.Plan)
-                    .WithMany(e => e.PlanItems)
-                    .HasForeignKey(e => e.PlanId);
-                    
-
-                entity.HasOne(e => e.Subarea)
-                    .WithMany(e => e.PlanItems)
-                    .HasForeignKey(e => e.SubareaId)
-                    .OnDelete(DeleteBehavior.ClientNoAction);
-
-                entity.HasOne(e => e.Creator)
-                    .WithMany()
-                    .HasForeignKey(e => e.CreatorId)
-                    .OnDelete(DeleteBehavior.ClientNoAction);
-            });
-
-            modelBuilder.Entity<PlanExecution>(entity =>
-            {
-                entity.HasOne(e => e.Plan)
-                    .WithMany(e => e.PlanExecutions)
-                    .HasForeignKey(e => e.PlanId);
-                    
-
-                entity.HasOne(e => e.PlanItem)
-                    .WithMany(e => e.PlanExecutions)
-                    .HasForeignKey(e => e.PlanItemId)
-                    .OnDelete(DeleteBehavior.ClientNoAction);
-
-                entity.HasOne(e => e.Creator)
-                    .WithMany()
-                    .HasForeignKey(e => e.CreatorId)
-                    .OnDelete(DeleteBehavior.ClientNoAction);
-            });
+            modelBuilder.ApplyConfiguration(new PlanExecutionConfiguration());
         }
     }
 }

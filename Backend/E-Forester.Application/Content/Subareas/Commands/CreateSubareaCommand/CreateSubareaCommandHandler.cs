@@ -1,9 +1,8 @@
 ﻿using E_Forester.Application.CustomExceptions;
-using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
-using E_Forester.Model.Enums;
 using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,20 +11,20 @@ namespace E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand
     public class CreateSubareaCommandHandler : IRequestHandler<CreateSubareaCommand>
     {
         private readonly ISubareaRepository _subareaRepository;
-        private readonly IAuthService _authService;
+        private readonly IDivisionRepository _divisionRepository;
 
-        public CreateSubareaCommandHandler(ISubareaRepository subareaRepository, IAuthService authService)
+        public CreateSubareaCommandHandler(ISubareaRepository subareaRepository, IDivisionRepository divisionRepository)
         {
             _subareaRepository = subareaRepository;
-            _authService = authService;
+            _divisionRepository = divisionRepository;
         }
 
         public async Task<Unit> Handle(CreateSubareaCommand request, CancellationToken cancellationToken)
         {
-            var auth = _authService.GetCurrentUserRole() == UserRole.Admin;
+            var division = _divisionRepository.GetDivisions().FirstOrDefault(d => d.Id == request.DivisionId);
 
-            if (!auth)
-                throw new ForbiddenException();
+            if(division == null)
+                throw new BadRequestException("Nie znaleziono oddziału o podanym Id");
 
             var subarea = new Subarea()
             {
@@ -34,7 +33,7 @@ namespace E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand
                 DivisionId = request.DivisionId
             };
 
-            await _subareaRepository.CreateSubareaAsync(subarea);
+            await _subareaRepository.AddSubareaAsync(subarea);
 
             return await Task.FromResult(Unit.Value);
         }

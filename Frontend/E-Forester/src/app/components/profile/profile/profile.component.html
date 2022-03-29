@@ -9,12 +9,12 @@
 
         <mat-list>
             <mat-list-item *ngIf="user.assignedForestUnits?.length == 0">
-                <span>
+                <span class="list-item">
                     Brak
                 </span>
             </mat-list-item>
             <mat-list-item *ngFor="let forestUnit of user.assignedForestUnits">
-                <span class="test">
+                <span class="list-item">
                     {{forestUnit.name}}
                 </span>
             </mat-list-item>

@@ -2,7 +2,7 @@
 using E_Forester.Application.DataTransferObjects.Subareas;
 using E_Forester.Application.Pagination.Wrappers;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using E_Forester.Model.Enums;
 using MediatR;
@@ -19,12 +19,14 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
         private readonly ISubareaRepository _subareaRepository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public GetSubareasQueryHandler(ISubareaRepository subareaRepository, IMapper mapper, IAuthService authService)
+        public GetSubareasQueryHandler(ISubareaRepository subareaRepository, IAuthService authService, IUserRepository userRepository, IMapper mapper)
         {
             _subareaRepository = subareaRepository;
             _mapper = mapper;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public async Task<Page<SubareaDto>> Handle(GetSubareasQuery request, CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
 
             var subareas = new List<Subarea>();
 
-            subareasQuery = await FilterAuth(subareasQuery);
+            subareasQuery = await FilterAssignedForestUnits(subareasQuery);
 
             if (request.ForestUnitId != null)
             {
@@ -72,13 +74,14 @@ namespace E_Forester.Application.Content.Subareas.Queries.GetSubareasQuery
                     .ToListAsync();
         }
 
-        private async Task<IQueryable<Subarea>> FilterAuth(IQueryable<Subarea> subareasQuery)
+        private async Task<IQueryable<Subarea>> FilterAssignedForestUnits(IQueryable<Subarea> subareasQuery)
         {
             if (_authService.GetCurrentUserRole() != UserRole.Admin)
             {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
 
-                subareasQuery = subareasQuery.Where(x => assignedForestUnits.Contains(x.Division.ForestUnit));
+                subareasQuery = subareasQuery.Where(x => user.AssignedForestUnits.Contains(x.Division.ForestUnit));
             }
 
             return subareasQuery;

@@ -30,11 +30,11 @@ export class PlanItemsDataSource implements DataSource<IPlanItem> {
 
     loadPlanItems(forestUnitId: number|null = null, divisionId: number|null = null,
             subareaId: number|null = null, planId: number|null = null,
-            pageIndex = 1, pageSize = 10) : void {
+            pageIndex = 1, pageSize = 10, filterByNotCompleted = false) : void {
 
         this.loadingSubject.next(true);
 
-        this.planItemService.getPlanItems(forestUnitId, divisionId, subareaId, planId, pageIndex, pageSize)
+        this.planItemService.getPlanItems(forestUnitId, divisionId, subareaId, planId, pageIndex, pageSize, filterByNotCompleted)
             .pipe(finalize(() => this.loadingSubject.next(false)))
             .subscribe({
                 next: (value: IPage<IPlanItem>) => {

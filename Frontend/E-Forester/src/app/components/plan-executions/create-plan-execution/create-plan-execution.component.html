@@ -1,0 +1,45 @@
+<div class="container">
+    <h2 mat-dialog-title>Dodaj wykonanie planu</h2>
+    
+    <h3>Adres leśny: {{selectedPlanItem?.address}}</h3>
+    <h3>Rok: {{selectedPlanItem?.year}}</h3>
+    <h3>Grupa akcji: {{actionGroups[selectedPlanItem?.actionGroup ?? 0]}}</h3>
+
+
+    <form [formGroup]="Form" (ngSubmit)="submit()">
+
+        <mat-error *ngIf="errorMessage" style="margin-bottom: 5px;">
+            Wystąpił błąd przy próbie utworzenia obiektu: {{error}}
+        </mat-error>
+
+        <mat-dialog-content>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Ilość wykonanych hektarów</mat-label>
+                <input matInput formControlName="executedHectares" id="executedHectares" type="number" class="form-control" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Ilość pozyskanych metrów sześciennych (m<sup>3</sup>)</mat-label>
+                <input matInput formControlName="harvestedCubicMeters" id="harvestedCubicMeters" type="number" class="form-control" required>
+            </mat-form-field>
+
+        </mat-dialog-content>
+
+        
+
+        <mat-dialog-actions>
+            <div *ngIf="!loading">
+                <button mat-button [disabled]="Form.invalid" type="submit">
+                    Dodaj
+                </button>
+                <button mat-button type="button" (click)="cancel()">Anuluj</button>
+            </div>
+            
+            <div class="spinner" *ngIf="loading">
+                <mat-spinner diameter="40"></mat-spinner>
+            </div>
+        </mat-dialog-actions>
+        
+    </form>
+</div>

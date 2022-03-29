@@ -16,9 +16,10 @@ export class PlanItemService {
    }
 
   getPlanItems(forestUnitId: number | null, divisionId: number | null, subareaId: number | null,
-      planId: number | null, pageIndex : number | null, pageSize: number | null): Observable<IPage<IPlanItem>> {
+      planId: number | null, pageIndex : number | null, pageSize: number | null, filterByNotCompleted : boolean = false): Observable<IPage<IPlanItem>> {
 
-    let params = new HttpParams();
+    let params = new HttpParams()
+        .append("FilterByNotCompleted", filterByNotCompleted);
 
     if(pageIndex && pageSize) {
       params = params
@@ -51,6 +52,14 @@ export class PlanItemService {
         catchError(this.handleError<IPage<IPlanItem>>('getPlanItems', this.createBlankPage()))
       );
    }
+
+   getPlanItem(planItemId: number): Observable<IPlanItem> {
+
+    return this.http.get<IPlanItem>(`${this.apiUrl}plan-items/${planItemId}`)
+      .pipe(
+        catchError(this.handleError<IPlanItem>('getPlan', undefined ))
+      );
+  }
 
   createBlankPage() : IPage<IPlanItem> {
     const blankPage : IPage<IPlanItem> = {

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Interfaces
+namespace E_Forester.Infrastructure.Interfaces
 {
     public interface IPlanItemRepository
     {
         IQueryable<PlanItem> GetPlanItems();
         Task ClosePlanItemsAsync(List<int> planItemIds);
         Task OpenPlanItemsAsync(List<int> planItemIds);
-        Task CreatePlanItemAsync(PlanItem newPlanItem);
+        Task AddPlanItemAsync(PlanItem newPlanItem);
     }
 }

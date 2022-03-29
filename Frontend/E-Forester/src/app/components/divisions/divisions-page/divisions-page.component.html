@@ -1,0 +1,23 @@
+<div class="container">
+    <h1 style="margin-bottom: 10px;">
+        Oddziały
+        <mat-divider></mat-divider>
+    </h1>
+
+    <app-forest-unit-filter 
+        [selectedForestUnitId]="selectedForestUnitId"
+        (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+    </app-forest-unit-filter>
+
+    <app-divisions-table
+        [selectedForestUnitId]="selectedForestUnitId">
+    </app-divisions-table>
+
+    <div class="button-container" *ngIf="userRole == 1">
+        <button mat-mini-fab color="primary" (click)="createDivisionDialog()" class="open-dialog-button"
+            matTooltip="Dodaj nowy oddział">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+</div>

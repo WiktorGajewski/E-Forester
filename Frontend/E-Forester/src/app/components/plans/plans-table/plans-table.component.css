@@ -1,0 +1,82 @@
+.table-container{
+    overflow-x: auto;
+}
+
+.table{
+    width: 100%;
+}
+
+.mat-column-id{
+    border-right: 1px solid grey;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-year{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-forestUnitName{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-plannedHectares{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-executedHectares{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-plannedCubicMeters{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-harvestedCubicMeters{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-completedPlanItems{
+    border-right: 1px solid grey;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.mat-column-isCompleted{
+    padding-left: 20px;
+    text-align: center;
+}
+
+.mat-column-actions{
+    text-align: center;
+}
+
+.spinner{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.mat-row:hover {
+    background: dimgrey;
+}

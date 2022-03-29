@@ -27,7 +27,7 @@ export class PlanExecutionsDataSource implements DataSource<IPlanExecution> {
         this.totalCountSubject.complete();
     }
 
-    loadPlanExecutions(pageItemId: number|null = null, pageIndex = 1, pageSize = 10) : void {
+    loadPlanExecutions(pageItemId: number|null = null, pageIndex = 1, pageSize = 5) : void {
 
         this.loadingSubject.next(true);
 

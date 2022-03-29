@@ -40,6 +40,8 @@ namespace E_Forester.Application.AutoMapper
             CreateMap<PlanItem, PlanItemDto>()
                 .ForMember(dest => dest.Address,
                     opt => opt.MapFrom(p => p.Subarea.Address))
+                .ForMember(dest => dest.Year,
+                    opt => opt.MapFrom(p => p.Plan.Year))
                 .ForMember(dest => dest.ExecutedHectares,
                     opt => opt.MapFrom(p => p.PlanExecutions.Sum(x => x.ExecutedHectares)))
                 .ForMember(dest => dest.HarvestedCubicMeters,

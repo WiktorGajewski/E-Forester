@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using E_Forester.Application.DataTransferObjects.Users;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using MediatR;
 using System.Threading;
@@ -18,8 +18,8 @@ namespace E_Forester.Application.Content.Account.Queries.GetProfileInfo
         public GetProfileInfoQueryHandler(IUserRepository userRepository, IAuthService authService, IMapper mapper)
         {
             _userRepository = userRepository;
-            this._authService = authService;
-            this._mapper = mapper;
+            _authService = authService;
+            _mapper = mapper;
         }
 
         public async Task<UserDto> Handle(GetProfileInfoQuery request, CancellationToken cancellationToken)

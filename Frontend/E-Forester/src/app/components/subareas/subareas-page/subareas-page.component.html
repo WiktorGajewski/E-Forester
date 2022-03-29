@@ -1,0 +1,30 @@
+<div class="container">
+    <h1 style="margin-bottom: 10px;">
+      Wydzielenia
+      <mat-divider></mat-divider>
+    </h1>
+  
+    <app-forest-unit-filter 
+      [selectedForestUnitId]="selectedForestUnitId"
+      (selectedForestUnitIdChange)="selectedForestUnitId=$event;">
+    </app-forest-unit-filter>
+  
+    <app-division-filter 
+      [forestUnitId]="selectedForestUnitId"
+      [selectedDivisionId]="selectedDivisionId"
+      (selectedDivisionIdChange)="selectedDivisionId=$event;">
+    </app-division-filter>
+    
+    <app-subareas-table
+        [selectedForestUnitId]="selectedForestUnitId"
+        [selectedDivisionId]="selectedDivisionId">
+    </app-subareas-table>
+    
+    <div class="button-container" *ngIf="userRole == 1">
+        <button mat-mini-fab color="primary" (click)="createSubareaDialog()" class="open-dialog-button"
+            matTooltip="Dodaj nowe wydzielenie">
+          <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    
+</div>

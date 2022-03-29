@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace E_Forester.Data.Migrations
+namespace E_Forester.Infrastructure.Migrations
 {
     public partial class AddRefreshToken : Migration
     {

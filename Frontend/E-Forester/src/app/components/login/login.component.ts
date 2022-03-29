@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginComponent implements OnInit {
   hide = true;
   loginInvalid = false;
+  error = "";
   loading = false;
 
   loginForm!: FormGroup;
@@ -34,9 +35,10 @@ export class LoginComponent implements OnInit {
             complete : () => {
               this.router.navigate(["/"]);
             },
-            error : () => {
+            error : err => {
               this.loading = false;
               this.loginInvalid = true;
+              this.error = err;
             }
           });
     }

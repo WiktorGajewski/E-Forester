@@ -1,6 +1,6 @@
 ﻿using E_Forester.Application.CustomExceptions;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using E_Forester.Model.Enums;
 using MediatR;
@@ -16,13 +16,15 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
         private readonly IPlanItemRepository _planItemRepository;
         private readonly IPlanRepository _planRepository;
         private readonly ISubareaRepository _subareaRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
 
-        public CreatePlanItemCommandHandler(IPlanItemRepository planItemRepository, IPlanRepository planRepository, ISubareaRepository subareaRepository, IAuthService authService)
+        public CreatePlanItemCommandHandler(IPlanItemRepository planItemRepository, IPlanRepository planRepository, ISubareaRepository subareaRepository, IAuthService authService, IUserRepository userRepository)
         {
             _planItemRepository = planItemRepository;
             _planRepository = planRepository;
             _subareaRepository = subareaRepository;
+            _userRepository = userRepository;
             _authService = authService;
         }
 
@@ -32,24 +34,19 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             var subarea = await _subareaRepository.GetSubareaAsync(request.SubareaId);
 
             if(plan == null)
-                throw new BadRequestException("Plan not found");
+                throw new BadRequestException("Nie znaleziono planu o podanym Id");
 
             if (subarea == null)
-                throw new BadRequestException("Subarea not found");
+                throw new BadRequestException("Nie znaleziono wydzielenia o podanym Id");
 
             if (subarea.Division.Id == plan.ForestUnitId)
-                throw new BadRequestException("Plan and subarea belong to two different forest units");
+                throw new BadRequestException("Podany plan i wydzielenie należa do różnych leśnictw");
 
-            if (_authService.GetCurrentUserRole() != UserRole.Admin)
-            {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+            if (!await CheckAssignedForestUnit(plan.ForestUnit))
+                throw new ForbiddenException("Nie masz uprawnień do tego leśnictwa");
 
-                if (!assignedForestUnits.Contains(plan.ForestUnit))
-                    throw new ForbiddenException();
-            }
-
-            if(plan.IsCompleted)
-                throw new BadRequestException("Plan is already completed");
+            if (plan.IsCompleted)
+                throw new BadRequestException("Plan został już ukończony - dodawanie nowych pozycji planu zablokowane");
 
             var checkDuplicate = _planItemRepository.GetPlanItems().FirstOrDefault(p =>
                 p.PlanId == request.PlanId &&
@@ -58,7 +55,7 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
             );
 
             if(checkDuplicate != null)
-                throw new BadRequestException("Such plan item already exists - duplicate");
+                throw new BadRequestException("Taka pozycja planu już istnieje");
 
             var planItem = new PlanItem()
             {
@@ -75,9 +72,23 @@ namespace E_Forester.Application.Content.PlanItems.Commands.CreatePlanItemComman
                 CreatorId = _authService.GetCurrentUserId()
             };
 
-            await _planItemRepository.CreatePlanItemAsync(planItem);
+            await _planItemRepository.AddPlanItemAsync(planItem);
 
             return await Task.FromResult(Unit.Value);
+        }
+
+        private async Task<bool> CheckAssignedForestUnit(ForestUnit checkForestUnit)
+        {
+            if (_authService.GetCurrentUserRole() != UserRole.Admin)
+            {
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
+
+                if (!user.AssignedForestUnits.Contains(checkForestUnit))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

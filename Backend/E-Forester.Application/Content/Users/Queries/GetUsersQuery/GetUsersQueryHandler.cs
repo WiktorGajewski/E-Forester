@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using E_Forester.Application.CustomExceptions;
 using E_Forester.Application.DataTransferObjects.Users;
 using E_Forester.Application.Pagination.Wrappers;
-using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
-using E_Forester.Model.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -19,22 +16,15 @@ namespace E_Forester.Application.Content.Users.Queries.GetUsersQuery
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly IAuthService _authService;
 
-        public GetUsersQueryHandler(IUserRepository userRepository, IMapper mapper, IAuthService authService)
+        public GetUsersQueryHandler(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-            _authService = authService;
         }
 
         public async Task<Page<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var auth = _authService.GetCurrentUserRole() == UserRole.Admin;
-
-            if (!auth)
-                throw new ForbiddenException();
-
             var usersQuery = _userRepository.GetUsers();
 
             var users = new List<User>();

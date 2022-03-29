@@ -1,9 +1,8 @@
 ﻿using E_Forester.Application.CustomExceptions;
-using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
-using E_Forester.Model.Enums;
 using MediatR;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,20 +11,20 @@ namespace E_Forester.Application.Content.Divisions.Commands.CreateDivisionComman
     public class CreateDivisionCommandHandler : IRequestHandler<CreateDivisionCommand>
     {
         private readonly IDivisionRepository _divisionRepository;
-        private readonly IAuthService _authService;
+        private readonly IForestUnitRepository _forestUnitRepository;
 
-        public CreateDivisionCommandHandler(IDivisionRepository divisionRepository, IAuthService authService)
+        public CreateDivisionCommandHandler(IDivisionRepository divisionRepository, IForestUnitRepository forestUnitRepository)
         {
             _divisionRepository = divisionRepository;
-            _authService = authService;
+            _forestUnitRepository = forestUnitRepository;
         }
 
         public async Task<Unit> Handle(CreateDivisionCommand request, CancellationToken cancellationToken)
         {
-            var auth = _authService.GetCurrentUserRole() == UserRole.Admin;
+            var forestUnit = _forestUnitRepository.GetForestUnits().FirstOrDefault(f => f.Id == request.ForestUnitId);
 
-            if (!auth)
-                throw new ForbiddenException();
+            if (forestUnit == null)
+                throw new BadRequestException("Nie znaleziono leśnictwa o podanym Id");
 
             var division = new Division()
             {
@@ -34,7 +33,7 @@ namespace E_Forester.Application.Content.Divisions.Commands.CreateDivisionComman
                 ForestUnitId = request.ForestUnitId
             };
 
-            await _divisionRepository.CreateDivisionAsync(division);
+            await _divisionRepository.AddDivisionAsync(division);
 
             return await Task.FromResult(Unit.Value);
         }

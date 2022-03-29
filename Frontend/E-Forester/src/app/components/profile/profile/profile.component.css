@@ -9,11 +9,10 @@ mat-card-content {
     margin-top: 15px;
 }
 
-.test {
+.list-item {
     text-align: center;
     width: 100%; 
 }
-
 
 @media only screen and (max-width: 600px) {
     mat-card{

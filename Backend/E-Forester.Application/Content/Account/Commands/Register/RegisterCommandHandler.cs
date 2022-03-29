@@ -1,8 +1,6 @@
 ﻿using E_Forester.Application.CustomExceptions;
-using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
-using E_Forester.Model.Enums;
 using MediatR;
 using System;
 using System.Threading;
@@ -13,25 +11,18 @@ namespace E_Forester.Application.Content.Account.Commands.Register
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAuthService _authService;
 
-        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService)
+        public RegisterCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _authService = authService;
         }
 
         public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            var auth = _authService.GetCurrentUserRole() == UserRole.Admin;
-
-            if(!auth)
-                throw new ForbiddenException();
-
             var checkLogin = await _userRepository.GetUserAsync(request.Login);
 
             if (checkLogin != null)
-                throw new BadRequestException("User with such login already exists");
+                throw new BadRequestException("Użytkownik z podanym loginem już istnieje");
 
             var newUser = new User()
             {

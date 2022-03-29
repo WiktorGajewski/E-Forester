@@ -1,7 +1,4 @@
-﻿using E_Forester.Model.Database;
-using E_Forester.Model.Enums;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using E_Forester.Model.Enums;
 
 namespace E_Forester.Application.Security.Interfaces
 {
@@ -9,6 +6,5 @@ namespace E_Forester.Application.Security.Interfaces
     {
         int GetCurrentUserId();
         UserRole GetCurrentUserRole();
-        Task<ICollection<ForestUnit>> GetAssignedForestUnits();
     }
 }

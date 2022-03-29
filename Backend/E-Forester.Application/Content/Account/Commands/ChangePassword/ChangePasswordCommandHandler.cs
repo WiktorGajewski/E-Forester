@@ -1,5 +1,5 @@
 ﻿using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using MediatR;
 using System;
 using System.Threading;
@@ -25,7 +25,7 @@ namespace E_Forester.Application.Content.Account.Commands.ChangePassword
 
             var authenticated = await _userRepository.Authenticate(user.Login, request.OldPassword);
             if (!authenticated)
-                throw new UnauthorizedAccessException("Authorization failed.");
+                throw new UnauthorizedAccessException("Uwierzytelnianie nie powiodło się");
 
             await _userRepository.ChangePasswordAsync(user, request.NewPassword);
 

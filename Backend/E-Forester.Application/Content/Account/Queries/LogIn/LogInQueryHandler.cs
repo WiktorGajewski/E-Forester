@@ -1,6 +1,6 @@
 ﻿using E_Forester.Application.DataTransferObjects.Account;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using MediatR;
 using System;
 using System.Threading;
@@ -23,12 +23,12 @@ namespace E_Forester.Application.Content.Account.Queries.Login
         {
             var authenticated = await _userRepository.Authenticate(request.Login, request.Password);
             if (!authenticated)
-                throw new UnauthorizedAccessException("Login failed");
+                throw new UnauthorizedAccessException("Niepoprawny login lub hasło");
 
             var user = await _userRepository.GetUserAsync(request.Login);
 
             if(user.IsActive == false)
-                throw new UnauthorizedAccessException("Account is blocked");
+                throw new UnauthorizedAccessException("Konto jest zablokowane");
 
             var token = _tokenService.GenerateToken(user);
             var refreshToken = _tokenService.GenerateRefreshToken();

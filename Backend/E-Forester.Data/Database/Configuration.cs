@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace E_Forester.Data.Database
+namespace E_Forester.Infrastructure.Database
 {
     public static class Configuration
     {

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DivisionListComponent } from './components/divisions/division-list/division-list.component';
-import { ForestUnitListComponent } from './components/forest-units/forest-unit-list/forest-unit-list.component';
+import { DivisionsPageComponent } from './components/divisions/divisions-page/divisions-page.component';
+import { ForestUnitsPageComponent } from './components/forest-units/forest-units-page/forest-units-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlanItemsPageComponent } from './components/plan-items/plan-items-page/plan-items-page.component';
-import { PlanListComponent } from './components/plans/plan-list/plan-list.component';
+import { PlansPageComponent } from './components/plans/plans-page/plans-page.component';
 import { ProfileComponent } from './components/profile/profile/profile.component';
-import { SubareaListComponent } from './components/subareas/subarea-list/subarea-list.component';
-import { UserListComponent } from './components/users/user-list/user-list.component';
+import { SubareasPageComponent } from './components/subareas/subareas-page/subareas-page.component';
+import { UsersPageComponent } from './components/users/users-page/users-page.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { Role } from './models/user.model';
 
@@ -17,19 +17,19 @@ const routes: Routes = [
     path: "login", component: LoginComponent
   },
   { 
-    path: "plans", component: PlanListComponent,
+    path: "plans", component: PlansPageComponent,
     canActivate: [AuthGuard]
   },
   { 
-    path: "subareas", component: SubareaListComponent,
+    path: "subareas", component: SubareasPageComponent,
     canActivate: [AuthGuard]
   },
   { 
-    path: "divisions", component: DivisionListComponent,
+    path: "divisions", component: DivisionsPageComponent,
     canActivate: [AuthGuard]
   },
   { 
-    path: "forest-units", component: ForestUnitListComponent,
+    path: "forest-units", component: ForestUnitsPageComponent,
     canActivate: [AuthGuard]
   },
   { 
@@ -41,7 +41,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { 
-    path: "users", component: UserListComponent,
+    path: "users", component: UsersPageComponent,
     canActivate: [AuthGuard], data: { roles: [Role.Administrator]}
   },
   { 

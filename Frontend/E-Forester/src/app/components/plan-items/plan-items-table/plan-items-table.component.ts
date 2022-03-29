@@ -1,12 +1,10 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTable } from '@angular/material/table';
 import { ActionGroup, IPlanItem, WoodAssortment } from 'src/app/models/plan-item.model';
 import { PlanItemService } from 'src/app/services/plan-items/plan-item.service';
 import { PlanItemsDataSource } from 'src/app/services/plan-items/plan-items.data-source';
-import { CollectionViewer } from "@angular/cdk/collections";
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -32,6 +30,7 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
   @Input() selectedDivisionId: number | null = null;
   @Input() selectedSubareaId: number | null = null;
   @Input() selectedPlanId: number | null = null;
+  @Input() filterByNotCompleted: boolean = false;
 
   @Output() selectionChange = new EventEmitter<boolean>();
 
@@ -77,6 +76,7 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.dataSource){
+      this.paginator.pageIndex = 0;
       this.reloadTable();
     }
   }
@@ -88,7 +88,8 @@ export class PlanItemsTableComponent implements OnInit, AfterViewInit, OnChanges
       this.selectedSubareaId,
       this.selectedPlanId,
       this.paginator.pageIndex + 1,
-      this.paginator.pageSize
+      this.paginator.pageSize,
+      this.filterByNotCompleted
     );
 
     this.selection.clear();

@@ -2,7 +2,7 @@
 using E_Forester.Application.DataTransferObjects.PlanItems;
 using E_Forester.Application.Pagination.Wrappers;
 using E_Forester.Application.Security.Interfaces;
-using E_Forester.Data.Interfaces;
+using E_Forester.Infrastructure.Interfaces;
 using E_Forester.Model.Database;
 using E_Forester.Model.Enums;
 using MediatR;
@@ -19,12 +19,14 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
         private readonly IPlanItemRepository _planItemRepository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IMapper mapper, IAuthService authService)
+        public GetPlanItemsQueryHandler(IPlanItemRepository planItemRepository, IAuthService authService, IUserRepository userRepository, IMapper mapper)
         {
             _planItemRepository = planItemRepository;
             _mapper = mapper;
             _authService = authService;
+            _userRepository = userRepository;
         }
 
         public async Task<Page<PlanItemDto>> Handle(GetPlanItemsQuery request, CancellationToken cancellationToken)
@@ -33,9 +35,9 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
 
             var planItems = new List<PlanItem>();
 
-            planItemsQuery = await FilterAuth(planItemsQuery);
+            planItemsQuery = await FilterAssignedForestUnits(planItemsQuery);
 
-            planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId);
+            planItemsQuery = Filter(planItemsQuery, request.ForestUnitId, request.DivisionId, request.SubareaId, request.PlanId, request.FilterByNotCompleted);
 
             if (request.PageSize > 0 && request.PageIndex > 0)
             {
@@ -68,7 +70,7 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                     .ToListAsync();
         }
 
-        private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId)
+        private IQueryable<PlanItem> Filter(IQueryable<PlanItem> planItemsQuery, int? forestUnitId, int? divisionId, int? subareaId, int? planId, bool filterByNotCompleted)
         {
             if (forestUnitId != null)
             {
@@ -90,16 +92,22 @@ namespace E_Forester.Application.Content.PlanItems.Queries.GetPlanItemsQuery
                 planItemsQuery = planItemsQuery.Where(d => d.PlanId == planId);
             }
 
+            if(filterByNotCompleted)
+            {
+                planItemsQuery = planItemsQuery.Where(p => p.IsCompleted == false);
+            }
+
             return planItemsQuery;
         }
 
-        private async Task<IQueryable<PlanItem>> FilterAuth(IQueryable<PlanItem> planItemsQuery)
+        private async Task<IQueryable<PlanItem>> FilterAssignedForestUnits(IQueryable<PlanItem> planItemsQuery)
         {
             if (_authService.GetCurrentUserRole() != UserRole.Admin)
             {
-                var assignedForestUnits = await _authService.GetAssignedForestUnits();
+                var id = _authService.GetCurrentUserId();
+                var user = await _userRepository.GetUserAsync(id);
 
-                planItemsQuery = planItemsQuery.Where(x => assignedForestUnits.Contains(x.Plan.ForestUnit));
+                planItemsQuery = planItemsQuery.Where(x => user.AssignedForestUnits.Contains(x.Plan.ForestUnit));
             }
 
             return planItemsQuery;

@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_Forester.Data.Interfaces
+namespace E_Forester.Infrastructure.Interfaces
 {
     public interface IForestUnitRepository
     {
         IQueryable<ForestUnit> GetForestUnits();
         Task<ForestUnit> GetForestUnitAsync(int id);
-        Task CreateForestUnitAsync(ForestUnit newForestUnit);
+        Task AddForestUnitAsync(ForestUnit newForestUnit);
     }
 }
