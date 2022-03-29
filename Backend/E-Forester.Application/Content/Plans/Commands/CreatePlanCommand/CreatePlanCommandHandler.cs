@@ -31,7 +31,7 @@ namespace E_Forester.Application.Content.Plans.Commands.CreatePlanCommand
 
             var plansQuery = _planRepository.GetPlans();
 
-            var checkDuplicate = plansQuery.FirstOrDefault(p => p.ForestUnitId == request.ForestUnitId && p.Year == p.Year);
+            var checkDuplicate = plansQuery.FirstOrDefault(p => p.ForestUnitId == request.ForestUnitId && p.Year == request.Year);
             
             if (checkDuplicate != null)
                 throw new BadRequestException("Plan dla podanego leśnictwa i danego roku już istnieje");
