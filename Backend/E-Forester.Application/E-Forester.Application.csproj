@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\E-Forester.Data\E-Forester.Infrastructure.csproj" />
+    <ProjectReference Include="..\E-Forester.Infrastructure\E-Forester.Infrastructure.csproj" />
     <ProjectReference Include="..\E-Forester.Model\E-Forester.Model.csproj" />
   </ItemGroup>
 
