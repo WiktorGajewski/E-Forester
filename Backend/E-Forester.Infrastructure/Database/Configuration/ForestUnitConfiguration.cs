@@ -10,6 +10,8 @@ namespace E_Forester.Data.Database.Configuration
         {
             builder.HasKey(b => b.Id);
 
+            builder.HasIndex(b => b.Address).IsUnique();
+
             builder.Property(b => b.Name)
                 .IsRequired()
                 .HasMaxLength(100);

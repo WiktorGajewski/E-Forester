@@ -4,14 +4,16 @@ using E_Forester.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_Forester.Infrastructure.Migrations
 {
     [DbContext(typeof(E_ForesterDbContext))]
-    partial class E_ForesterDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220330113110_UniqueAddressForestUnitsDivisionsSubareas")]
+    partial class UniqueAddressForestUnitsDivisionsSubareas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
