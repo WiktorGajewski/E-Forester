@@ -26,6 +26,13 @@ namespace E_Forester.Application.Content.Divisions.Commands.CreateDivisionComman
             if (forestUnit == null)
                 throw new BadRequestException("Nie znaleziono leśnictwa o podanym Id");
 
+            var divisionsQuery = _divisionRepository.GetDivisions();
+
+            var checkDuplicate = divisionsQuery.FirstOrDefault(d => d.Address == request.Address);
+
+            if (checkDuplicate != null)
+                throw new BadRequestException("Oddział o podanym adresie już istnieje");
+
             var division = new Division()
             {
                 Address = request.Address,

@@ -26,6 +26,13 @@ namespace E_Forester.Application.Content.Subareas.Commands.CreateSubareaCommand
             if(division == null)
                 throw new BadRequestException("Nie znaleziono oddziału o podanym Id");
 
+            var subareasQuery = _subareaRepository.GetSubareas();
+
+            var checkDuplicate = subareasQuery.FirstOrDefault(s => s.Address == request.Address);
+
+            if (checkDuplicate != null)
+                throw new BadRequestException("Wydzielenie o podanym adresie już istnieje");
+
             var subarea = new Subarea()
             {
                 Address = request.Address,
