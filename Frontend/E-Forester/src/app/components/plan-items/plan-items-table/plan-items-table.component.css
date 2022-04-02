@@ -21,6 +21,7 @@
 .mat-column-address{
     border-right: 1px solid grey;
     padding-left: 20px;
+    min-width: 100px;
     padding-right: 20px;;
     text-align: center;
 }

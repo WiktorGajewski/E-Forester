@@ -1,7 +1,7 @@
 export interface IPlan {
     id: number,
     year: number,
-    isComplete: number,
+    isCompleted: boolean,
     completedPlanItems: number,
     planItemsNumber: number,
     createdAt: Date,
