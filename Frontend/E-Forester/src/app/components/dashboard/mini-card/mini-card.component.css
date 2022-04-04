@@ -7,9 +7,8 @@
     display: flex;
     flex-direction: column;
     max-height: 80px;
-    min-height: 70px;
+    min-height: 80px;
 }
-
 
 mat-card-header {
     justify-content: center;
@@ -28,5 +27,17 @@ mat-card-title{
     margin: 0 !important;
 }
 
+@media only screen and (max-width: 600px) {
 
+    .dashboard-card {
+        top: 5px;
+    }
 
+    .value {
+        font-size: medium;
+    }
+    
+    .title {
+        font-size: small;
+    }
+  }

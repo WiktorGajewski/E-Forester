@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
       this.planService.getPlans(this.selectedForestUnitId, null, null, this.fromYear, this.toYear)
       .subscribe({
         next: (value: IPage<IPlan>) => {
-          this.planIdChange(value.data[0].id);
+          this.planIdChange(value.data[0]?.id);
 
           value.data.reverse()
 
